@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <title>Hello Scholar!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" href="css/newapp/core.css">
+
+    <style>
+        body,h1,h2,h3,h4,h5 {   font-family: "Poppins", sans-serif    }
+        body {    font-size:16px;    }
+        .w3-half img{
+            margin-bottom:-6px;
+            margin-top:16px;
+            opacity:0.8;
+            cursor:pointer
+        }
+        .w3-half img:hover{ opacity:1 }
+
+        .image-cropper {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+        img {
+            display: inline;
+            margin: 0 auto;
+            height: 100%;
+            width: auto;
+        }
+        img.rounded {
+            object-fit: none;
+            object-position: 60% 25%;
+            border-radius: 50%;
+            height: 100px;
+            width: auto;
+        }
+    </style>
+
+    <body>
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+    <div class="w3-container">
+        <div class="image-cropper w3-margin-bottom" style="margin: auto auto auto 60px;">
+            <img class="rounded" id="imgPhoto" style="cursor: pointer; margin: auto;" src="images/register/photoplaceholder.jpg" alt="Insert Photo Here" height="100" width="100">
+        </div>
+        <h3 id="lblScholarName" style="width: 225px; white-space: nowrap; 
+            overflow: hidden; text-overflow: ellipsis; text-align: center;">
+            Scholar-User-Name-Here
+        </h3>
+    </div>
+    <div class="w3-bar-block" style="margin-top: 10px">
+        <a href="home.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Application Progress</a> 
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Application List</a> 
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-white">New Application</a> 
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Uploaded Documents</a> 
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Profile</a> 
+        <a href="index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+    </div>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+    <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+    <span>Scholar Help</span>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+        <!-- Header -->
+        <div class="w3-container" style="margin-top:40px" id="showcase">
+            <h1 class="w3-xxxlarge w3-text-red"><b>Hi, Up for new Application?</b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+            
+        </div>
+
+        <div class="form__group field">
+            <input type="input" class="form__field" style="color: black" placeholder="educational_level" 
+                name="edulevel" id='edulevel' required />
+            <label for="edulevel" class="form__label">Educational Level</label>
+        </div>
+
+        <div class="form__group field" style="width: 80%;">
+            <input type="input" class="form__field" style="color: black" placeholder="school_university" 
+                name="school" id='school' required />
+            <label for="school" class="form__label">School/University currently in (to be taking)</label>
+        </div>
+        
+        <div class="form__group field">
+            <input type="input" class="form__field" style="color: black" placeholder="grade_year" 
+                name="gradeyear" id='gradeyear' required />
+            <label for="gradeyear" class="form__label">Current Grade/Year?</label>
+        </div>
+
+
+        <!-- The Team -->
+        <div class="w3-row-padding w3-grayscale" style="margin-top: 30px;">
+            <div class="w3-col m4 w3-margin-bottom">
+                <div class="w3-light-grey" style="cursor: pointer;" onclick="javascript: uploadCOR();">
+                    <img src="images/newapp/doc1.jpg" alt="Registration" style="width:100%">
+                    <input style="display: none;" id="inpCOR" required name="corDoc" type="file" accept="image/jpeg, image/png, application/pdf" />
+                    <div class="w3-container">
+                        <h3>Certificate of Registration</h3>
+                        <p class="w3-opacity">Photo, PDF format</p>
+                        <p>Also called 'COR' is a type of document a student acquired in the school when he/she had been enrolled, proof that the student applicant is a student.</p>
+                        <p id="lbldoc1"
+                            style="color: red; font-size: large; text-decoration: underline;">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="w3-col m4 w3-margin-bottom">
+                <div class="w3-light-grey" style="cursor: pointer;" onclick="javascript: uploadCOG();">
+                    <img src="images/newapp/doc2.jpeg" alt="Grades" style="width:100%">
+                    <input style="display: none;" id="inpCOG" required name="cogDoc" type="file" accept="image/jpeg, image/png, application/pdf" />
+                    <div class="w3-container">
+                        <h3>Copy of Grades</h3>
+                        <p class="w3-opacity">Photo, PDF format</p>
+                        <p>Type of document that shows the student applicant's educational performance on a school that is usually given every quarter of a semester.</p>
+                        <p id="lbldoc2"
+                            style="color: red; font-size: large; text-decoration: underline;">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="w3-col m4 w3-margin-bottom">
+                <div class="w3-light-grey" style="cursor: pointer;" onclick="javascript: uploadIDG();">
+                    <img src="images/newapp/doc3.jpg" alt="Indigency" style="width:100%">
+                    <input style="display: none;" id="inpIDG" required name="idgDoc" type="file" accept="image/jpeg, image/png" />
+                    <div class="w3-container">
+                        <h3>Certificate of Indigency</h3>
+                        <p class="w3-opacity">Photo format</p>
+                        <p class="w3-opacity">(dry seal shown clearly)</p>
+                        <p>Is a type of document that can be obtained in the student applicant's barangay hall/office, showing proof that the applicant is indeed need help in terms of finances</p>
+                        <p id="lbldoc3"
+                            style="color: red; font-size: large; text-decoration: underline;">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w3-col" style="width: 60%; margin-top: 20px; margin-bottom: 30px;">
+            <button id="btnCreateApp" class="w3-button w3-block w3-red"
+                style="width: 100%; font-size: x-large;">
+                    Create Scholarship Application
+            </button>
+        </div>
+
+    <!-- End page content -->
+    </div>
+
+    <input type="hidden" id="hidfld_uid" name="hidfld_uid" value="?">
+    <input type="hidden" id="hidfld_fname" name="hidfld_fname" value="?">
+
+    <script src="js/newapp/core.js"></script>
+    <script src="js/newapp/controls.js"></script>
+    <script>
+        window.onload = init();
+    </script>
+
+    <script>
+        // Script to open and close sidebar
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("myOverlay").style.display = "block";
+        }
+        
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
+        }
+
+        // Modal Image Gallery
+        function onClick(element) {
+            document.getElementById("img01").src = element.src;
+            document.getElementById("modal01").style.display = "block";
+            var captionText = document.getElementById("caption");
+            captionText.innerHTML = element.alt;
+        }
+    </script>
+
+    </body>
+</html>

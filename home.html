@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <title>Hello Scholar!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
+    <style>
+        body,h1,h2,h3,h4,h5 {   font-family: "Poppins", sans-serif    }
+        body {    font-size:16px;    }
+        .w3-half img{
+            margin-bottom:-6px;
+            margin-top:16px;
+            opacity:0.8;
+            cursor:pointer
+        }
+        .w3-half img:hover{ opacity:1 }
+
+        .image-cropper {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+        img {
+            display: inline;
+            margin: 0 auto;
+            height: 100%;
+            width: auto;
+        }
+        img.rounded {
+            object-fit: none;
+            object-position: 60% 25%;
+            border-radius: 50%;
+            height: 100px;
+            width: auto;
+        }
+    </style>
+
+    <body>
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+    <div class="w3-container">
+        <div class="image-cropper w3-margin-bottom" style="margin: auto auto auto 60px;">
+            <img class="rounded" id="imgPhoto" style="cursor: pointer; margin: auto;" src="images/register/photoplaceholder.jpg" alt="Insert Photo Here" height="100" width="100">
+        </div>
+        <h3 id="lblScholarName" style="width: 225px; white-space: nowrap; 
+            overflow: hidden; text-overflow: ellipsis; text-align: center;">
+            Scholar-User-Name-Here
+        </h3>
+    </div>
+    <div class="w3-bar-block" style="margin-top: 50px">
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-white">Application Progress</a> 
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Application List</a> 
+        <a href="newapp.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">New Application</a> 
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Uploaded Documents</a> 
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Profile</a> 
+        <a href="index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+    </div>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+    <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+    <span>Scholar Help</span>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+        <!-- Header -->
+        <div class="w3-container" style="margin-top:40px" id="showcase">
+            <h1 class="w3-xxxlarge w3-text-red"><b>None</b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+            <div class="w3-bar-item w3-button w3-hover-red" style="cursor: pointer; text-align: left;"
+                onclick="javascript: window.location.href='newapp.html';">
+                <p>No current scholarship applied yet.</p>
+                <p>Create Here Now?</p>
+            </div>
+
+            
+        </div>
+
+    <!-- End page content -->
+    </div>
+
+    <input type="hidden" id="hidfld_uid" name="hidfld_uid" value="?">
+    <input type="hidden" id="hidfld_fname" name="hidfld_fname" value="?">
+
+    <script src="js/home/core.js"></script>
+    <script>
+        window.onload = init();
+    </script>
+
+    <script>
+        // Script to open and close sidebar
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("myOverlay").style.display = "block";
+        }
+        
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
+        }
+
+        // Modal Image Gallery
+        function onClick(element) {
+        document.getElementById("img01").src = element.src;
+        document.getElementById("modal01").style.display = "block";
+        var captionText = document.getElementById("caption");
+        captionText.innerHTML = element.alt;
+        }
+    </script>
+
+    </body>
+</html>

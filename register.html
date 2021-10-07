@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Scholarship Helper</title>
+
+    <style>
+        .image-cropper {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+        img {
+            display: inline;
+            margin: 0 auto;
+            height: 100%;
+            width: auto;
+        }
+        img.rounded {
+            object-fit: none;
+            object-position: 60% 25%;
+            border-radius: 50%;
+            height: 100px;
+            width: auto;
+        }
+
+    </style>
+    <script>
+        window.localStorage.setItem('goto', 0);
+    </script>
+  </head>
+  <body>
+  
+
+  <form id="frmRegister" class="d-lg-flex half">
+
+    <div class="contents order-2 order-md-1">
+
+      <div class="container">
+        <div class="row align-items-center justify-content-end">
+          <div class="col-md-7">
+            <h1>Register Now !</h1>
+            <div class="form-group first">
+                <label for="fullname">Full Name</label>
+                <input type="text" class="form-control" placeholder="Your Full Name" id="fullname">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" class="form-control" placeholder="Your Phone Number" id="phone">
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" class="form-control" placeholder="Your Address" id="address">
+            </div>
+            <div class="form-group last mb-3" style="display: flex;">
+                <label for="gender1">Male</label>
+                <input type="radio" class="form-control" value="male" name="gender" id="gender1">
+                <label for="gender2">Female</label>
+                <input type="radio" class="form-control" value="female" name="gender" id="gender2">
+            </div>
+
+            <input type="submit" onclick="javascript: window.localStorage.setItem('goto', 1);" value="Go Logging In" class="btn btn-block btn-success">  
+
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="contents order-2 order-md-1">
+
+        <div class="container">
+          <div class="row align-items-center justify-content-start">
+            <div class="col-md-7">
+
+                <div class="form-group first" style="display: flex;">
+                    <label for="photo" style="float: left;">Photo</label>
+                    <div class="image-cropper" style="margin: auto auto auto 60px;">
+                        <img class="rounded" id="imgPhoto" style="cursor: pointer; margin: auto;" onclick="javascript: uploadPhoto();" src="images/register/photoplaceholder.jpg" alt="Insert Photo Here" height="100" width="100">
+                        <input type="file" class="form-control" name="photo" id="inpPhoto" style="display: none;" accept="image/jpeg, image/png">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="birthdate">Username</label>
+                    <input type="date" class="form-control" placeholder="Your Birth Date" id="birthdate">
+                </div>
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" placeholder="your-email@gmail.com" id="username">
+                </div>
+                <div class="form-group last mb-3">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" placeholder="Your Password" id="password">
+                </div>
+  
+                <input type="submit" value="Register" class="btn btn-block btn-success">
+
+            </div>
+          </div>
+        </div>
+    </div>
+
+  </form>
+    
+    
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script src="js/register/core.js"></script>
+    <script src="js/register/register.js"></script>
+  </body>
+</html>
