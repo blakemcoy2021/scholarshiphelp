@@ -19,16 +19,24 @@ function init() {
     }
 }
 
-function uploadCOR() {
-    document.getElementById("inpCOR").click();
+document.getElementById("inpCOR").onchange = function (evt) {
+    document.getElementById("lbldoc1").innerHTML = getFileName(document.getElementById("inpCOR").value);
 }
 
-function uploadCOG() {
-    document.getElementById("inpCOG").click();
+document.getElementById("inpCOG").onchange = function (evt) {
+    document.getElementById("lbldoc2").innerHTML = getFileName(document.getElementById("inpCOG").value);
 }
 
-function uploadIDG() {
-    document.getElementById("inpIDG").click();
+document.getElementById("inpIDG").onchange = function (evt) {
+    document.getElementById("lbldoc3").innerHTML = getFileName(document.getElementById("inpIDG").value);
 }
 
-
+function getFileName(fullPath) {
+    var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+    var filename = fullPath.substring(startIndex);
+    if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+        filename = filename.substring(1);
+    }
+    console.log(filename);
+    return filename;
+}

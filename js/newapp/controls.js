@@ -1,3 +1,15 @@
+function uploadCOR() {
+    document.getElementById("inpCOR").click();
+}
+
+function uploadCOG() {
+    document.getElementById("inpCOG").click();
+}
+
+function uploadIDG() {
+    document.getElementById("inpIDG").click();
+}
+
 document.getElementById("btnCreateApp").addEventListener("click", function (evt) {
     evt.preventDefault();
 
