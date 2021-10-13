@@ -4,9 +4,10 @@
     <title>Hello Scholar!</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-    <link rel="stylesheet" href="css/newapp/core.css">
+    
+    <link rel="stylesheet" href="css/common/w3.css">
+    <link rel="stylesheet" href="css/common/font_poppins.css">
+    <link rel="stylesheet" href="css/common/core.css">
 
     <style>
         body,h1,h2,h3,h4,h5 {   font-family: "Poppins", sans-serif    }
@@ -19,26 +20,6 @@
         }
         .w3-half img:hover{ opacity:1 }
 
-        .image-cropper {
-            width: 100px;
-            height: 100px;
-            position: relative;
-            overflow: hidden;
-            border-radius: 50%;
-        }
-        img {
-            display: inline;
-            margin: 0 auto;
-            height: 100%;
-            width: auto;
-        }
-        img.rounded {
-            object-fit: none;
-            object-position: 60% 25%;
-            border-radius: 50%;
-            height: 100px;
-            width: auto;
-        }
     </style>
 
     <body>
@@ -55,11 +36,11 @@
             Scholar-User-Name-Here
         </h3>
     </div>
-    <div class="w3-bar-block" style="margin-top: 10px">
+    <div class="w3-bar-block" style="margin-top: 50px">
         <a href="home.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Application Progress</a> 
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Application List</a> 
+        <a href="applist.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Application List</a> 
         <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-white">New Application</a> 
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Uploaded Documents</a> 
+        <a href="documents.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Uploaded Documents</a> 
         <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Profile</a> 
         <a href="index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
     </div>
@@ -85,6 +66,12 @@
         </div>
 
         <div class="form__group field">
+            <input type="input" class="form__field" style="color: black" placeholder="scholarship_title" 
+                name="scholartitle" id='scholartitle' required />
+            <label for="scholartitle" class="form__label">Scholarship Application Title</label>
+        </div>
+
+        <div class="form__group field">
             <input type="input" class="form__field" style="color: black" placeholder="educational_level" 
                 name="edulevel" id='edulevel' required />
             <label for="edulevel" class="form__label">Educational Level</label>
@@ -103,7 +90,7 @@
         </div>
 
 
-        <!-- The Team -->
+        <!-- Uploading files section -->
         <div class="w3-row-padding w3-grayscale" style="margin-top: 30px;">
             <div class="w3-col m4 w3-margin-bottom">
                 <div class="w3-light-grey" style="padding-top: 1px; cursor: pointer;" onclick="javascript: uploadCOR();">
@@ -184,13 +171,6 @@
             document.getElementById("myOverlay").style.display = "none";
         }
 
-        // Modal Image Gallery
-        function onClick(element) {
-            document.getElementById("img01").src = element.src;
-            document.getElementById("modal01").style.display = "block";
-            var captionText = document.getElementById("caption");
-            captionText.innerHTML = element.alt;
-        }
     </script>
 
     </body>

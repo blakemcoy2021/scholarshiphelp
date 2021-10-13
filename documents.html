@@ -37,10 +37,10 @@
         </h3>
     </div>
     <div class="w3-bar-block" style="margin-top: 50px">
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-white">Application Progress</a> 
+        <a href="home.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Application Progress</a> 
         <a href="applist.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Application List</a> 
         <a href="newapp.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">New Application</a> 
-        <a href="documents.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Uploaded Documents</a> 
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-white">Uploaded Documents</a> 
         <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Profile</a> 
         <a href="index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
     </div>
@@ -60,15 +60,35 @@
 
         <!-- Header -->
         <div class="w3-container" style="margin-top:40px" id="showcase">
-            <h1 class="w3-xxxlarge w3-text-red"><b>None</b></h1>
-            <hr style="width:50px;border:5px solid red" class="w3-round">
-            <div class="w3-bar-item w3-button w3-hover-red" style="cursor: pointer; text-align: left;"
-                onclick="javascript: window.location.href='newapp.html';">
-                <p>No current scholarship applied yet.</p>
-                <p><u>Create Here Now?</u></p>
+            <h1 class="w3-xxxlarge w3-text-red"><b>Your uploaded files.</b></h1>
+            <div style="display: flex;">
+                <hr style="width:50px;border:5px solid red; margin-right: 10px;" class="w3-round">
+                <h3 id="lblTotalFiles">you have ? of uploaded documents and photos.</h3>
             </div>
 
             
+        </div>
+
+        <!-- scholarship application list -->
+        <div class="w3-panel" style="overflow: auto; height: 330px; width: 97%;">
+            <table class="w3-table w3-striped w3-red" style="width: 900px; font-weight: bolder; table-layout: fixed;">
+                <tr>
+                    <td class="tdbasic">APPLICATION TITLE</td>
+                    <td class="tdbasic">FILE NAME</td>
+                    <td class="tdbasic">STATUS</td>
+                    <td class="tdbasic">DATE UPDATED</td>
+                    <td class="tdbasic">TYPE</td>
+                </tr>
+            </table>
+            <table id="tblscholardocs" class="w3-table w3-striped w3-white" style="width: 900px; table-layout: fixed;">
+                <h2 id="lblLoadingRecords" class="w3-text-red">Checking for Uploaded Documents...</h2>                
+            </table>
+        </div>
+
+        <div class="form__group field" style="margin-left: 15px; margin-top: -5px;">
+            <input type="input" class="form__field" style="color: black" placeholder="type_filter" 
+                name="inpsearch" id='inpsearch' required onkeyup="tblSearch(this, document.getElementById('tblscholardocs'))"/>
+            <label for="inpsearch" class="form__label">Type File Name to Filter Search</label>
         </div>
 
     <!-- End page content -->
@@ -77,9 +97,13 @@
     <input type="hidden" id="hidfld_uid" name="hidfld_uid" value="?">
     <input type="hidden" id="hidfld_fname" name="hidfld_fname" value="?">
 
-    <script src="js/home/core.js"></script>
+    <script src="js/documents/core.js"></script>
+    <script src="js/documents/controls.js"></script>
     <script>
+        var uploadfileTimer;
+        
         window.onload = init();
+        window.onload = start_uploadFileTime();
     </script>
 
     <script>

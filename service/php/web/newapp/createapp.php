@@ -2,6 +2,7 @@
 
     $fldrname = "zscholarhelp";
 
+    $tl = "none";
     $el = "none";
     $sc = "none";
     $gy = "none";
@@ -15,6 +16,7 @@
     $errors = [];
     $data = [];
 
+        if (isset($_POST["schotitle"]))   {   $tl = $_POST["schotitle"];      }
     if (isset($_POST["edulevel"]))   {   $el = $_POST["edulevel"];      }
     if (isset($_POST["school"]))     {   $sc = $_POST["school"];        }
     if (isset($_POST["gradeyear"]))  {   $gy = $_POST["gradeyear"];     }
@@ -26,15 +28,16 @@
     if (isset($_FILES["idgfile"]))   {   $idg = $_FILES["idgfile"];    }
 
     $failfieldctr = 0;
+        if ($tl == "none") { $failfieldctr += 1; }
     if ($el == "none") { $failfieldctr += 1; }
     if ($sc == "none") { $failfieldctr += 1; }
     if ($gy == "none") { $failfieldctr += 1; }
     if ($id == "none") { $failfieldctr += 1; }
     if ($nm == "none") { $failfieldctr += 1; }
 
-    if ($cor == "none") { $failfieldctr += 1; }
-    if ($cog == "none") { $failfieldctr += 1; }
-    if ($idg == "none") { $failfieldctr += 1; }
+    // if ($cor == "none") { $failfieldctr += 1; }
+    // if ($cog == "none") { $failfieldctr += 1; }
+    // if ($idg == "none") { $failfieldctr += 1; }
 
     if ($failfieldctr > 0) {
         $data['success'] = false;
@@ -54,15 +57,23 @@
     $idfile = date("YmdGis");
 
     // pre-file path
-    $info1 = pathinfo($cor["name"]);
-    $ext1 = $info1['extension'];
-    
-    $info2 = pathinfo($cog["name"]);
-    $ext2 = $info2['extension'];
+    $info1; $ext1 = 'none';
+    if ($cor != "none") {
+        $info1 = pathinfo($cor["name"]);
+        $ext1 = $info1['extension'];
+    }
 
-    $info3 = pathinfo($idg["name"]);
-    $ext3 = $info3['extension'];
+    $info2; $ext2 = 'none';
+    if ($cog != "none") {
+        $info2 = pathinfo($cog["name"]);
+        $ext2 = $info2['extension'];
+    }
 
+    $info3; $ext3 = 'none';
+    if ($idg != "none") {
+        $info3 = pathinfo($idg["name"]);
+        $ext3 = $info3['extension'];
+    }
 
     $s = ucfirst($nm);
     $bar = ucwords(strtolower($s));
@@ -116,10 +127,10 @@
     // parent directory
     $createDirectory = true;
     if (is_writable($p)) {
-        if (file_exists($upload_urlcog)) {
+        if (file_exists($upload_urlcor) || file_exists($upload_urlcog) || file_exists($upload_urlidg)) {
             $createDirectory = false;
         }
-        if (!is_dir($upload_urlcog)) {
+        if (!is_dir($upload_urlcor) || !is_dir($upload_urlcog) || !is_dir($upload_urlidg)) {
             $createDirectory = true;
         }
     } else {
@@ -130,9 +141,9 @@
         die();
     }
     if ($createDirectory) {
-        mkdir($upload_urlcog, 0777, true);
-        mkdir($upload_urlcor, 0777, true);
-        mkdir($upload_urlidg, 0777, true);
+        if ($cor != "none") {         mkdir($upload_urlcor, 0777, true); }
+        if ($cog != "none") {         mkdir($upload_urlcog, 0777, true); }
+        if ($idg != "none") {         mkdir($upload_urlidg, 0777, true); }
     }
 
 
@@ -140,119 +151,125 @@
     // ***Indigency
     // validate photo if photo and size
     $photomime;
-    $checkphoto = getimagesize($idg["tmp_name"]);
-    if ($checkphoto === false) {
-        $data['success'] = false;
-        $data['message'] = "Server File Error!";
-        $data['logs'] = "Not valid photo.";
-        echo json_encode($data);
-        die();
-    } else {
-        $photomime = $checkphoto["mime"];
-    }
-    if ($idg["size"] > 4000000) {
-        $data['success'] = false;
-        $data['message'] = "File is to large! Less than 4MB is required.";
-        $data['logs'] = "Uploading Photo is more than 4MB.";
-        echo json_encode($data);
-        die();
-    }
-    // upload photo Indigency
-    try {
-        move_uploaded_file($idg["tmp_name"], $fidg);
-    } catch (Exception $err) {
-        $data['success'] = false;
-        $data['message'] = "Server Photo Save Error!";
-        $data['logs'] = "Photo Save Error :: $err.";
-        echo json_encode($data);
-        die();
+
+    if ($idg != "none") {
+        $checkphoto = getimagesize($idg["tmp_name"]);
+        if ($checkphoto === false) {
+            $data['success'] = false;
+            $data['message'] = "Server File Error!";
+            $data['logs'] = "Not valid photo.";
+            echo json_encode($data);
+            die();
+        } else {
+            $photomime = $checkphoto["mime"];
+        }
+        if ($idg["size"] > 4000000) {
+            $data['success'] = false;
+            $data['message'] = "File is to large! Less than 4MB is required.";
+            $data['logs'] = "Uploading Photo is more than 4MB.";
+            echo json_encode($data);
+            die();
+        }
+        // upload photo Indigency
+        try {
+            move_uploaded_file($idg["tmp_name"], $fidg);
+        } catch (Exception $err) {
+            $data['success'] = false;
+            $data['message'] = "Server Photo Save Error!";
+            $data['logs'] = "Photo Save Error :: $err.";
+            echo json_encode($data);
+            die();
+        }
     }
 
 
     // ***COR
-    if ($ext1 != "pdf") { 
-        // validate photo if photo and size
-        $checkphoto = getimagesize($cor["tmp_name"]);
-        if ($checkphoto === false) {
-            $data['success'] = false;
-            $data['message'] = "Server File Error!";
-            $data['logs'] = "Not valid photo.";
-            echo json_encode($data);
-            die();
-        } else {
-            $photomime = $checkphoto["mime"];
-        }
-        if ($cor["size"] > 4000000) {
-            $data['success'] = false;
-            $data['message'] = "File is to large! Less than 4MB is required.";
-            $data['logs'] = "Uploading Photo is more than 4MB.";
-            echo json_encode($data);
-            die();
-        }
-        // upload photo registration
-        try {
-            move_uploaded_file($cor["tmp_name"], $fcor);
-        } catch (Exception $err) {
-            $data['success'] = false;
-            $data['message'] = "Server CORp Save Error!";
-            $data['logs'] = "CORp Save Error :: $err.";
-            echo json_encode($data);
-            die();
-        }
-    } 
-    else { // upload pdf
-        try {
-            move_uploaded_file($cor["tmp_name"], $fcor);
-        } catch (Exception $err) {
-            $data['success'] = false;
-            $data['message'] = "Server COR Save Error!";
-            $data['logs'] = "COR Save Error :: $err.";
-            echo json_encode($data);
-            die();
+    if ($cor != "none") {
+        if ($ext1 != "pdf") { 
+            // validate photo if photo and size
+            $checkphoto = getimagesize($cor["tmp_name"]);
+            if ($checkphoto === false) {
+                $data['success'] = false;
+                $data['message'] = "Server File Error!";
+                $data['logs'] = "Not valid photo.";
+                echo json_encode($data);
+                die();
+            } else {
+                $photomime = $checkphoto["mime"];
+            }
+            if ($cor["size"] > 4000000) {
+                $data['success'] = false;
+                $data['message'] = "File is to large! Less than 4MB is required.";
+                $data['logs'] = "Uploading Photo is more than 4MB.";
+                echo json_encode($data);
+                die();
+            }
+            // upload photo registration
+            try {
+                move_uploaded_file($cor["tmp_name"], $fcor);
+            } catch (Exception $err) {
+                $data['success'] = false;
+                $data['message'] = "Server CORp Save Error!";
+                $data['logs'] = "CORp Save Error :: $err.";
+                echo json_encode($data);
+                die();
+            }
+        } 
+        else { // upload pdf
+            try {
+                move_uploaded_file($cor["tmp_name"], $fcor);
+            } catch (Exception $err) {
+                $data['success'] = false;
+                $data['message'] = "Server COR Save Error!";
+                $data['logs'] = "COR Save Error :: $err.";
+                echo json_encode($data);
+                die();
+            }
         }
     }
 
     // ***COG
-    if ($ext2 != "pdf") { 
-        // validate photo if photo and size
-        $checkphoto = getimagesize($cog["tmp_name"]);
-        if ($checkphoto === false) {
-            $data['success'] = false;
-            $data['message'] = "Server File Error!";
-            $data['logs'] = "Not valid photo.";
-            echo json_encode($data);
-            die();
-        } else {
-            $photomime = $checkphoto["mime"];
-        }
-        if ($cog["size"] > 4000000) {
-            $data['success'] = false;
-            $data['message'] = "File is to large! Less than 4MB is required.";
-            $data['logs'] = "Uploading Photo is more than 4MB.";
-            echo json_encode($data);
-            die();
-        }
-        // upload photo grades
-        try {
-            move_uploaded_file($cog["tmp_name"], $fcog);
-        } catch (Exception $err) {
-            $data['success'] = false;
-            $data['message'] = "Server COGp Save Error!";
-            $data['logs'] = "COGp Save Error :: $err.";
-            echo json_encode($data);
-            die();
-        }
-    } 
-    else {
-        // upload pdf
-        try {
-            move_uploaded_file($cog["tmp_name"], $fcog);
-        } catch (Exception $err) {
-            $data['success'] = false;
-            $data['message'] = "Server COG Save Error!";
-            $data['logs'] = "COG Save Error :: $err.";
-            echo json_encode($data);
-            die();
+    if ($cog != "none") {
+        if ($ext2 != "pdf") { 
+            // validate photo if photo and size
+            $checkphoto = getimagesize($cog["tmp_name"]);
+            if ($checkphoto === false) {
+                $data['success'] = false;
+                $data['message'] = "Server File Error!";
+                $data['logs'] = "Not valid photo.";
+                echo json_encode($data);
+                die();
+            } else {
+                $photomime = $checkphoto["mime"];
+            }
+            if ($cog["size"] > 4000000) {
+                $data['success'] = false;
+                $data['message'] = "File is to large! Less than 4MB is required.";
+                $data['logs'] = "Uploading Photo is more than 4MB.";
+                echo json_encode($data);
+                die();
+            }
+            // upload photo grades
+            try {
+                move_uploaded_file($cog["tmp_name"], $fcog);
+            } catch (Exception $err) {
+                $data['success'] = false;
+                $data['message'] = "Server COGp Save Error!";
+                $data['logs'] = "COGp Save Error :: $err.";
+                echo json_encode($data);
+                die();
+            }
+        } 
+        else { // upload pdf
+            try {
+                move_uploaded_file($cog["tmp_name"], $fcog);
+            } catch (Exception $err) {
+                $data['success'] = false;
+                $data['message'] = "Server COG Save Error!";
+                $data['logs'] = "COG Save Error :: $err.";
+                echo json_encode($data);
+                die();
+            }
         }
     }
 
@@ -260,19 +277,20 @@
 
 
     
-    $dbpath_idg = $loc_idg . '/' . $fileIDG;
-    $dbpath_cor = $loc_cor . '/' . $fileCOR;
-    $dbpath_cog = $loc_cog . '/' . $fileCOG;
+    $dbpath_idg = "no_path";
+    $dbpath_cor = "no_path";
+    $dbpath_cog = "no_path";
+    if ($idg != "none") {   $dbpath_idg = $loc_idg . '/' . $fileIDG;    }
+    if ($cor != "none") {   $dbpath_cor = $loc_cor . '/' . $fileCOR;    }
+    if ($cog != "none") {   $dbpath_cog = $loc_cog . '/' . $fileCOG;    }
 
 
     $datereg = date("Y-m-d G:i:s");
 
-    $qval = "scholar_userid, scholar_edulevel, scholar_school, scholar_gradeyr, ";
+    $qval = "scholar_userid, scholar_title, scholar_edulevel, scholar_school, scholar_gradeyr, ";
     $qval .= "scholar_status, scholar_approved, scholar_dateadded";
     $query = "insert into tbl_scholar ($qval) ";
-    $query .= "values ('$id','$el','$sc','$gy','New','0','$datereg');";
-
-
+    $query .= "values ('$id','$tl','$el','$sc','$gy','New','0','$datereg');";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -320,9 +338,11 @@
         die();
     }
 
-    $qval = "cor_scholarid, cor_path, cor_filetype, cor_verified, cor_dateadded";
+    $filename = "none";
+    if ($cor != "none") {   $filename = $info1["basename"];    }
+    $qval = "cor_scholarid, cor_filename, cor_path, cor_filetype, cor_verified, cor_dateadded";
     $query = "insert into tbl_cor ($qval) ";
-    $query .= "values ('$scholarid','$dbpath_cor','$ext1','0','$datereg');";
+    $query .= "values ('$scholarid','$filename','$dbpath_cor','$ext1','0','$datereg');";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -336,9 +356,12 @@
         $conn = null;
         die();
     }
-    $qval = "cog_scholarid, cog_path, cog_filetype, cog_verified, cog_dateadded";
+
+    $filename = "none";
+    if ($cog != "none") {   $filename = $info2["basename"];    }
+    $qval = "cog_scholarid, cog_filename, cog_path, cog_filetype, cog_verified, cog_dateadded";
     $query = "insert into tbl_cog ($qval) ";
-    $query .= "values ('$scholarid','$dbpath_cog','$ext2','0','$datereg');";
+    $query .= "values ('$scholarid','$filename','$dbpath_cog','$ext2','0','$datereg');";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -352,9 +375,12 @@
         $conn = null;
         die();
     }
-    $qval = "idg_scholarid, idg_path, idg_filetype, idg_verified, idg_dateadded";
+
+    $filename = "none";
+    if ($idg != "none") {   $filename = $info3["basename"];    }
+    $qval = "idg_scholarid, idg_filename, idg_path, idg_filetype, idg_verified, idg_dateadded";
     $query = "insert into tbl_idg ($qval) ";
-    $query .= "values ('$scholarid','$dbpath_idg','$ext3','0','$datereg');";
+    $query .= "values ('$scholarid','$filename','$dbpath_idg','$ext3','0','$datereg');";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
