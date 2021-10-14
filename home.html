@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="css/common/font_poppins.css">
     <link rel="stylesheet" href="css/common/core.css">
 
+	<link rel="stylesheet" type="text/css" href="fonts/types/font-awesome-4.7.0/css/font-awesome.min.css">
+
     <style>
         body,h1,h2,h3,h4,h5 {   font-family: "Poppins", sans-serif    }
         body {    font-size:16px;    }
@@ -21,6 +23,8 @@
         .w3-half img:hover{ opacity:1 }
 
     </style>
+
+    <script>window.localStorage.setItem("singleRun", 0)</script>
 
     <body>
 
@@ -59,16 +63,77 @@
     <div class="w3-main" style="margin-left:340px;margin-right:40px">
 
         <!-- Header -->
-        <div class="w3-container" style="margin-top:40px" id="showcase">
-            <h1 class="w3-xxxlarge w3-text-red"><b>None</b></h1>
+        <div id="viewNoCurrApp" class="w3-container" style="margin-top:40px; display: none;">
+            <h1 class="w3-xxxlarge w3-text-red"><b>You have nothing to wait for.</b></h1>
             <hr style="width:50px;border:5px solid red" class="w3-round">
             <div class="w3-bar-item w3-button w3-hover-red" style="cursor: pointer; text-align: left;"
                 onclick="javascript: window.location.href='newapp.html';">
                 <p>No current scholarship applied yet.</p>
                 <p><u>Create Here Now?</u></p>
             </div>
+        </div>
 
-            
+        <div id="viewAppProgress" class="w3-container" style="margin-top:40px;">
+            <h1 class="w3-xxxlarge w3-text-red"><b id="appGeneralStatus">See your progress below.</b></h1>
+            <div style="display: flex;">
+                <hr style="width:50px;border:5px solid red;margin-right: 20px;" class="w3-round">
+                <h3 id="lblSelectedApp">???</h3>
+            </div>
+            <div style="display: flex;">
+                <div class="w3-panel" style="height: 400px; width: 63%; margin-right: 20px;">
+                    <table class="w3-table w3-striped w3-red" style="width: 500px; font-weight: bolder; table-layout: fixed;">
+                        <tr style="font-size: xx-large;">
+                            <td id="currAppState" class="tdbasic"><i class="fa fa-area-chart" aria-hidden="true"> Checking Status...</i></td>
+                        </tr>
+                    </table>
+                    <div style="overflow: auto; height: 330px; margin-top: 10px;">
+                        <table id="tblprogressapp" class="w3-table w3-striped w3-white" style="width: 500px; table-layout: fixed;">
+                            <tr id="firstStep" style="font-size: xx-large;" class="w3-gray w3-text-white">
+                                <td class="tdbasic"><i class="fa fa-check-circle" aria-hidden="true"> Newly Created Application</i></td>
+                            </tr>
+                            <tr id="secondStep" style="font-size: xx-large;" class="w3-gray w3-text-white">
+                                <td class="tdbasic"><i class="fa fa-clone" aria-hidden="true"> For Application Review</i></td>
+                            </tr>
+                            <tr id="thirdStep" style="font-size: xx-large;" class="w3-gray w3-text-white">
+                                <td class="tdbasic"><i class="fa fa-search" aria-hidden="true"> Review Applicant's Information</i></td>
+                            </tr>
+                            <tr id="fourthStep" style="font-size: xx-large;" class="w3-gray w3-text-white">
+                                <td class="tdbasic"><i class="fa fa-thumbs-up" aria-hidden="true"> Approved Applicant's Information</i></td>
+                            </tr>
+                            <tr id="fifthStep" style="font-size: xx-large;" class="w3-gray w3-text-white">
+                                <td class="tdbasic"><i class="fa fa-sticky-note" aria-hidden="true"> Review Applicant's Documents</i></td>
+                            </tr>
+                            <tr id="sixthStep" style="font-size: xx-large;" class="w3-gray w3-text-white">
+                                <td class="tdbasic"><i class="fa fa-check-square" aria-hidden="true"> Verified COR Document</i></td>
+                            </tr>
+                            <tr id="seventhStep" style="font-size: xx-large;" class="w3-gray w3-text-white">
+                                <td class="tdbasic"><i class="fa fa-check-square" aria-hidden="true"> Verified COG Document</i></td>
+                            </tr>
+                            <tr id="eightStep" style="font-size: xx-large;" class="w3-gray w3-text-white">
+                                <td class="tdbasic"><i class="fa fa-check-square" aria-hidden="true"> Verified Indigency Document</i></td>
+                            </tr>
+                            <tr id="ninthStep" style="font-size: xx-large;" class="w3-gray w3-text-white">
+                                <td class="tdbasic"><i class="fa fa-pie-chart" aria-hidden="true"> For Overall Assessment</i></td>
+                            </tr>
+                            <tr id="tenthStep" style="font-size: xx-large;" class="w3-gray w3-text-white">
+                                <td class="tdbasic"><i class="fa fa-mortar-board" aria-hidden="true"> Approved Scholarship</i></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+    
+                <div class="w3-panel" style="height: 400px; width: 37%;">
+                    <h1 class="w3-xlarge w3-text-red"><b id="numCurrApps">Current Applications: ?</b></h1>
+                    <div style="overflow: auto; height: 340px;">
+                        <table id="tblcurrapplist" class="w3-table w3-white" style="width: 290px; table-layout: fixed;">
+                            <h4 id="lblLoadingRecords" class="w3-text-red">Listing Applications...</h4>
+                        
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
 
     <!-- End page content -->
@@ -78,23 +143,12 @@
     <input type="hidden" id="hidfld_fname" name="hidfld_fname" value="?">
 
     <script src="js/home/core.js"></script>
+    <script src="js/home/controls.js"></script>
     <script>
-        window.onload = init();
-    </script>
-
-    <script>
-        // Script to open and close sidebar
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("myOverlay").style.display = "block";
-        }
+        var currAppTimer;
         
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("myOverlay").style.display = "none";
-        }
-
-
+        window.onload = init();
+        window.onload = start_currAppsTime();
     </script>
 
     </body>

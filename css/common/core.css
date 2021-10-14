@@ -66,6 +66,10 @@
 .tdbasic {
     width: 100px;
     padding: 0px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* user image */
