@@ -199,28 +199,34 @@ function load_UploadFiles() {
 
                     let d;
                     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                    let approve_val = " style='background-color: #4CAF50; color: white;'";
+                    let approve_val = " style='background-color: #4CAF50; color: white; cursor: pointer;' ";
                     let file_name;
+                    let path;
 
                     if (typ == 'cor') {
                         d = new Date(records[i].cor_lastupdate);
-                        if (records[i].cor_verified != "1") {   approve_val = "";   }
+                        if (records[i].cor_verified != "1") {   approve_val = " style='cursor: pointer;'";   }
                         file_name = records[i].cor_filename;
+                        path = records[i].cor_path;
 
                     } else if (typ == 'cog') {
                         d = new Date(records[i].cog_lastupdate);
-                        if (records[i].cog_verified != "1") {   approve_val = "";   }
+                        if (records[i].cog_verified != "1") {   approve_val = " style='cursor: pointer;'";   }
                         file_name = records[i].cog_filename;
+                        path = records[i].cog_path;
 
                     } else if (typ == 'idg') {
                         d = new Date(records[i].idg_lastupdate);
-                        if (records[i].idg_verified != "1") {   approve_val = "";   }
+                        if (records[i].idg_verified != "1") {   approve_val = " style='cursor: pointer;'";   }
                         file_name = records[i].idg_filename;
+                        path = records[i].idg_path;
 
                     }
                     let date_val = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " - " + d.getHours() + ":" + d.getMinutes();
+                    let arr = file_name.split('.');
+                    file_type = arr[arr.length - 1];
 
-                    tbl_rowdata += 	"<tr" + approve_val + ">" +
+                    tbl_rowdata += 	"<tr" + approve_val + " onclick=\"javascript: rowOpenFile('" + file_type + "', '" + path + "', '" + file_name + "');\">" +
                                         "<td class='tdbasic'>" + records[i].scholar_title + "</td>" +
                                         "<td class='tdbasic'>" + file_name + "</td>" +
                                         "<td class='tdbasic'>" + records[i].scholar_status + "</td>" +

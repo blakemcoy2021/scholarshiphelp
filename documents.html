@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="css/common/font_poppins.css">
     <link rel="stylesheet" href="css/common/core.css">
 
+    <link rel="stylesheet" href="css/documents/pdfviewer.css">
+
+    <script src="js/documents/pdfobject.min.js"></script>
+    <script src="js/documents/pdfobject.js"></script>
+
     <style>
         body,h1,h2,h3,h4,h5 {   font-family: "Poppins", sans-serif    }
         body {    font-size:16px;    }
@@ -19,6 +24,8 @@
             cursor:pointer
         }
         .w3-half img:hover{ opacity:1 }
+
+        .pdfobject-container { height: 30rem; border: 1rem solid rgba(0,0,0,0.1); }
 
     </style>
 
@@ -64,9 +71,7 @@
             <div style="display: flex;">
                 <hr style="width:50px;border:5px solid red; margin-right: 10px;" class="w3-round">
                 <h3 id="lblTotalFiles">you have ? of uploaded documents and photos.</h3>
-            </div>
-
-            
+            </div>            
         </div>
 
         <!-- scholarship application list -->
@@ -94,6 +99,18 @@
     <!-- End page content -->
     </div>
 
+
+    <div id="mdl_fileViewer" class="modal">
+        <div class="modal-content" id="mdl_case"> <!-- Modal content -->
+            <div style="border: 1px white solid;">            
+                <span class="close">&times;</span>
+                <p id="mdl_filename" style="text-align: center;">PDF File Title Here</p>
+            </div>
+            <div id="pdfviewer_area" style="display: none;"></div>
+            <img id="imgviewer_area" style="display: none; width: 500px; height: 450px;">
+        </div>
+    </div>
+
     <input type="hidden" id="hidfld_uid" name="hidfld_uid" value="?">
     <input type="hidden" id="hidfld_fname" name="hidfld_fname" value="?">
 
@@ -104,21 +121,6 @@
         
         window.onload = init();
         window.onload = start_uploadFileTime();
-    </script>
-
-    <script>
-        // Script to open and close sidebar
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("myOverlay").style.display = "block";
-        }
-        
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("myOverlay").style.display = "none";
-        }
-
-
     </script>
 
     </body>
