@@ -98,7 +98,16 @@ function load_CurrAppsCtr() {
 
             // //t = window.sessionStorage.getItem("last_currAppid"); console.log(t);
 
-            spn.innerHTML = "Current Application: " + d.success;         
+            if (parseInt(d.success) != 0) {
+                spn.innerHTML = "Current Application: " + d.success;
+                document.getElementById("viewAppProgress").style.removeProperty('display');
+                document.getElementById("viewNoCurrApp").style.display = 'none';
+            } else {
+                document.getElementById("viewNoCurrApp").style.removeProperty('display');
+                document.getElementById("viewAppProgress").style.display = 'none';
+            }
+
+
         }
         else if (this.readyState == 4) {
             alert("Server Unreachable. Possible Slow Internet Connection..!");
