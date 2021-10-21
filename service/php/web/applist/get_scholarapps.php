@@ -1,5 +1,7 @@
 <?php
 
+    include "../common/dbconfig.php";
+
     $errors = [];
     $data = array();
 
@@ -16,11 +18,6 @@
         echo json_encode($data);
         die();
     }
-
-    $servername = "localhost";
-    $username = "root";
-    $password = "toor";
-    $dbname = "2021itdhvtsu_scholarhelp";
 
     $qfield = "tbl_scholar.scholar_title, tbl_scholar.scholar_school, tbl_scholar.scholar_status, ";
     $qfield .= "tbl_scholar.scholar_approved, tbl_scholar.scholar_dateadded, ";

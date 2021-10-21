@@ -1,5 +1,7 @@
 <?php
 
+    include "../common/dbconfig.php";
+
     $fldrname = "zscholarhelp";
 
     $fn = "none";
@@ -43,11 +45,6 @@
         echo json_encode($data);
         die();
     }
-
-    $servername = "localhost";
-    $username = "root";
-    $password = "toor";
-    $dbname = "2021itdhvtsu_scholarhelp";
 
 
     // pre-file path

@@ -1,5 +1,7 @@
 <?php
 
+    include "../common/dbconfig.php";
+
     $u = "none";
     $p = "none";
 
@@ -20,11 +22,6 @@
         echo json_encode($data);
         die();
     }
-
-    $servername = "localhost";
-    $username = "root";
-    $password = "toor";
-    $dbname = "2021itdhvtsu_scholarhelp";
     
     $login_uname = "tbl_login.login_uname";
     $login_password = "tbl_login.login_password";

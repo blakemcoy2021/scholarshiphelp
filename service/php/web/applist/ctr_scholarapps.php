@@ -1,5 +1,7 @@
 <?php
 
+    include "../common/dbconfig.php";
+
     $errors = [];
     $data = array();
 
@@ -16,12 +18,6 @@
         echo json_encode($data);
         die();
     }
-
-
-    $servername = "localhost";
-    $username = "root";
-    $password = "toor";
-    $dbname = "2021itdhvtsu_scholarhelp";
 
     $query = "select count(*) as ctr from tbl_scholar ";
     $query .= "where scholar_userid='$suid' ";
