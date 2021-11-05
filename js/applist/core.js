@@ -18,6 +18,44 @@ function init() {
         document.getElementById("hidfld_fname").value = fname;
     }
 
+
+    var xmlhttp = new XMLHttpRequest();
+    route = "service/php/web/newapp/get_userinfo.php?suid=" + document.getElementById("hidfld_uid").value;
+    xmlhttp.open("GET", route, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) { //console.log(this.responseText);
+
+            // **below is template: json formatted
+            let d;
+            try { d = JSON.parse(this.responseText); }
+            catch (e) { alert('Response Format error! ' + this.responseText); return; }
+            if (d.success == false) { alert(d.message); return; } //console.log(d.success);
+
+            if (d.success == "zero") {
+                alert(d.message);
+                return; 
+            }
+
+            var records;
+            try {
+                records = JSON.parse(d.success);
+            } catch (e) {
+                alert('Parse error! Contact System Administrator! ' + d.success);
+                return;
+            }     
+            console.log(records);
+
+            let rmcache = new Date();
+            document.getElementById("imgPhoto").src = records[0].user_photo + "?nc=" + rmcache.getMilliseconds();
+
+        }
+        else if (this.readyState == 4) {
+            alert("Server Unreachable. Possible Slow Internet Connection..!");
+        }
+    };
+
+
     window.sessionStorage.setItem("last_dbctrLatestSchApps", 0);
     window.sessionStorage.setItem("last_schappid", 0);
     window.sessionStorage.setItem("donereq_dataLatestSchAppCtr", 0);
@@ -122,7 +160,7 @@ function load_ScholarApps() {
             catch (e) { alert('Response Format error! ' + this.responseText); return; }
             if (d.success == false) { alert(d.message); return; } //console.log(d.success);
 
-            if (d.success == "zero") { console.log("waaaaaaaaaaa");
+            if (d.success == "zero") {
                 document.getElementById("lblLoadingRecords").style.display = "none";
                 tbl.innerHTML = "<tr><td><h2 class='w3-text-red'>No Scholarship Applications Recorded...</h2></td></tr>"; 
                 window.sessionStorage.setItem("donereq_dataLatestSchApps",1);
@@ -203,10 +241,11 @@ function load_ScholarApps() {
                     let d = new Date(records[i].scholar_dateadded);
                     let date_val = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " - " + d.getHours() + ":" + d.getMinutes();
                      
-                    let docs_val = "";
+                    //let docs_val = "";
                     let hasCOR = "N/A - Certificate of Registration";
                     let hasCOG = "N/A - Copy of Grades";
                     let hasIDG = "N/A - Certificate of Indigency";
+                    let hasIDC = "N/A - Photo ID";
                     if (records[i].cor_path != "no_path") {
                         hasCOR = "SENT - Certificate of Registration";
                     }
@@ -215,6 +254,9 @@ function load_ScholarApps() {
                     }
                     if (records[i].idg_path != "no_path") {
                         hasIDG = "SENT - Certificate of Indigency";
+                    }
+                    if (records[i].idc_path != "no_path") {
+                        hasIDC = "SENT - Photo ID";
                     }
 
                     tbl_rowdata += 	"<tr>" +
@@ -232,6 +274,9 @@ function load_ScholarApps() {
                                             "</p>" +
                                             "<p style='padding: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%'>" 
                                                 + hasIDG + 
+                                            "</p>" +
+                                            "<p style='padding: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%'>" 
+                                                + hasIDC + 
                                             "</p>" +
                                         "</td>" +
                                     "</tr>";

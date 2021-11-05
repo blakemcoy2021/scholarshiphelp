@@ -19,16 +19,10 @@
         die();
     }
 
-    $qfield = "tbl_scholar.scholar_title, tbl_scholar.scholar_school, tbl_scholar.scholar_status, ";
-    $qfield .= "tbl_scholar.scholar_approved, tbl_scholar.scholar_dateadded, ";
-    $qfield .= "tbl_cor.cor_path, tbl_cog.cog_path, tbl_idg.idg_path, tbl_idc.idc_path ";
-    $query = "select $qfield from tbl_scholar ";
-    $query .= "inner join tbl_cog on tbl_scholar.scholar_id=tbl_cog.cog_scholarid ";
-    $query .= "inner join tbl_cor on tbl_scholar.scholar_id=tbl_cor.cor_scholarid ";
-    $query .= "inner join tbl_idg on tbl_scholar.scholar_id=tbl_idg.idg_scholarid ";
-    $query .= "inner join tbl_idc on tbl_scholar.scholar_id=tbl_idc.idc_scholarid ";
-    $query .= "where tbl_scholar.scholar_userid='$suid' ";
-    $query .= "order by tbl_scholar.scholar_id desc";
+    $query = "select * from tbl_user ";
+    $query .= "inner join tbl_contact on tbl_user.user_contactid=tbl_contact.contact_id ";
+    $query .= "where tbl_user.user_id='$suid' ";
+    $query .= "order by tbl_user.user_id desc";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -40,8 +34,8 @@
         $rowctr = $stmt->fetchAll();  
         if (count($rowctr) < 1) {
             $data['success'] = "zero";
-            $data['message'] = "No scholarship applications recorded!";
-            $data['logs'] = "Scholarship Applications Not Found.";
+            $data['message'] = "User identification gone. Try re-logging in.!";
+            $data['logs'] = "User Not Found.";
             echo json_encode($data);
             $conn = null;
             die();
@@ -51,13 +45,13 @@
         $results = $stmt->fetchAll();
 
         $data['success'] = json_encode($results);
-        $data['message'] = "Successfully acquired Scholarship Applications!";
-        $data['logs'] = "List of Scholarship Applications Found.";
+        $data['message'] = "Successfully acquired User Applicant Information!";
+        $data['logs'] = "User Applicant Information Found.";
         echo json_encode($data);
 
     } catch(PDOException $e) {  //echo "Error: " . $e->getMessage();
         $data['success'] = false;
-        $data['message'] = "Server Error! dbappl";
+        $data['message'] = "Server Error! dbusr";
         $data['logs'] = "Database Exception - " . $e->getMessage();;
         echo json_encode($data);
     }

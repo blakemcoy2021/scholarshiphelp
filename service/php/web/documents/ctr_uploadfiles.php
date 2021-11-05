@@ -84,6 +84,27 @@
         echo json_encode($data);
         die();
     }
+    $query = "select count(*) as ctr from tbl_scholar ";
+    $query .= "inner join tbl_idc on tbl_scholar.scholar_id=tbl_idc.idc_scholarid ";
+    $query .= "where tbl_scholar.scholar_userid='$suid' and tbl_idc.idc_filename <> 'none' ";
+    $query .= "order by tbl_scholar.scholar_id desc";
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $stmt = $conn->prepare($query);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); // set the resulting array to associative
+        
+        $stmt->execute();
+        $results = $stmt->fetch();
+        $ctr += intval($results["ctr"]);
+
+    } catch(PDOException $e) {  //echo "Error: " . $e->getMessage();
+        $data['success'] = false;
+        $data['message'] = "Server Error! dbfilectr3";
+        $data['logs'] = "Database Exception - " . $e->getMessage();;
+        echo json_encode($data);
+        die();
+    }
 
     $data['success'] = $ctr;
     $data['message'] = "Acquired sum value of Scholarship Application!";

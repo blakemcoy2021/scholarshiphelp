@@ -127,15 +127,61 @@
         echo json_encode($data);
         die();
     }
+
+    $qfield = "tbl_scholar.scholar_title, tbl_scholar.scholar_status, ";
+    $qfield .= "tbl_idc.idc_filename, tbl_idc.idc_path, tbl_idc.idc_verified, tbl_idc.idc_lastupdate ";
+    $query = "select $qfield from tbl_scholar ";
+    $query .= "inner join tbl_idc on tbl_scholar.scholar_id=tbl_idc.idc_scholarid ";
+    $query .= "where tbl_scholar.scholar_userid='$suid' and tbl_idc.idc_filename <> 'none' ";
+    $query .= "order by tbl_scholar.scholar_id desc";
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $stmt = $conn->prepare($query);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); // set the resulting array to associative
+
+        $stmt->execute();
+        $results = $stmt->fetchAll();   
+
+        $counter = 0;
+        foreach ($results as $idx) {    /** injecting file type on result */
+            $idx['type'] = 'idc';
+            $results[$counter] = $idx;
+            $counter++;    
+        }
+        foreach ($results as $idx) {    /** collating modified result to a single array set */
+            array_push($set, $idx); 
+        }  
+
+    } catch(PDOException $e) {  echo "Error: " . $e->getMessage();
+        $data['success'] = false;
+        $data['message'] = "Server Error! dbupfile3";
+        $data['logs'] = "Database Exception - " . $e->getMessage();;
+        echo json_encode($data);
+        die();
+    }
     // print ("<pre>"); print_r($set); print "</pre>";
     
     usort($set, function($a, $b) {
         $g = $a['type'];        $h = $b['type'];
         $x = 'cor_lastupdate';  $y = 'cor_lastupdate';
-        if ($g == 'cog') {          $x = 'cog_lastupdate';
-        } else if ($g == 'idg') {   $x = 'idg_lastupdate';  }
-        if ($h === 'cog') {         $y = 'cog_lastupdate';
-        } else if ($h == 'idg') {   $y = 'idg_lastupdate';  }
+
+        if ($g == 'cog') {          
+            $x = 'cog_lastupdate';
+        } else if ($g == 'idg') {   
+            $x = 'idg_lastupdate';  
+        } else if ($g == 'idc') {
+            $x = 'idc_lastupdate';
+        }
+        
+        if ($h === 'cog') {         
+            $y = 'cog_lastupdate';
+        } else if ($h == 'idg') {   
+            $y = 'idg_lastupdate';  
+        } else if ($h == 'idc') {
+            $y = 'idc_lastupdate';
+        }
+        
         // echo $g . " " . $h . "<br>";    echo $x . " " . $y . "<br>";
 
         return strtotime($a[$x]) - strtotime($b[$y]);

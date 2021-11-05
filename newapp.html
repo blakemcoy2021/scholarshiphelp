@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="css/common/w3.css">
     <link rel="stylesheet" href="css/common/font_poppins.css">
     <link rel="stylesheet" href="css/common/core.css">
-
+        <link rel="stylesheet" href="css/common/userimg.css">
+        
     <style>
         body,h1,h2,h3,h4,h5 {   font-family: "Poppins", sans-serif    }
         body {    font-size:16px;    }
@@ -29,7 +30,7 @@
     <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
     <div class="w3-container">
         <div class="image-cropper w3-margin-bottom" style="margin: auto auto auto 60px;">
-            <img class="rounded" id="imgPhoto" style="cursor: pointer; margin: auto;" src="images/register/photoplaceholder.jpg" alt="Insert Photo Here" height="100" width="100">
+            <img class="rounded" id="imgPhoto" style="margin: auto;" src="images/register/photoplaceholder.jpg" alt="Insert Photo Here" height="100" width="100">
         </div>
         <h3 id="lblScholarName" style="width: 225px; white-space: nowrap; 
             overflow: hidden; text-overflow: ellipsis; text-align: center;">
@@ -41,7 +42,7 @@
         <a href="applist.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Application List</a> 
         <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-white">New Application</a> 
         <a href="documents.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Uploaded Documents</a> 
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Profile</a> 
+        <a href="profile.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Profile</a> 
         <a href="index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
     </div>
     </nav>
@@ -66,27 +67,58 @@
         </div>
 
         <div class="form__group field">
+            <p>Applicant's Personal Details:</p>
+        </div>
+        <div class="form__group field">
+            <input type="input" class="form__field" style="color: black" placeholder="fullname" 
+                name="fullname" id='fullname' required disabled />
+            <label for="fullname" class="form__label">Full-Name-Here</label>
+        </div>
+        <div class="form__group field">
+            <input type="input" class="form__field" style="color: black" placeholder="age" 
+                name="age" id='age' required disabled />
+            <label for="age" class="form__label">Age-Here</label>
+        </div>
+        <div class="form__group field">
+            <input type="input" class="form__field" style="color: black" placeholder="address" 
+                name="address" id='address' required disabled />
+            <label for="address" class="form__label">Address-Here</label>
+        </div>
+        <div class="form__group field">
+            <input type="input" class="form__field" style="color: black" placeholder="gender" 
+                name="gender" id='gender' required disabled />
+            <label for="gender" class="form__label">Gender-Here</label>
+        </div>
+        <div class="form__group field">
+            <input type="input" class="form__field" style="color: black" placeholder="contact_number" 
+                name="contact" id='contact' required disabled />
+            <label for="contact" class="form__label">Contact-Number-Here</label>
+        </div>
+
+
+        <div class="form__group field">
+            <p>Application Details:</p>
+        </div>
+        <div class="form__group field">
             <input type="input" class="form__field" style="color: black" placeholder="scholarship_title" 
                 name="scholartitle" id='scholartitle' required />
             <label for="scholartitle" class="form__label">Scholarship Application Title</label>
         </div>
-
+        <!-- previously educational level -->
         <div class="form__group field">
-            <input type="input" class="form__field" style="color: black" placeholder="educational_level" 
-                name="edulevel" id='edulevel' required />
-            <label for="edulevel" class="form__label">Educational Level</label>
+            <input type="input" class="form__field" style="color: black" placeholder="course" 
+                name="course" id='course' required />
+            <label for="course" class="form__label">Course</label>
         </div>
-
-        <div class="form__group field" style="width: 80%;">
-            <input type="input" class="form__field" style="color: black" placeholder="school_university" 
-                name="school" id='school' required />
-            <label for="school" class="form__label">School/University currently in (to be taking)</label>
-        </div>
-        
         <div class="form__group field">
             <input type="input" class="form__field" style="color: black" placeholder="grade_year" 
                 name="gradeyear" id='gradeyear' required />
             <label for="gradeyear" class="form__label">Current Grade/Year?</label>
+        </div>
+        <div class="form__group field" style="width: 80%;">
+            <input type="input" class="form__field" style="color: black" placeholder="school_university" 
+                name="school" id='school' required />
+            <label for="school" class="form__label">School/University currently in (to be taking)</label>
         </div>
 
 
@@ -135,6 +167,21 @@
                         <p class="w3-opacity">Photo format</p>
                         <p class="w3-opacity">(dry seal shown clearly)</p>
                         <p>Is a type of document that can be obtained in the student applicant's barangay hall/office, showing proof that the applicant is indeed need help in terms of finances</p>
+                    </div>
+                </div>
+            </div>
+            <div class="w3-col m4 w3-margin-bottom">
+                <div class="w3-light-grey" style="padding-top: 1px; cursor: pointer;" onclick="javascript: uploadIDC();">
+                    <p id="lbldoc4"
+                        style="text-align: center; color: red; font-size: large; text-decoration: underline;">
+                        
+                    </p>
+                    <img src="images/newapp/doc4.jpg" alt="Personal ID" style="width:100%">
+                    <input style="display: none;" id="inpIDC" required name="idcDoc" type="file" accept="image/jpeg, image/png" />
+                    <div class="w3-container">
+                        <h3>Valid Copy of ID</h3>
+                        <p class="w3-opacity">Photo format</p>
+                        <p>Identification card e.g. school id of the applicant or any valid government ID</p>
                     </div>
                 </div>
             </div>

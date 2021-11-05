@@ -4,7 +4,7 @@
     <title>Hello Scholar!</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
     <link rel="stylesheet" href="css/common/w3.css">
     <link rel="stylesheet" href="css/common/font_poppins.css">
     <link rel="stylesheet" href="css/common/core.css">
@@ -39,10 +39,10 @@
     </div>
     <div class="w3-bar-block" style="margin-top: 50px">
         <a href="home.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Application Progress</a> 
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-white">Application List</a> 
+        <a href="applist.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Application List</a> 
         <a href="newapp.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">New Application</a> 
         <a href="documents.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Uploaded Documents</a> 
-        <a href="profile.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Profile</a> 
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-white">Profile</a> 
         <a href="index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
     </div>
     </nav>
@@ -61,39 +61,53 @@
 
         <!-- Header -->
         <div class="w3-container" style="margin-top:40px" id="showcase">
-            <h1 class="w3-xxxlarge w3-text-red"><b>Your scholarship applications.</b></h1>
-            <div style="display: flex;">
-                <hr style="width:50px;border:5px solid red; margin-right: 10px;" class="w3-round">
-                <h3 id="lblTotalApplications">you have ? of scholarship applications.</h3>
-            </div>
-
+            <h1 class="w3-xxxlarge w3-text-red"><b>Good Day, <span id="casualname">?</span></b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
             
         </div>
 
-        <!-- scholarship application list -->
-        <div class="w3-panel" style="overflow: auto; height: 330px; width: 97%;">
-            <table class="w3-table w3-striped w3-red" style="width: 1500px; font-weight: bolder; table-layout: fixed;">
-                <tr>
-                    <td class="tdbasic">APPLICATION TITLE</td>
-                    <td class="tdoverflow">SCHOOL LISTED</td>
-                    <td class="tdbasic">STATUS</td>
-                    <td class="tdbasic">APPROVED</td>
-                    <td class="tdbasic">DATE APPLIED</td>
-                    <td class="tdoverflow">DOCUMENTS</td>
-                </tr>
-            </table>
-            <table id="tblscholarapps" class="w3-table w3-striped w3-white" style="width: 1500px; table-layout: fixed;">
-                <h2 id="lblLoadingRecords" class="w3-text-red">Checking for Scholarship Applications...</h2>                
-            </table>
+        <div class="form__group field">
+            <p>Applicant's Personal Details:</p>
+        </div>
+        <div class="image-cropper w3-margin-bottom" style="margin: auto auto auto 10px;" onclick="javascript: uploadPhoto();">
+            <img class="rounded" id="imgPhotoInput" style="cursor: pointer; margin: auto;" 
+                src="images/register/photoplaceholder.jpg" alt="Insert Photo Here" height="100" width="100">
+            <input style="display: none;" id="inpPhoto" required name="photo" type="file" accept="image/jpeg, image/png" />
+        </div>
+        <div class="form__group field">
+            <input type="input" class="form__field" style="color: black" placeholder="fullname" 
+                name="fullname" id='fullname' required />
+            <label for="fullname" class="form__label">Full-Name-Here</label>
+        </div>
+        <div class="form__group field">
+            <input type="date" class="form__field" style="color: black" placeholder="bday" 
+                name="bday" id='bday' required />
+            <label for="bday" class="form__label">Birth-Date-Here</label>
+        </div>
+        <div class="form__group field">
+            <input type="input" class="form__field" style="color: black" placeholder="address" 
+                name="address" id='address' required />
+            <label for="address" class="form__label">Address-Here</label>
+        </div>
+        <div class="form__group field" style="display: flex;">
+            <input type="checkbox" style="margin: 10px;" placeholder="male" name="male" id='male' />
+            <label for="male">Male</label>
+
+            <input type="checkbox" style="margin: 10px;" placeholder="female" name="female" id='female' />
+            <label for="female">Female</label>
+        </div>
+        <div class="form__group field">
+            <input type="input" class="form__field" style="color: black" placeholder="contact _number" 
+                name="contact" id='contact' required />
+            <label for="contact" class="form__label">Contact-Number-Here</label>
         </div>
 
-        <div class="form__group field" style="margin-left: 15px; margin-top: -5px;">
-            <input type="input" class="form__field" style="color: black" placeholder="type_filter" 
-                name="inpsearch" id='inpsearch' required onkeyup="tblSearch(this, document.getElementById('tblscholarapps'))"/>
-            <label for="inpsearch" class="form__label">Type School to Filter Search</label>
+        <div class="w3-col" style="width: 40%; margin-top: 20px; margin-bottom: 30px;">
+            <button id="btnUpdateProfile" class="w3-button w3-block w3-red"
+                style="width: 100%; font-size: x-large;">
+                    Update Profile
+            </button>
         </div>
-
-
 
     <!-- End page content -->
     </div>
@@ -101,13 +115,10 @@
     <input type="hidden" id="hidfld_uid" name="hidfld_uid" value="?">
     <input type="hidden" id="hidfld_fname" name="hidfld_fname" value="?">
 
-    <script src="js/applist/core.js"></script>
-    <script src="js/applist/controls.js"></script>
+    <script src="js/profile/core.js"></script>
+    <script src="js/profile/controls.js"></script>
     <script>
-        var scholarTimer;
-        
         window.onload = init();
-        window.onload = start_scholarAppTime();
     </script>
 
     <script>
@@ -115,7 +126,8 @@
         function w3_open() {
             document.getElementById("mySidebar").style.display = "block";
             document.getElementById("myOverlay").style.display = "block";
-        }        
+        }
+        
         function w3_close() {
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";

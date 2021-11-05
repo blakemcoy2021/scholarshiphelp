@@ -18,6 +18,42 @@ function init() {
         document.getElementById("hidfld_fname").value = fname;
     }
 
+    var xmlhttp = new XMLHttpRequest();
+    route = "service/php/web/newapp/get_userinfo.php?suid=" + document.getElementById("hidfld_uid").value;
+    xmlhttp.open("GET", route, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) { //console.log(this.responseText);
+
+            // **below is template: json formatted
+            let d;
+            try { d = JSON.parse(this.responseText); }
+            catch (e) { alert('Response Format error! ' + this.responseText); return; }
+            if (d.success == false) { alert(d.message); return; } //console.log(d.success);
+
+            if (d.success == "zero") {
+                alert(d.message);
+                return; 
+            }
+
+            var records;
+            try {
+                records = JSON.parse(d.success);
+            } catch (e) {
+                alert('Parse error! Contact System Administrator! ' + d.success);
+                return;
+            }     
+            console.log(records);
+
+            let rmcache = new Date();
+            document.getElementById("imgPhoto").src = records[0].user_photo + "?nc=" + rmcache.getMilliseconds();
+
+        }
+        else if (this.readyState == 4) {
+            alert("Server Unreachable. Possible Slow Internet Connection..!");
+        }
+    };
+
     window.sessionStorage.setItem("last_dbctrLatestCurrApps", 0);
     window.sessionStorage.setItem("last_currappid", 0);
     window.sessionStorage.setItem("donereq_dataLatestCurrAppCtr", 0);

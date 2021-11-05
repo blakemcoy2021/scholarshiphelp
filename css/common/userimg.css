@@ -1,0 +1,21 @@
+.image-cropper {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+img.rounded {
+    margin: 0 auto;
+    display: flex;
+    object-fit: cover;
+    border-radius: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: scale(1.3);
+    -moz-transform: scale(1.3);
+    -ms-transform: scale(1.3);
+    -o-transform: scale(1.3);
+    transform: scale(1.3);
+}
