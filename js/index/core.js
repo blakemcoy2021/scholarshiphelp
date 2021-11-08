@@ -61,7 +61,7 @@ document.getElementById("frmIndex").onsubmit = function(evt) {
                 window.localStorage.setItem("fname", d[2].replace("-", " "));
 
                 if (d[0] == "superadmin" || d[0] == "admin") {
-                    window.location.href = "dashboard.html";
+                    window.location.href = "masterlist.html"; //dashboard
                 } else {
                     window.location.href = "home.html";
                 }
@@ -70,8 +70,8 @@ document.getElementById("frmIndex").onsubmit = function(evt) {
                 // no web storage
                 console.log("**** No web storage.");
 
-                if (d[0] == "superadmin" || d[0] == "admin") {
-                    window.location.href = "dashboard.html?uid=" + d[1] + "&fname=" + d[2].replace("-", " ");
+                if (d[0] == "superadmin" || d[0] == "admin") {   //dashboard
+                    window.location.href = "masterlist.html?uid=" + d[1] + "&fname=" + d[2].replace("-", " ");
                 } else {
                     window.location.href = "home.html?uid=" + d[1] + "&fname=" + d[2].replace("-", " ");
                 }
