@@ -27,6 +27,9 @@ function tblSearch(elm, tbl) {
     }
 };
 
+document.getElementById("imgPhoto").onerror = function() {
+  document.getElementById("imgPhoto").src = "images/register/photoplaceholder.jpg";
+}
 
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";

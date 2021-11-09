@@ -246,7 +246,7 @@ function load_CurrApps() {
                     let xyz = window.localStorage.getItem("singleRun");
                     if (xyz == 0) {
                         window.localStorage.setItem("singleRun", 1);
-                        document.getElementById("lblSelectedApp").innerHTML = "Application Name: " + records[i].scholar_title;
+                        document.getElementById("lblSelectedApp").innerHTML = "Application Label: " + records[i].scholar_title;
                         let s = records[i].scholar_status;
                         s = s.toLowerCase();
                         

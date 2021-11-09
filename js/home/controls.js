@@ -8,6 +8,10 @@ function w3_close() {
     document.getElementById("myOverlay").style.display = "none";
 }
 
+document.getElementById("imgPhoto").onerror = function() {
+    document.getElementById("imgPhoto").src = "images/register/photoplaceholder.jpg";
+}
+
 function checkStatus(schid, status, el) {
     // let tbl = document.getElementById("tblcurrapplist");
     // let tbd = tbl.getElementsByTagName("tbody")[0];
@@ -16,7 +20,7 @@ function checkStatus(schid, status, el) {
     // el.classList.add('w3-gray');
 
     let td = el.getElementsByTagName("td")[0];
-    document.getElementById("lblSelectedApp").innerHTML = "Application Name: " + td.innerHTML;
+    document.getElementById("lblSelectedApp").innerHTML = "Application Label: " + td.innerHTML;
 
     h = document.getElementById("currAppState");
     c = "<i class='fa fa-area-chart' aria-hidden='true'> ";

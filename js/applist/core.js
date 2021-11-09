@@ -259,7 +259,13 @@ function load_ScholarApps() {
                         hasIDC = "SENT - Photo ID";
                     }
 
-                    tbl_rowdata += 	"<tr>" +
+                    let viewRecord = "style='cursor:pointer;' onclick=\"javascript: viewScholarApp('"+records[i].scholar_id+"');\" ";
+                    let status = records[i].scholar_status;
+                    if (status == "done" || status == "awarded") {
+                        viewRecord = "";
+                    }
+
+                    tbl_rowdata += 	"<tr "+viewRecord+">" +
                                         "<td class='tdbasic'>" + records[i].scholar_title + "</td>" +
                                         "<td class='tdoverflow'>" + records[i].scholar_school + "</td>" +
                                         "<td class='tdbasic'>" + records[i].scholar_status + "</td>" +

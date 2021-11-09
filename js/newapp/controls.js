@@ -14,6 +14,9 @@ function uploadIDC() {
     document.getElementById("inpIDC").click();
 }
 
+document.getElementById("imgPhoto").onerror = function() {
+    document.getElementById("imgPhoto").src = "images/register/photoplaceholder.jpg";
+}
 
 document.getElementById("btnCreateApp").addEventListener("click", function (evt) {
     evt.preventDefault();

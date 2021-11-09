@@ -7,7 +7,14 @@ document.getElementById("male").addEventListener("click", function (evt) {
 });
 document.getElementById("female").addEventListener("click", function (evt) {
     document.getElementById("male").checked = false;
-}); 
+});
+
+document.getElementById("imgPhoto").onerror = function() {
+    document.getElementById("imgPhoto").src = "images/register/photoplaceholder.jpg";
+}
+document.getElementById("imgPhotoInput").onerror = function() {
+    document.getElementById("imgPhotoInput").src = "images/register/photoplaceholder.jpg";
+}
 
 document.getElementById("btnUpdateProfile").addEventListener("click", function (evt) {
     evt.preventDefault();

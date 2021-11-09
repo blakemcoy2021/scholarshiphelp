@@ -20,7 +20,7 @@
     }
 
     $qfield = "tbl_scholar.scholar_title, tbl_scholar.scholar_school, tbl_scholar.scholar_status, ";
-    $qfield .= "tbl_scholar.scholar_approved, tbl_scholar.scholar_dateadded, ";
+    $qfield .= "tbl_scholar.scholar_approved, tbl_scholar.scholar_dateadded, tbl_scholar.scholar_id, ";
     $qfield .= "tbl_cor.cor_path, tbl_cog.cog_path, tbl_idg.idg_path, tbl_idc.idc_path ";
     $query = "select $qfield from tbl_scholar ";
     $query .= "inner join tbl_cog on tbl_scholar.scholar_id=tbl_cog.cog_scholarid ";

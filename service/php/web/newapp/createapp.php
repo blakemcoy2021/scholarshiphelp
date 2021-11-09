@@ -51,6 +51,45 @@
         die();
     }
 
+    $query = "select tbl_scholar.scholar_id from tbl_scholar ";
+    $query .= "inner join tbl_user on tbl_scholar.scholar_userid=tbl_user.user_id ";
+    $query .= "where tbl_scholar.scholar_userid='$id' and (tbl_scholar.scholar_status <> 'done' OR tbl_scholar.scholar_status <> 'awarded') ";
+    $query .= "order by tbl_scholar.scholar_id desc limit 1;";
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $stmt = $conn->prepare($query);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC); // set the resulting array to associative
+
+        $stmt->execute();
+        $rowctr = $stmt->fetchAll();  //echo count($rowctr);
+        if (count($rowctr) == 1) {
+          $data['success'] = false;
+          $data['message'] = "There is an existing scholarship application undergoing. Unable to create new one.";
+          $data['logs'] = "One at a time scholarship application processing.";
+          echo json_encode($data);
+          $conn = null;
+          die();
+        }
+  
+        $stmt->execute();
+        $row = $stmt->fetch();
+        $scholarid = $row["scholar_id"];
+  
+    } catch(PDOException $e) {  //echo "Error: " . $e->getMessage();
+        $data['success'] = false;
+        $data['message'] = "Server Error! existapp";
+        $data['logs'] = "Database Exception - existapp " . $e->getMessage();;
+        echo json_encode($data);
+        $conn = null;
+        die();
+    }
+
+
+
+
+
+
     $idfile = date("YmdGis");
 
     // pre-file path
