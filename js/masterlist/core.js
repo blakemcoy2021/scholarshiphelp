@@ -35,7 +35,7 @@ function load_ScholarAppsCtr() {
     var spn = document.getElementById("lblTotalApplications");
 
     var xmlhttp = new XMLHttpRequest();
-    route = "service/php/web/dashboard/ctr_allscholarapps.php";
+    route = "service/php/web/masterlist/ctr_allscholarapps.php";
     xmlhttp.open("GET", route, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send();
@@ -88,7 +88,7 @@ function load_ScholarAppsCtr() {
 
             // //t = window.sessionStorage.getItem("last_schappCtrid"); console.log(t);
 
-            spn.innerHTML = "you have " + d.success + " of scholarship applications.";         
+            spn.innerHTML = "There are " + d.success + " total of scholarship applications.";         
         }
         else if (this.readyState == 4) {
             alert("Server Unreachable. Possible Slow Internet Connection..!");
@@ -100,7 +100,7 @@ function load_ScholarApps() {
     var tbl = document.getElementById("tblscholarapps");
 
     var xmlhttp = new XMLHttpRequest();
-    route = "service/php/web/dashboard/get_allscholarapps.php";
+    route = "service/php/web/masterlist/get_allscholarapps.php";
     xmlhttp.open("GET", route, true);
     xmlhttp.send();
     xmlhttp.onreadystatechange = function() {
@@ -211,11 +211,19 @@ function load_ScholarApps() {
                         hasIDC = "SENT - Photo ID";
                     }
 
-                    tbl_rowdata += 	"<tr>" +
-                                        "<td class='tdbasic'>" + records[i].scholar_title + "</td>" +
-                                        "<td class='tdoverflow'>" + records[i].scholar_school + "</td>" +
+                    let viewRecord = "style='cursor:pointer;' onclick=\"javascript: viewScholarApp('"+records[i].scholar_id+"');\" ";
+                    let status = records[i].scholar_status;
+                    if (status == "done" || status == "awarded") {
+                        viewRecord = "";
+                    }
+
+                    tbl_rowdata += 	"<tr "+viewRecord+">" +
+                                        "<td class='tdoverflow'>" + records[i].user_fullname + "</td>" +
+                                        "<td class='tdoverflow'>" + records[i].scholar_barangay + "</td>" +
                                         "<td class='tdbasic'>" + records[i].scholar_status + "</td>" +
                                         "<td class='tdbasic'>" + approve_val + "</td>" +
+                                        "<td class='tdbasic'>" + records[i].scholar_serial + "</td>" +
+                                        "<td class='tdoverflow'>" + records[i].scholar_school + "</td>" +
                                         "<td class='tdbasic'>" + date_val+ "</td>" +
                                         "<td class='tdoverflow'>" + 
                                             "<p style='padding: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%'>" 

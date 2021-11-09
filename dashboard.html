@@ -45,8 +45,164 @@
 
 
         <!-- !PAGE CONTENT! -->
-        <div class="w3-main" style="margin-left:15px;margin-right:40px">
+        <div class="w3-main">
 
+            <div class="w3-row-padding w3-center w3-margin-top">
+
+                <div class="w3-third w3-text-red">
+                  <div class="w3-card w3-container" style="height:340px; margin-bottom: 10px;">
+                    <h2>New Applications</h2><br>
+                    <i class="fa fa-file-text w3-margin-bottom w3-text-theme" style="font-size:80px"></i>
+                    <div class="w3-text-black">
+                        <h4>There are total of <span id="htmLblNumOfNewApps" class="w3-text-red" style="font-size: 30px;">?</span></h4>
+                        <h4>New scholarship applications</h4>
+                        <h4>waiting to be processed.</h4>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="w3-third w3-text-red">
+                    <div class="w3-card w3-container" style="height:340px; margin-bottom: 10px;">
+                      <h2>On-Going Applications</h2><br>
+                      <i class="fa fa-clipboard w3-margin-bottom w3-text-theme" style="font-size:80px"></i>
+                      <div class="w3-text-black">
+                          <h4>There are total of <span id="htmLblNumOfOnGoingApps" class="w3-text-red" style="font-size: 30px;">?</span></h4>
+                          <h4>Scholarship applications that are</h4>
+                          <h4>currently being processed.</h4>
+                      </div>
+                    </div>
+                </div>
+                
+                <div class="w3-third w3-text-red">
+                    <div class="w3-card w3-container" style="height:340px; margin-bottom: 10px;">
+                      <h2>Finished Applications</h2><br>
+                      <i class="fa fa-file-archive-o w3-margin-bottom w3-text-theme" style="font-size:80px"></i>
+                      <div class="w3-text-black">
+                          <h4>There are total of <span id="htmLblNumOfDoneApps" class="w3-text-red" style="font-size: 30px;">?</span></h4>
+                          <h4>Scholarship applications that were</h4>
+                          <h4>finished, waiting to be awarded.</h4>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+            <hr>
+
+            <div class="w3-center">
+                <h2>Scholarship Applicants per Barangay <span><i class="fa fa-group w3-text-theme" style="font-size:40px"></i></span></h2>
+                <p class="w3-large">As a whole (e.g. new, ongoing, done)</p>
+            </div>
+
+            <div class="w3-row">
+                <div class="w3-quarter w3-container" style="padding: 15px;">
+                    <div class="w3-red" style="padding: 10px;">
+                        <h3 style="margin-bottom: 0; padding-bottom: 0;">San Agustin</h3>
+                        <p style="margin-top: 0; padding-top: 0;"><i>also called Sumpung</i></p>
+                        <p id="htmLblCtrSanAgustin" style="font-size: x-large; text-align: right; margin-right: 10px;">???</p>
+                    </div>
+                </div>
+                <div class="w3-quarter w3-container" style="padding: 15px;">
+                    <div class="w3-gray w3-text-white" style="padding: 10px;">
+                        <h3 style="margin-bottom: 0; padding-bottom: 0;">San Bartolome</h3>
+                        <p style="margin-top: 0; padding-top: 0;"><i>also called Patayum</i></p>
+                        <p id="htmLblCtrSanBartolome" style="font-size: x-large; text-align: right; margin-right: 10px;">???</p>
+                    </div>
+                </div>
+                <div class="w3-quarter w3-container" style="padding: 15px;">
+                    <div class="w3-red" style="padding: 10px;">
+                        <h3 style="margin-bottom: 0; padding-bottom: 0;">San Isidro</h3>
+                        <p style="margin-top: 0; padding-top: 0;"><i>also called Quenabuan</i></p>
+                        <p id="htmLblCtrSanIsidro" style="font-size: x-large; text-align: right; margin-right: 10px;">???</p>
+                    </div> 
+                </div>
+                <div class="w3-quarter w3-container" style="padding: 15px;">
+                    <div class="w3-gray w3-text-white" style="padding: 10px;">
+                        <h3 style="margin-bottom: 0; padding-bottom: 0;">San Joaquin</h3>
+                        <p style="margin-top: 0; padding-top: 0;"><i>also called Poblacion, Canukil</i></p>
+                        <p id="htmLblCtrSanJoaquin" style="font-size: x-large; text-align: right; margin-right: 10px;">???</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w3-row">
+                <div class="w3-third w3-container" style="padding: 25px;">
+                    <div class="w3-red" style="padding: 20px;">
+                        <h3 style="margin-bottom: 0; padding-bottom: 0;">San Jose</h3>
+                        <p style="margin-top: 0; padding-top: 0;"><i>also called Catmun</i></p>
+                        <p id="htmLblCtrSanJose" style="font-size: x-large; text-align: right; margin-right: 10px;">???</p>
+                    </div>
+                </div>
+                <div class="w3-third w3-container" style="padding: 25px;">
+                    <div class="w3-gray w3-text-white" style="padding: 20px;">
+                        <h3 style="margin-bottom: 0; padding-bottom: 0;">San Juan</h3>
+                        <p style="margin-top: 0; padding-top: 0;"><i>also called Tinajeru</i></p>
+                        <p id="htmLblCtrSanJuan" style="font-size: x-large; text-align: right; margin-right: 10px;">???</p>
+                    </div>
+                </div>
+                <div class="w3-third w3-container" style="padding: 25px;">
+                    <div class="w3-red" style="padding: 20px;">
+                        <h3 style="margin-bottom: 0; padding-bottom: 0;">San Nicolas</h3>
+                        <p style="margin-top: 0; padding-top: 0;"><i>also called Sepung Ilug</i></p>
+                        <p id="htmLblCtrSanNicolas" style="font-size: x-large; text-align: right; margin-right: 10px;">???</p>
+                    </div> 
+                </div>
+            </div>
+
+            <div class="w3-row">
+                <div class="w3-quarter w3-container" style="padding: 15px;">
+                    <div class="w3-red" style="padding: 10px;">
+                        <h3 style="margin-bottom: 0; padding-bottom: 0;">San Pablo</h3>
+                        <p style="margin-top: 0; padding-top: 0;"><i>also called Darabulbul</i></p>
+                        <p id="htmLblCtrSanPablo" style="font-size: x-large; text-align: right; margin-right: 10px;">???</p>
+                    </div>
+                </div>
+                <div class="w3-quarter w3-container" style="padding: 15px;">
+                    <div class="w3-gray w3-text-white" style="padding: 10px;">
+                        <h3 style="margin-bottom: 0; padding-bottom: 0;">San Pedro</h3>
+                        <p style="margin-top: 0; padding-top: 0;"><i>also called Calumpang</i></p>
+                        <p id="htmLblCtrSanPedro" style="font-size: x-large; text-align: right; margin-right: 10px;">???</p>
+                    </div>
+                </div>
+                <div class="w3-quarter w3-container" style="padding: 15px;">
+                    <div class="w3-red" style="padding: 10px;">
+                        <h3 style="margin-bottom: 0; padding-bottom: 0;">San Roque</h3>
+                        <p style="margin-top: 0; padding-top: 0;"><i>also called Tuclung</i></p>
+                        <p id="htmLblCtrSanRoque" style="font-size: x-large; text-align: right; margin-right: 10px;">???</p>
+                    </div> 
+                </div>
+                <div class="w3-quarter w3-container" style="padding: 15px;">
+                    <div class="w3-gray w3-text-white" style="padding: 10px;">
+                        <h3 style="margin-bottom: 0; padding-bottom: 0;">Santa Lucia</h3>
+                        <p style="margin-top: 0; padding-top: 0;"><i>also called Calinan</i></p>
+                        <p id="htmLblCtrSantaLucia" style="font-size: x-large; text-align: right; margin-right: 10px;">???</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="w3-row">
+                <div class="w3-third w3-container" style="padding: 25px;">
+                    <div class="w3-red" style="padding: 20px;">
+                        <h3 style="margin-bottom: 0; padding-bottom: 0;">San Maria</h3>
+                        <p style="margin-top: 0; padding-top: 0;"><i>also called Balen Bayu</i></p>
+                        <p id="htmLblCtrSantaMaria" style="font-size: x-large; text-align: right; margin-right: 10px;">???</p>
+                    </div>
+                </div>
+                <div class="w3-third w3-container" style="padding: 25px;">
+                    <div class="w3-gray w3-text-white" style="padding: 20px;">
+                        <h3 style="margin-bottom: 0; padding-bottom: 0;">Santiago</h3>
+                        <p style="margin-top: 0; padding-top: 0;"><i>also called Barrio Libutad</i></p>
+                        <p id="htmLblCtrSantiago" style="font-size: x-large; text-align: right; margin-right: 10px;">???</p>
+                    </div>
+                </div>
+                <div class="w3-third w3-container" style="padding: 25px;">
+                    <div class="w3-red" style="padding: 20px;">
+                        <h3 style="margin-bottom: 0; padding-bottom: 0;">Santa Rosario</h3>
+                        <p style="margin-top: 0; padding-top: 0;"><i>also called Pagbatuan</i></p>
+                        <p id="htmLblCtrSantaRosario" style="font-size: x-large; text-align: right; margin-right: 10px;">???</p>
+                    </div> 
+                </div>
+            </div>
 
 
 
@@ -56,8 +212,8 @@
         <input type="hidden" id="hidfld_uid" name="hidfld_uid" value="?">
         <input type="hidden" id="hidfld_fname" name="hidfld_fname" value="?">
 
-        <script src="js/masterlist/core.js"></script>
-        <script src="js/masterlist/controls.js"></script>
+        <script src="js/dasboard/core.js"></script>
+        <script src="js/dasboard/controls.js"></script>
         <script>
             var scholarTimer;
             

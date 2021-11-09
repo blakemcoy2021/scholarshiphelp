@@ -25,6 +25,7 @@ document.getElementById("btnCreateApp").addEventListener("click", function (evt)
     let course = document.getElementById("course");
     let school = document.getElementById("school");
     let gradeyear = document.getElementById("gradeyear");
+        let slctbrgy = document.getElementById("standard-select");
 
     let uname = document.getElementById("hidfld_fname");
     let uid = document.getElementById("hidfld_uid");
@@ -39,6 +40,7 @@ document.getElementById("btnCreateApp").addEventListener("click", function (evt)
     if (course.value == "") { failfieldctr++; }
     if (school.value == "") { failfieldctr++; }
     if (gradeyear.value == "") { failfieldctr++; }
+        if (slctbrgy.value == "") { failfieldctr++; }
     if (uid.value == "?") { failfieldctr++; }
     if (uname.value == "?") { failfieldctr++; }
 
@@ -56,6 +58,7 @@ document.getElementById("btnCreateApp").addEventListener("click", function (evt)
     frmdata.append("course", course.value);
     frmdata.append("school", school.value);
     frmdata.append("gradeyear", gradeyear.value);
+        frmdata.append("brgy", slctbrgy.value);
     frmdata.append("uid", uid.value);
     frmdata.append("uname", uname.value);
 
@@ -88,6 +91,8 @@ document.getElementById("btnCreateApp").addEventListener("click", function (evt)
                 course.value = "";
                 school.value = "";
                 gradeyear.value = "";
+                    slctbrgy.value = "";
+                
                 document.getElementById("lbldoc1").innerHTML = "";
                 document.getElementById("lbldoc2").innerHTML = "";
                 document.getElementById("lbldoc3").innerHTML = "";

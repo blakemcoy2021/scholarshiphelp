@@ -8,6 +8,7 @@
     $el = "none";
     $sc = "none";
     $gy = "none";
+        $br = "none";
     $id = "none";
     $nm = "none";
 
@@ -23,6 +24,7 @@
     if (isset($_POST["course"]))            {   $el = $_POST["course"];      }
     if (isset($_POST["school"]))     {   $sc = $_POST["school"];        }
     if (isset($_POST["gradeyear"]))  {   $gy = $_POST["gradeyear"];     }
+        if (isset($_POST["brgy"]))  {   $br = $_POST["brgy"];     }
     if (isset($_POST["uid"]))        {   $id = $_POST["uid"];           }
     if (isset($_POST["uname"]))       {   $nm = $_POST["uname"];           }
 
@@ -36,6 +38,7 @@
     if ($el == "none") { $failfieldctr += 1; }
     if ($sc == "none") { $failfieldctr += 1; }
     if ($gy == "none") { $failfieldctr += 1; }
+        if ($br == "none") { $failfieldctr += 1; }
     if ($id == "none") { $failfieldctr += 1; }
     if ($nm == "none") { $failfieldctr += 1; }
 
@@ -71,10 +74,6 @@
           $conn = null;
           die();
         }
-  
-        $stmt->execute();
-        $row = $stmt->fetch();
-        $scholarid = $row["scholar_id"];
   
     } catch(PDOException $e) {  //echo "Error: " . $e->getMessage();
         $data['success'] = false;
@@ -367,11 +366,12 @@
 
 
     $datereg = date("Y-m-d G:i:s");
+    $srl = date("YmdGis");
 
-    $qval = "scholar_userid, scholar_title, scholar_course, scholar_school, scholar_gradeyr, ";
-    $qval .= "scholar_status, scholar_approved, scholar_dateadded";
+    $qval = "scholar_userid, scholar_title, scholar_serial, scholar_course, scholar_school, ";
+    $qval .= "scholar_gradeyr, scholar_barangay, scholar_status, scholar_approved, scholar_dateadded";
     $query = "insert into tbl_scholar ($qval) ";
-    $query .= "values ('$id','$tl','$el','$sc','$gy','New','0','$datereg');";
+    $query .= "values ('$id','$tl','$srl','$el','$sc','$gy','$br','New','0','$datereg');";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

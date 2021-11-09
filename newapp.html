@@ -21,6 +21,22 @@
         }
         .w3-half img:hover{ opacity:1 }
 
+        #standard-select {
+            appearance: none;
+            background-color: transparent;
+            border: none;
+            padding: 0 1em 0 0;
+            margin: 0;
+            width: 100%;
+            font-family: inherit;
+            font-size: inherit;
+            cursor: inherit;
+            line-height: inherit;
+            outline: none;
+        }
+        select::-ms-expand {
+            display: none;
+        }
     </style>
 
     <body>
@@ -115,12 +131,31 @@
                 name="gradeyear" id='gradeyear' required />
             <label for="gradeyear" class="form__label">Current Grade/Year?</label>
         </div>
-        <div class="form__group field" style="width: 80%;">
+        <div class="form__group field" style="width: 80%; margin-bottom: 25px;">
             <input type="input" class="form__field" style="color: black" placeholder="school_university" 
                 name="school" id='school' required />
             <label for="school" class="form__label">School/University currently in (to be taking)</label>
         </div>
-
+        <label for="standard-select" style="color: red;">Designated Barangay:</label>
+        <div class="select" style="cursor: pointer; margin-top: 25px; margin-bottom: 10px; border-bottom: 2px solid gray; width: 70%">
+            <select id="standard-select" style="font-size: 22px;">
+                <option value="">Select Barangay here...</option>
+                <option value="San Agustin (Sumpung)">San Agustin (Sumpung)</option>
+                <option value="San Bartolome (Patayum)">San Bartolome (Patayum)</option>
+                <option value="San Isidro (Quenabuan)">San Isidro (Quenabuan)</option>
+                <option value="San Joaquin (Poblacion, Canukil)">San Joaquin (Poblacion, Canukil)</option>
+                <option value="San Jose (Catmun)">San Jose (Catmun)</option>
+                <option value="San Juan (Tinajeru)">San Juan (Tinajeru)</option>
+                <option value="San Nicolas (Sepung Ilug)">San Nicolas (Sepung Ilug)</option>
+                <option value="San Pablo (Darabulbul)">San Pablo (Darabulbul)</option>
+                <option value="San Pedro (Calumpang)">San Pedro (Calumpang)</option>
+                <option value="San Roque (Tuclung)">San Roque (Tuclung)</option>
+                <option value="Santa Lucia (Calinan)">Santa Lucia (Calinan)</option>
+                <option value="Santa Maria (Balen Bayu)">Santa Maria (Balen Bayu)</option>
+                <option value="Santiago (Barrio Libutad)">Santiago (Barrio Libutad)</option>
+                <option value="Santo Rosario (Pagbatuan)">Santo Rosario (Pagbatuan)</option>
+            </select>
+        </div>
 
         <!-- Uploading files section -->
         <div class="w3-row-padding w3-grayscale" style="margin-top: 30px;">

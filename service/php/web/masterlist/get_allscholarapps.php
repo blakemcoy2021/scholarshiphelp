@@ -5,14 +5,15 @@
     $errors = [];
     $data = array();
 
-    $qfield = "tbl_scholar.scholar_title, tbl_scholar.scholar_school, tbl_scholar.scholar_status, ";
-    $qfield .= "tbl_scholar.scholar_approved, tbl_scholar.scholar_dateadded, ";
-    $qfield .= "tbl_cor.cor_path, tbl_cog.cog_path, tbl_idg.idg_path, tbl_idc.idc_path ";
+    $qfield = "tbl_scholar.scholar_title, tbl_scholar.scholar_school, tbl_scholar.scholar_status, tbl_scholar.scholar_barangay, ";
+    $qfield .= "tbl_scholar.scholar_approved, tbl_scholar.scholar_dateadded, tbl_user.user_fullname, tbl_scholar.scholar_serial, ";
+    $qfield .= "tbl_cor.cor_path, tbl_cog.cog_path, tbl_idg.idg_path, tbl_idc.idc_path, tbl_scholar.scholar_id ";
     $query = "select $qfield from tbl_scholar ";
     $query .= "inner join tbl_cog on tbl_scholar.scholar_id=tbl_cog.cog_scholarid ";
     $query .= "inner join tbl_cor on tbl_scholar.scholar_id=tbl_cor.cor_scholarid ";
     $query .= "inner join tbl_idg on tbl_scholar.scholar_id=tbl_idg.idg_scholarid ";
     $query .= "inner join tbl_idc on tbl_scholar.scholar_id=tbl_idc.idc_scholarid ";
+    $query .= "inner join tbl_user on tbl_scholar.scholar_userid=tbl_user.user_id ";
     $query .= "order by tbl_scholar.scholar_id desc";
 
     try {

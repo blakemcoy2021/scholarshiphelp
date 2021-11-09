@@ -11,8 +11,11 @@
         <link rel="stylesheet" href="css/common/userimg.css">
 
     <link rel="stylesheet" href="css/masterlist/topmenu.css">
+    
+    <link rel="stylesheet" href="css/documents/fileviewer.css">
 
-	<link rel="stylesheet" type="text/css" href="fonts/types/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="js/documents/pdfobject.min.js"></script>
+    <script src="js/documents/pdfobject.js"></script>
 
     <style>
         body,h1,h2,h3,h4,h5 {   font-family: "Poppins", sans-serif    }
@@ -45,47 +48,200 @@
 
 
         <!-- !PAGE CONTENT! -->
-        <div class="w3-main" style="margin-left:15px;margin-right:40px">
+        <div class="w3-main" style="margin-left:10px;margin-right:30px">
 
             <!-- Header -->
-            <div class="w3-container" style="margin-top:15px" id="showcase">
+            <div class="w3-container" style="margin-top:10px" id="showcase">
                 <h1 class="w3-xxlarge w3-text-red"><b>Scholarship Applications' List</b></h1>
                 <div style="display: flex;">
-                    <hr style="width:50px;border:5px solid red; margin-right: 10px;" class="w3-round">
-                    <h3 id="lblTotalApplications">There are ? scholarship applications.</h3>
+                    <div style="width: 50%; display: flex;">
+                        <hr style="width:50px;border:5px solid red; margin-right: 10px;" class="w3-round">
+                        <h3 id="lblTotalApplications" style="font-size: x-large;">There are ? scholarship applications.</h3>                            
+                    </div>
+                    <div class="form__group field" style="width: 50%;">
+                        <input type="input" class="form__field" style="color: black; width: 70%;" placeholder="type_filter" 
+                            name="inpsearchSerial" id='inpsearchSerial' required onkeyup="tblSearch(this, document.getElementById('tblscholarapps'), 4)"/>
+                        <label for="inpsearchSerial" class="form__label">Type Registraton Number to filter</label>
+                    </div>
+
                 </div>
 
             </div>
 
             <!-- scholarship application list -->
             <div class="w3-panel" style="overflow: auto; height: 330px; width: 97%;">
-                <table class="w3-table w3-striped w3-red" style="width: 1500px; font-weight: bolder; table-layout: fixed;">
+                <table class="w3-table w3-striped w3-red" style="width: 1900px; font-weight: bolder; table-layout: fixed;">
                     <tr>
-                        <td class="tdbasic">APPLICATION TITLE</td>
-                        <td class="tdoverflow">SCHOOL LISTED</td>
+                        <td class="tdoverflow">FULL NAME</td>
+                        <td class="tdoverflow">BARANGAY</td>
                         <td class="tdbasic">STATUS</td>
                         <td class="tdbasic">APPROVED</td>
+                        <td class="tdbasic">REGISTRATION #</td>
+                        <td class="tdoverflow">SCHOOL LISTED</td>
                         <td class="tdbasic">DATE APPLIED</td>
                         <td class="tdoverflow">DOCUMENTS</td>
                     </tr>
                 </table>
-                <table id="tblscholarapps" class="w3-table w3-striped w3-white" style="width: 1500px; table-layout: fixed;">
+                <table id="tblscholarapps" class="w3-table w3-striped w3-white" style="width: 1900px; table-layout: fixed;">
                     <h2 id="lblLoadingRecords" class="w3-text-red">Checking for all Scholarship Applications...</h2>                
                 </table>
             </div>
 
             <div class="form__group field" style="margin-left: 15px; margin-top: -5px;">
                 <input type="input" class="form__field" style="color: black" placeholder="type_filter" 
-                    name="inpsearch" id='inpsearch' required onkeyup="tblSearch(this, document.getElementById('tblscholarapps'))"/>
-                <label for="inpsearch" class="form__label">Type School to Filter Search</label>
+                    name="inpsearch" id='inpsearch' required onkeyup="tblSearch(this, document.getElementById('tblscholarapps'), 1)"/>
+                <label for="inpsearch" class="form__label">Type Barangay to Filter Search</label>
             </div>
+
+
+            <div id="htmMdlViewUpdate" class="w3-modal">
+                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="margin-top: -80px;">
+                    <header class="w3-container w3-green"> 
+                        <span onclick="javascript: document.getElementById('htmMdlViewUpdate').style.display='none'; start_scholarAppTime();" 
+                            class="w3-button w3-green w3-xlarge w3-display-topright">&times;</span>
+                        <h2>View Scholarship Application</h2>
+                    </header>
+               
+                    <div class="w3-bar w3-border-bottom">
+                        <button class="tablink w3-bar-item w3-button" onclick="viewTabs(event, 'htmMdlTablInfo')">Information</button>
+                        <button class="tablink w3-bar-item w3-button" onclick="viewTabs(event, 'htmMdlTabCOR')">Registration</button>
+                        <button class="tablink w3-bar-item w3-button" onclick="viewTabs(event, 'htmMdlTabCOG')">Grades</button>
+                        <button class="tablink w3-bar-item w3-button" onclick="viewTabs(event, 'htmMdlTabIDG')">Indigency</button>
+                        <button class="tablink w3-bar-item w3-button" onclick="viewTabs(event, 'htmMdlTabVID')">Valid ID</button>
+                    </div>
+               
+                    <div id="htmMdlTablInfo" class="w3-container req">
+                        <div style="width: 100%; display: flex; margin-bottom: 20px;">
+                            <div style="width: 50%;">
+                                <div class="form__group field" style="width: 90%; margin-bottom: 20px;">
+                                    <label id="htmLblInfoLastUpdate1" class="form__label" style="text-decoration: underline;">Below Last Updated: ?</label>
+                                </div>
+                                <div class="form__group field" style="width: 90%">
+                                    <input type="input" class="form__field" style="color: gray" placeholder="fullname" 
+                                        name="fullname" id='fullname' required disabled />
+                                    <label for="fullname" class="form__label">Full Name</label>
+                                </div>
+                                <div class="form__group field" style="width: 90%">
+                                    <input type="input" class="form__field" style="color: gray" placeholder="age" 
+                                        name="age" id='age' required disabled />
+                                    <label for="age" class="form__label">Age</label>
+                                </div>
+                                <div class="form__group field" style="width: 90%">
+                                    <input type="input" class="form__field" style="color: black" placeholder="address" 
+                                        name="address" id='address' required disabled />
+                                    <label for="address" class="form__label">Address</label>
+                                </div>
+                                <div class="form__group field" style="width: 90%">
+                                    <input type="input" class="form__field" style="color: gray" placeholder="gender" 
+                                        name="gender" id='gender' required disabled />
+                                    <label for="gender" class="form__label">Gender</label>
+                                </div>
+                                <div class="form__group field" style="width: 90%">
+                                    <input type="input" class="form__field" style="color: gray" placeholder="contact_number" 
+                                        name="contact" id='contact' required disabled />
+                                    <label for="contact" class="form__label">Contact Number</label>
+                                </div>
+                            </div>
+                            <div style="width: 50%;">
+                                <div class="form__group field" style="width: 90%; margin-bottom: 20px;">
+                                    <label id="htmLblInfoLastUpdate2" class="form__label" style="text-decoration: underline;">Below Last Updated: ?</label>
+                                </div>
+                                <div class="form__group field" style="width: 90%;">
+                                    <input type="input" class="form__field" style="color: black" placeholder="scholarship_title" 
+                                        name="scholartitle" id='scholartitle' required />
+                                    <label for="scholartitle" class="form__label">Scholarship Application Label</label>
+                                </div>
+                                <!-- previously educational level -->
+                                <div class="form__group field" style="width: 90%;">
+                                    <input type="input" class="form__field" style="color: black" placeholder="course" 
+                                        name="course" id='course' required />
+                                    <label for="course" class="form__label">Course</label>
+                                </div>
+                                <div class="form__group field" style="width: 90%;">
+                                    <input type="input" class="form__field" style="color: black" placeholder="grade_year" 
+                                        name="gradeyear" id='gradeyear' required />
+                                    <label for="gradeyear" class="form__label">Current Grade/Year?</label>
+                                </div>
+                                <div class="form__group field" style="width: 90%;">
+                                    <input type="input" class="form__field" style="color: black" placeholder="school_university" 
+                                        name="school" id='school' required />
+                                    <label for="school" class="form__label">School/University in or to be taking</label>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+               
+                    <div id="htmMdlTabCOR" class="w3-container req">
+                        <div class="form__group field" style="width: 90%; margin-bottom: 20px;">
+                            <label id="htmLblInfoLastUpdate3" class="form__label" style="text-decoration: underline;">Below Last Updated: ?</label>
+                        </div>
+                        <div style="display: flex; justify-content: center; width: 100%;">
+                            <div id="pdfviewer_areaCOR" style="display: none; width: 90%; height: 280px;"></div>
+                            <img id="imgviewer_areaCOR" style="display: none; width: 40%; height: 280px;">
+                        </div>
+                        <p style="padding: 0; margin-bottom: -10px;">Certification of Registration Status: <span id="htmMdlTabCorStatus" style="text-decoration: underline;">?</span></p><br>
+                        <p id="htmMdlUpdateInpCOR"  style="display: none;       margin: 0; padding: 0; cursor: pointer; text-decoration: underline;"><span class="w3-text-red">Click here to update</span></p><br>
+                        <input style="display: none;" id="inpCOR" required name="corDoc" type="file" accept="image/jpeg, image/png, application/pdf" />
+                    </div>
+               
+                    <div id="htmMdlTabCOG" class="w3-container req">
+                        <div class="form__group field" style="width: 90%; margin-bottom: 20px;">
+                            <label id="htmLblInfoLastUpdate4" class="form__label" style="text-decoration: underline;">Below Last Updated: ?</label>
+                        </div>
+                        <div style="display: flex; justify-content: center; width: 100%;">
+                            <div id="pdfviewer_areaCOG" style="display: none; width: 90%; height: 280px;"></div>
+                            <img id="imgviewer_areaCOG" style="display: none; width: 40%; height: 280px;">
+                        </div>
+                        <p style="padding: 0; margin-bottom: -10px;">Copy of Grades Status: <span id="htmMdlTabCogStatus" style="text-decoration: underline;">?</span></p><br>
+                        <p id="htmMdlUpdateInpCOG" style="display: none;       margin: 0; padding: 0; cursor: pointer; text-decoration: underline;"><span class="w3-text-red">Click here to update</span></p><br>
+                        <input style="display: none;" id="inpCOG" required name="cogDoc" type="file" accept="image/jpeg, image/png, application/pdf" />
+                    </div>
+    
+                    <div id="htmMdlTabIDG" class="w3-container req">
+                        <div class="form__group field" style="width: 90%; margin-bottom: 20px;">
+                            <label id="htmLblInfoLastUpdate5" class="form__label" style="text-decoration: underline;">Below Last Updated: ?</label>
+                        </div>
+                        <div style="display: flex; justify-content: center; width: 100%;">
+                            <img id="imgviewer_areaIDG" style="width: 40%; height: 280px;">
+                        </div>
+                        <p style="padding: 0; margin-bottom: -10px;">Certificate of Indigency: <span id="htmMdlTabIDGStatus" style="text-decoration: underline;">?</span></p><br>
+                        <p id="htmMdlUpdateInpIDG" style="display: none;       margin: 0; padding: 0; cursor: pointer; text-decoration: underline;"><span class="w3-text-red">Click here to update</span></p><br>
+                        <input style="display: none;" id="inpIDG" required name="idgDoc" type="file" accept="image/jpeg, image/png" />
+    
+                    </div>
+    
+                    <div id="htmMdlTabVID" class="w3-container req">
+                        <div class="form__group field" style="width: 90%; margin-bottom: 20px;">
+                            <label id="htmLblInfoLastUpdate6" class="form__label" style="text-decoration: underline;">Below Last Updated: ?</label>
+                        </div>
+                        <div style="display: flex; justify-content: center; width: 100%;">
+                            <img id="imgviewer_areaIDC" style="width: 40%; height: 280px;">
+                        </div>
+                        <p style="padding: 0; margin-bottom: -10px;">Valid Photo ID: <span id="htmMdlTabIDCStatus" style="text-decoration: underline;">?</span></p><br>
+                        <p id="htmMdlUpdateInpIDC" style="display: none;       margin: 0; padding: 0; cursor: pointer; text-decoration: underline;"><span class="w3-text-red">Click here to update</span></p><br>
+                        <input style="display: none;" id="inpIDC" required name="idcDoc" type="file" accept="image/jpeg, image/png" />
+    
+    
+                    </div>
+               
+                    <div class="w3-container w3-light-grey w3-padding">
+                        <button id="htmMdlBtnUpdateApp" class="w3-button w3-right w3-white w3-border" disabled>Approve</button>
+                    </div>
+                </div>
+            </div>
+    
+    
+
 
         <!-- End page content -->
         </div>
 
         <input type="hidden" id="hidfld_uid" name="hidfld_uid" value="?">
         <input type="hidden" id="hidfld_fname" name="hidfld_fname" value="?">
+            <input type="hidden" id="hidfld_sid" name="hidfld_sid" value="?">
 
+        <script src="js/masterlist/elements.js"></script>
         <script src="js/masterlist/core.js"></script>
         <script src="js/masterlist/controls.js"></script>
         <script>
@@ -93,6 +249,7 @@
             
             window.onload = init();
             window.onload = start_scholarAppTime();
+
         </script>
 
     </body>
