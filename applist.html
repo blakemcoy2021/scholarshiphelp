@@ -26,6 +26,22 @@
         }
         .w3-half img:hover{ opacity:1 }
 
+        #standard-select {
+            appearance: none;
+            background-color: transparent;
+            border: none;
+            padding: 0 1em 0 0;
+            margin: 0;
+            width: 100%;
+            font-family: inherit;
+            font-size: inherit;
+            cursor: inherit;
+            line-height: inherit;
+            outline: none;
+        }
+        select::-ms-expand {
+            display: none;
+        }
     </style>
 
     <body>
@@ -77,7 +93,7 @@
 
         <!-- scholarship application list -->
         <div class="w3-panel" style="overflow: auto; height: 330px; width: 97%;">
-            <table class="w3-table w3-striped w3-red" style="width: 1500px; font-weight: bolder; table-layout: fixed;">
+            <table class="w3-table w3-striped w3-red" style="width: 1400px; font-weight: bolder; table-layout: fixed;">
                 <tr>
                     <td class="tdbasic">APPLICATION LABEL</td>
                     <td class="tdoverflow">SCHOOL LISTED</td>
@@ -87,7 +103,7 @@
                     <td class="tdoverflow">DOCUMENTS</td>
                 </tr>
             </table>
-            <table id="tblscholarapps" class="w3-table w3-striped w3-light-grey" style="width: 1500px; table-layout: fixed;">
+            <table id="tblscholarapps" class="w3-table w3-striped w3-light-grey" style="width: 1400px; table-layout: fixed;">
                 <h2 id="lblLoadingRecords" class="w3-text-red">Checking for Scholarship Applications...</h2>                
             </table>
         </div>
@@ -104,7 +120,7 @@
                 <header class="w3-container w3-green"> 
                     <span onclick="javascript: document.getElementById('htmMdlViewUpdate').style.display='none'; start_scholarAppTime();" 
                         class="w3-button w3-green w3-xlarge w3-display-topright">&times;</span>
-                    <h2>View Scholarship Application</h2>
+                    <h2>View Scholarship App</h2>
                 </header>
            
                 <div class="w3-bar w3-border-bottom">
@@ -167,17 +183,37 @@
                                     name="gradeyear" id='gradeyear' required />
                                 <label for="gradeyear" class="form__label">Current Grade/Year?</label>
                             </div>
-                            <div class="form__group field" style="width: 90%;">
+                            <div class="form__group field" style="width: 90%; margin-bottom: 10px;">
                                 <input type="input" class="form__field" style="color: black" placeholder="school_university" 
                                     name="school" id='school' required />
                                 <label for="school" class="form__label">School/University in or to be taking</label>
+                            </div>
+                            <label for="standard-select" style="color: gray;">Designated Barangay:</label>
+                            <div class="select" style="cursor: pointer; border-bottom: 2px solid gray; width: 90%">
+                                <select id="standard-select" style="font-size: 22px;">
+                                    <option value="">Select Barangay here...</option>
+                                    <option value="San Agustin (Sumpung)">San Agustin (Sumpung)</option>
+                                    <option value="San Bartolome (Patayum)">San Bartolome (Patayum)</option>
+                                    <option value="San Isidro (Quenabuan)">San Isidro (Quenabuan)</option>
+                                    <option value="San Joaquin (Poblacion, Canukil)">San Joaquin (Poblacion, Canukil)</option>
+                                    <option value="San Jose (Catmun)">San Jose (Catmun)</option>
+                                    <option value="San Juan (Tinajeru)">San Juan (Tinajeru)</option>
+                                    <option value="San Nicolas (Sepung Ilug)">San Nicolas (Sepung Ilug)</option>
+                                    <option value="San Pablo (Darabulbul)">San Pablo (Darabulbul)</option>
+                                    <option value="San Pedro (Calumpang)">San Pedro (Calumpang)</option>
+                                    <option value="San Roque (Tuclung)">San Roque (Tuclung)</option>
+                                    <option value="Santa Lucia (Calinan)">Santa Lucia (Calinan)</option>
+                                    <option value="Santa Maria (Balen Bayu)">Santa Maria (Balen Bayu)</option>
+                                    <option value="Santiago (Barrio Libutad)">Santiago (Barrio Libutad)</option>
+                                    <option value="Santo Rosario (Pagbatuan)">Santo Rosario (Pagbatuan)</option>
+                                </select>
                             </div>
                         </div>
                     </div>
 
                 </div>
            
-                <div id="htmMdlTabCOR" class="w3-container req">
+                <div id="htmMdlTabCOR" class="w3-container req" style="padding-bottom: 0; margin-bottom: -10px;">
                     <div class="form__group field" style="width: 90%; margin-bottom: 20px;">
                         <label id="htmLblInfoLastUpdate3" class="form__label" style="text-decoration: underline;">Below Last Updated: ?</label>
                     </div>
@@ -185,12 +221,12 @@
                         <div id="pdfviewer_areaCOR" style="display: none; width: 90%; height: 280px;"></div>
                         <img id="imgviewer_areaCOR" style="display: none; width: 40%; height: 280px;">
                     </div>
-                    <p style="padding: 0; margin-bottom: -10px;">Certification of Registration Status: <span id="htmMdlTabCorStatus" style="text-decoration: underline;">?</span></p><br>
+                    <p style="padding: 0; margin-bottom: -20px;">Certification of Registration Status: <span id="htmMdlTabCorStatus" style="text-decoration: underline;">?</span></p><br>
                     <p id="htmMdlUpdateInpCOR"  style="margin: 0; padding: 0; cursor: pointer; text-decoration: underline;"><span class="w3-text-red">Click here to update</span></p><br>
                     <input style="display: none;" id="inpCOR" required name="corDoc" type="file" accept="image/jpeg, image/png, application/pdf" />
                 </div>
            
-                <div id="htmMdlTabCOG" class="w3-container req">
+                <div id="htmMdlTabCOG" class="w3-container req" style="padding-bottom: 0; margin-bottom: -10px;">
                     <div class="form__group field" style="width: 90%; margin-bottom: 20px;">
                         <label id="htmLblInfoLastUpdate4" class="form__label" style="text-decoration: underline;">Below Last Updated: ?</label>
                     </div>
@@ -198,32 +234,32 @@
                         <div id="pdfviewer_areaCOG" style="display: none; width: 90%; height: 280px;"></div>
                         <img id="imgviewer_areaCOG" style="display: none; width: 40%; height: 280px;">
                     </div>
-                    <p style="padding: 0; margin-bottom: -10px;">Copy of Grades Status: <span id="htmMdlTabCogStatus" style="text-decoration: underline;">?</span></p><br>
+                    <p style="padding: 0; margin-bottom: -20px;">Copy of Grades Status: <span id="htmMdlTabCogStatus" style="text-decoration: underline;">?</span></p><br>
                     <p id="htmMdlUpdateInpCOG" style="margin: 0; padding: 0; cursor: pointer; text-decoration: underline;"><span class="w3-text-red">Click here to update</span></p><br>
                     <input style="display: none;" id="inpCOG" required name="cogDoc" type="file" accept="image/jpeg, image/png, application/pdf" />
                 </div>
 
-                <div id="htmMdlTabIDG" class="w3-container req">
+                <div id="htmMdlTabIDG" class="w3-container req" style="padding-bottom: 0; margin-bottom: -10px;">
                     <div class="form__group field" style="width: 90%; margin-bottom: 20px;">
                         <label id="htmLblInfoLastUpdate5" class="form__label" style="text-decoration: underline;">Below Last Updated: ?</label>
                     </div>
                     <div style="display: flex; justify-content: center; width: 100%;">
                         <img id="imgviewer_areaIDG" style="width: 40%; height: 280px;">
                     </div>
-                    <p style="padding: 0; margin-bottom: -10px;">Certificate of Indigency: <span id="htmMdlTabIDGStatus" style="text-decoration: underline;">?</span></p><br>
+                    <p style="padding: 0; margin-bottom: -20px;">Certificate of Indigency: <span id="htmMdlTabIDGStatus" style="text-decoration: underline;">?</span></p><br>
                     <p id="htmMdlUpdateInpIDG" style="margin: 0; padding: 0; cursor: pointer; text-decoration: underline;"><span class="w3-text-red">Click here to update</span></p><br>
                     <input style="display: none;" id="inpIDG" required name="idgDoc" type="file" accept="image/jpeg, image/png" />
 
                 </div>
 
-                <div id="htmMdlTabVID" class="w3-container req">
+                <div id="htmMdlTabVID" class="w3-container req" style="padding-bottom: 0; margin-bottom: -10px;">
                     <div class="form__group field" style="width: 90%; margin-bottom: 20px;">
                         <label id="htmLblInfoLastUpdate6" class="form__label" style="text-decoration: underline;">Below Last Updated: ?</label>
                     </div>
                     <div style="display: flex; justify-content: center; width: 100%;">
                         <img id="imgviewer_areaIDC" style="width: 40%; height: 280px;">
                     </div>
-                    <p style="padding: 0; margin-bottom: -10px;">Valid Photo ID: <span id="htmMdlTabIDCStatus" style="text-decoration: underline;">?</span></p><br>
+                    <p style="padding: 0; margin-bottom: -20px;">Valid Photo ID: <span id="htmMdlTabIDCStatus" style="text-decoration: underline;">?</span></p><br>
                     <p id="htmMdlUpdateInpIDC" style="margin: 0; padding: 0; cursor: pointer; text-decoration: underline;"><span class="w3-text-red">Click here to update</span></p><br>
                     <input style="display: none;" id="inpIDC" required name="idcDoc" type="file" accept="image/jpeg, image/png" />
 
@@ -231,7 +267,15 @@
                 </div>
            
                 <div class="w3-container w3-light-grey w3-padding">
-                    <button id="htmMdlBtnUpdateApp" class="w3-button w3-right w3-white w3-border">Update Info</button>
+                    <div style="width: 100%; display: flex;">
+                        <div style="width: 50%; justify-content: left;">
+                            <h4>Registration #: <span id="htmMdlLblRegNum">?</span></h4>
+                        </div>
+                        <div style="width: 50%; justify-content: right;">
+                            <button id="htmMdlBtnUpdateApp" class="w3-button w3-right w3-white w3-border">Update Info</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

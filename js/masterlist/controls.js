@@ -44,6 +44,8 @@ function viewScholarApp(scholarId) {
           }     
           console.log(records);
 
+          lbl_mdl_regnumber.innerHTML = records[0].scholar_serial;
+
               const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
               let dt = new Date(records[0].user_lastupdate);
               let date_val = months[dt.getMonth()] + " " + dt.getDate() + ", " + dt.getFullYear() + " - " + dt.getHours() + ":" + dt.getMinutes();
@@ -68,6 +70,7 @@ function viewScholarApp(scholarId) {
           lbl_mdlinfo_course.value = records[0].scholar_course;
           lbl_mdlinfo_school.value = records[0].scholar_school;
           lbl_mdlinfo_grdyr.value = records[0].scholar_gradeyr;
+            lbl_mdlinfo_brgy.value = records[0].scholar_barangay;
 
               let rmcache = new Date();
 
@@ -192,10 +195,12 @@ function viewScholarApp(scholarId) {
 
 
   
-function tblSearch(elm, tbl, col) {
+function tblSearch(elm, elm2, tbl, col) {
     var input, filter, table, tr, td, i, txtValue;
     input = elm;
     filter = input.value.toUpperCase();
+
+    elm2.value = "";
 
     if (filter !== "") {
 

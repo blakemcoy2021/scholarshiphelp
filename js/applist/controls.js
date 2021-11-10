@@ -65,6 +65,8 @@ function viewScholarApp(scholarId) {
           }     
           console.log(records);
 
+          lbl_mdl_regnumber.innerHTML = records[0].scholar_serial;
+
               const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
               let dt = new Date(records[0].user_lastupdate);
               let date_val = months[dt.getMonth()] + " " + dt.getDate() + ", " + dt.getFullYear() + " - " + dt.getHours() + ":" + dt.getMinutes();
@@ -89,6 +91,7 @@ function viewScholarApp(scholarId) {
           lbl_mdlinfo_course.value = records[0].scholar_course;
           lbl_mdlinfo_school.value = records[0].scholar_school;
           lbl_mdlinfo_grdyr.value = records[0].scholar_gradeyr;
+            lbl_mdlinfo_brgy.value = records[0].scholar_barangay;
 
               let rmcache = new Date();
 
@@ -218,6 +221,7 @@ btn_mdl_updateInfo.addEventListener("click", (evt) => {
   if (lbl_mdlinfo_course.value == "") { failfieldctr++; }
   if (lbl_mdlinfo_school.value == "") { failfieldctr++; }
   if (lbl_mdlinfo_grdyr.value == "") { failfieldctr++; }
+    if (lbl_mdlinfo_brgy.value == "") { failfieldctr++; }
   if (document.getElementById("hidfld_uid").value == "?") { failfieldctr++; }
   if (hid_scholarId.value == "?") { failfieldctr++; }
 
@@ -231,6 +235,7 @@ btn_mdl_updateInfo.addEventListener("click", (evt) => {
   frmdata.append("crs", lbl_mdlinfo_course.value);
   frmdata.append("sch", lbl_mdlinfo_school.value);
   frmdata.append("grd", lbl_mdlinfo_grdyr.value);
+    frmdata.append("bgy", lbl_mdlinfo_brgy.value);
   frmdata.append("uid", document.getElementById("hidfld_uid").value);
   frmdata.append("sid", hid_scholarId.value);
 

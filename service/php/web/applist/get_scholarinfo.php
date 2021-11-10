@@ -19,9 +19,9 @@
         die();
     }
 
-    $qfields = "tbl_user.user_fullname, tbl_user.user_photo, tbl_user.user_gender, tbl_user.user_birthdate, tbl_user.user_lastupdate, ";
+    $qfields = "tbl_user.user_fullname, tbl_user.user_photo, tbl_user.user_gender, tbl_user.user_birthdate, tbl_user.user_lastupdate, tbl_scholar.scholar_barangay, ";
     $qfields .= "tbl_contact.contact_phnum, tbl_contact.contact_address, tbl_scholar.scholar_title, tbl_scholar.scholar_course, tbl_scholar.scholar_school, ";
-    $qfields .= "tbl_scholar.scholar_gradeyr, tbl_scholar.scholar_lastupdate, tbl_cor.cor_path, tbl_cor.cor_verified, tbl_cor.cor_filetype, ";
+    $qfields .= "tbl_scholar.scholar_gradeyr, tbl_scholar.scholar_lastupdate, tbl_cor.cor_path, tbl_cor.cor_verified, tbl_cor.cor_filetype, tbl_scholar.scholar_serial, ";
     $qfields .= "tbl_cor.cor_lastupdate, tbl_cog.cog_path, tbl_cog.cog_verified, tbl_cog.cog_filetype, tbl_cog.cog_lastupdate, tbl_idg.idg_path, ";
     $qfields .= "tbl_idg.idg_verified, tbl_idg.idg_filetype, tbl_idg.idg_lastupdate, tbl_idc.idc_path, tbl_idc.idc_verified, tbl_idc.idc_filetype, tbl_idc.idc_lastupdate ";
     $query = "select $qfields from tbl_scholar ";

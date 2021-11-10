@@ -3,6 +3,8 @@ var hid_scholarId = document.getElementById("hidfld_sid");
 
 /** view edit scholarship application modal */
 var mdl_viewUpdate = document.getElementById('htmMdlViewUpdate');
+    // registration number
+    var lbl_mdl_regnumber = document.getElementById("htmMdlLblRegNum");
     // information
     var lbl_mdlinfo_updatedInfo1 = document.getElementById("htmLblInfoLastUpdate1");
     var lbl_mdlinfo_fullname = document.getElementById("fullname");
@@ -15,6 +17,7 @@ var mdl_viewUpdate = document.getElementById('htmMdlViewUpdate');
     var lbl_mdlinfo_course = document.getElementById("course");
     var lbl_mdlinfo_school = document.getElementById("school");
     var lbl_mdlinfo_grdyr = document.getElementById("gradeyear");
+        var lbl_mdlinfo_brgy = document.getElementById("standard-select");
 
     //registration
     var lbl_mdlregi_updatedInfo = document.getElementById("htmLblInfoLastUpdate3");
