@@ -28,6 +28,17 @@
 
         .pdfobject-container { height: 30rem; border: 1rem solid rgba(0,0,0,0.1); }
 
+        .custombtn {
+            background-color: #f44336; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+
     </style>
 
     <body>
@@ -108,7 +119,12 @@
                 <p id="mdl_filename" style="text-align: center;">PDF File Title Here</p>
             </div>
             <div id="pdfviewer_area" style="display: none;"></div>
-            <img id="imgviewer_area" style="display: none; width: 500px; height: 450px;">
+            <img id="imgviewer_area" style="display: none; width: 500px; height: 450px; margin: auto;">
+            <div id="imgviewer_controls" style="display:none; width: 100%; margin-top: 20px;">
+                <a id="imgviewer_download" class="custombtn" style="margin: auto; width: 40%; cursor: pointer" download>Download</a>
+                <a id="imgviewer_print" class="custombtn" style="margin: auto; width: 40%;" href="#">Print</a>
+            </div>
+
         </div>
     </div>
 

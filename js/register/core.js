@@ -7,7 +7,9 @@ document.getElementById("frmRegister").onsubmit = function(evt) {
         return false;
     }
 
-    let fnme = document.getElementById("fullname");
+    let fnme = document.getElementById("firstname"); //fllname
+        let mnme = document.getElementById("middlename");
+        let lnme = document.getElementById("lastname");
     let pnum = document.getElementById("phone");
     let addr = document.getElementById("address");
     let gndr1 = document.getElementById("gender1");
@@ -37,6 +39,8 @@ document.getElementById("frmRegister").onsubmit = function(evt) {
 
     let failfieldctr = 0;
     if (fnme.value == "") { failfieldctr++; }
+        if (mnme.value == "") { failfieldctr++; }
+        if (lnme.value == "") { failfieldctr++; }
     if (pnum.value == "") { failfieldctr++; }
     if (addr.value == "") { failfieldctr++; }
     if (bday.value == "") { failfieldctr++; }
@@ -59,6 +63,8 @@ document.getElementById("frmRegister").onsubmit = function(evt) {
 
     let frmdata = new FormData();
     frmdata.append("fnme", fnme.value);
+        frmdata.append("mnme", mnme.value);
+        frmdata.append("lnme", lnme.value);
     frmdata.append("pnum", pnum.value);
     frmdata.append("addr", addr.value);
     frmdata.append("bday", bday.value);

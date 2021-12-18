@@ -115,7 +115,7 @@ function viewList(barangay, elm) {
                     
 
                     tbl_rowdata += 	"<tr>" +
-                                        "<td class='tdoverflow'>" + records[i].user_fullname + "</td>" +
+                                        "<td class='tdoverflow'>" + records[i].user_firstname + " " + records[i].user_lastname + "</td>" +
                                         "<td class='tdoverflow'>" + records[i].scholar_serial + "</td>" +
                                         "<td class='tdbasic'>" + records[i].scholar_status + "</td>" +
                                         "<td class='tdbasic'>" + date_val+ "</td>" +

@@ -5,6 +5,8 @@
     $fldrname = "zscholarhelp";
 
     $fname = "none";
+        $mname = "none";
+        $lname = "none";
     $bdate = "none";
     $addr = "none";
     $phnum = "none";
@@ -17,6 +19,8 @@
     $data = [];
 
     if (isset($_POST["fname"]))       {   $fname = $_POST["fname"];        }
+        if (isset($_POST["mname"]))       {   $mname = $_POST["mname"];        }
+        if (isset($_POST["lname"]))       {   $lname = $_POST["lname"];        }
     if (isset($_POST["bdate"]))       {   $bdate = $_POST["bdate"];        }
     if (isset($_POST["addr"]))        {   $addr = $_POST["addr"];          }
     if (isset($_POST["phnum"]))       {   $phnum = $_POST["phnum"];        }
@@ -27,6 +31,8 @@
 
     $failfieldctr = 0;
     if ($fname == "none") { $failfieldctr += 1; }
+        if ($mname == "none") { $failfieldctr += 1; }
+        if ($lname == "none") { $failfieldctr += 1; }
     if ($bdate == "none") { $failfieldctr += 1; }
     if ($addr == "none") { $failfieldctr += 1; }
     if ($phnum == "none") { $failfieldctr += 1; }
@@ -175,7 +181,7 @@
 
     $dateupd = date("Y-m-d G:i:s");
 
-    $qval = "user_fullname='$fname', user_gender='$gender', user_birthdate='$bdate', user_lastupdate='$dateupd'";
+    $qval = "user_firstname='$fname', user_middlename='$mname', user_lastname='$lname', user_gender='$gender', user_birthdate='$bdate', user_lastupdate='$dateupd'";
     if ($ph != "none") {
         $qval .= ", user_photo='$dbpath_ph' ";
     }

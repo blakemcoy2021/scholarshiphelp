@@ -45,8 +45,10 @@ function init() {
             }     
             console.log(records);
 
-            let rmcache = new Date();
-            document.getElementById("imgPhoto").src = records[0].user_photo + "?nc=" + rmcache.getMilliseconds();
+            if (records[0].user_photo != "no_img") {
+                let rmcache = new Date();
+                document.getElementById("imgPhoto").src = records[0].user_photo + "?nc=" + rmcache.getMilliseconds();
+            }
 
         }
         else if (this.readyState == 4) {

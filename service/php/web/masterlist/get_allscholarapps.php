@@ -6,7 +6,7 @@
     $data = array();
 
     $qfield = "tbl_scholar.scholar_title, tbl_scholar.scholar_school, tbl_scholar.scholar_status, tbl_scholar.scholar_barangay, ";
-    $qfield .= "tbl_scholar.scholar_approved, tbl_scholar.scholar_dateadded, tbl_user.user_fullname, tbl_scholar.scholar_serial, ";
+    $qfield .= "tbl_scholar.scholar_approved, tbl_scholar.scholar_dateadded, tbl_user.user_firstname, tbl_user.user_middlename, tbl_user.user_lastname, tbl_scholar.scholar_serial, ";
     $qfield .= "tbl_cor.cor_path, tbl_cog.cog_path, tbl_idg.idg_path, tbl_idc.idc_path, tbl_scholar.scholar_id ";
     $query = "select $qfield from tbl_scholar ";
     $query .= "inner join tbl_cog on tbl_scholar.scholar_id=tbl_cog.cog_scholarid ";

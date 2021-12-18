@@ -28,7 +28,7 @@
     $login_id = "tbl_login.login_id";
 
     $user_role = "tbl_user.user_role";
-    $user_fname = "tbl_user.user_fullname";
+    $user_fname = "tbl_user.user_firstname, tbl_user.user_lastname";
 
     $query = "select $login_id, $user_role, $user_fname from tbl_user ";
     $query .= "inner join tbl_login on tbl_user.user_id=tbl_login.login_userid ";
@@ -57,7 +57,7 @@
 
         $role = $row["user_role"];
         $uid = $row["login_id"];
-        $fname = $row["user_fullname"];
+        $fname = $row["user_firstname"] . " " . $row["user_lastname"];
         session_start();
         $_SESSION["user_role"] = $role;
         $_SESSION["user_name"] = $u;

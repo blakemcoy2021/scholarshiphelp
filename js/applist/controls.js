@@ -72,7 +72,7 @@ function viewScholarApp(scholarId) {
               let date_val = months[dt.getMonth()] + " " + dt.getDate() + ", " + dt.getFullYear() + " - " + dt.getHours() + ":" + dt.getMinutes();
               lbl_mdlinfo_updatedInfo1.innerHTML = "Below Last Updated: " + date_val;
 
-          lbl_mdlinfo_fullname.value = records[0].user_fullname;
+          lbl_mdlinfo_fullname.value = records[0].user_firstname + " " + records[0].user_lastname;
               let bdate = new Date(records[0].user_birthdate);
               let ndate = new Date();
               let age = ndate.getFullYear() - bdate.getFullYear();

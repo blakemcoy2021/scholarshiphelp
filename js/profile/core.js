@@ -46,10 +46,14 @@ function init() {
             }     
             console.log(records);
 
-            let fnme = records[0].user_fullname;
+            let fnme = records[0].user_firstname;
+            let mnme = records[0].user_middlename;
+            let lnme = records[0].user_lastname;
             let fnmeArr = fnme.split(" ");
             
-            document.getElementById("fullname").value = fnme;
+            document.getElementById("firstname").value = fnme;
+            document.getElementById("middlename").value = mnme;
+            document.getElementById("lastname").value = lnme;
                 let bdate = new Date(records[0].user_birthdate);
                 
                 let month = bdate.getMonth() + 1;
@@ -82,8 +86,12 @@ function init() {
             document.getElementById("casualname").innerHTML = casualname;
 
             let rmcache = new Date();
-            document.getElementById("imgPhotoInput").src = records[0].user_photo + "?nc=" + rmcache.getMilliseconds();
-            document.getElementById("imgPhoto").src = records[0].user_photo + "?nc=" + rmcache.getMilliseconds();
+            
+            if (records[0].user_photo != "no_img") {
+                document.getElementById("imgPhotoInput").src = records[0].user_photo + "?nc=" + rmcache.getMilliseconds();
+                document.getElementById("imgPhoto").src = records[0].user_photo + "?nc=" + rmcache.getMilliseconds();
+            }
+
 
         }
         else if (this.readyState == 4) {

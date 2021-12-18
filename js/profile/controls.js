@@ -19,7 +19,9 @@ document.getElementById("imgPhotoInput").onerror = function() {
 document.getElementById("btnUpdateProfile").addEventListener("click", function (evt) {
     evt.preventDefault();
 
-    let fullname = document.getElementById("fullname");
+    let firstname = document.getElementById("firstname");
+        let middlename = document.getElementById("middlename");
+        let lastname = document.getElementById("lastname");
     let birthdate = document.getElementById("bday");
     let address = document.getElementById("address");
         let gmale = document.getElementById("male");
@@ -38,7 +40,9 @@ document.getElementById("btnUpdateProfile").addEventListener("click", function (
 
 
     let failfieldctr = 0;
-    if (fullname.value == "") { failfieldctr++; }
+    if (firstname.value == "") { failfieldctr++; }
+        if (middlename.value == "") { failfieldctr++; }
+        if (lastname.value == "") { failfieldctr++; }
     if (birthdate.value == "") { failfieldctr++; }
     if (address.value == "") { failfieldctr++; }
     if (contact.value == "") { failfieldctr++; }
@@ -53,7 +57,9 @@ document.getElementById("btnUpdateProfile").addEventListener("click", function (
     }
 
     var frmdata = new FormData();
-    frmdata.append("fname", fullname.value);
+    frmdata.append("fname", firstname.value);
+        frmdata.append("mname", middlename.value);
+        frmdata.append("lname", lastname.value);
     frmdata.append("bdate", birthdate.value);
     frmdata.append("addr", address.value);
     frmdata.append("phnum", contact.value);

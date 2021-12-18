@@ -218,7 +218,7 @@ function load_ScholarApps() {
                     }
 
                     tbl_rowdata += 	"<tr "+viewRecord+">" +
-                                        "<td class='tdoverflow'>" + records[i].user_fullname + "</td>" +
+                                        "<td class='tdoverflow'>" + records[i].user_firstname + " " + records[0].user_lastname + "</td>" +
                                         "<td class='tdoverflow'>" + records[i].scholar_barangay + "</td>" +
                                         "<td class='tdbasic'>" + records[i].scholar_status + "</td>" +
                                         "<td class='tdbasic'>" + approve_val + "</td>" +

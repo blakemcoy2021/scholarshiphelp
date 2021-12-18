@@ -52,15 +52,38 @@ function rowOpenFile(pdfoimg, path, filename) {
     document.getElementById("mdl_case").style.width = '80%';
     document.getElementById("pdfviewer_area").style.display = "block";
     document.getElementById("imgviewer_area").style.display = "none";
+    document.getElementById("imgviewer_controls").style.display = "none";
     PDFObject.embed(path, "#pdfviewer_area");
   } else {
     document.getElementById("mdl_case").style.width = '50%';
     document.getElementById("pdfviewer_area").style.display = "none";
     document.getElementById("imgviewer_area").style.display = "block";
+    document.getElementById("imgviewer_controls").style.display = "flex";
+
     document.getElementById("imgviewer_area").src = path;
+        document.getElementById("imgviewer_download").href = path;
+        document.getElementById("imgviewer_print").onclick = function() {
+          var Pagelink = "about:blank";
+          var pwa = window.open(Pagelink, "_new");
+          pwa.document.open();
+          pwa.document.write(ImagetoPrint(path));
+          pwa.document.close();
+        }
   }
 
 }
+
+function ImagetoPrint(source)
+{
+    return "<html><head><scri"+"pt>function step1(){\n" +
+            "setTimeout('step2()', 10);}\n" +
+            "function step2(){window.print();window.close()}\n" +
+            "</scri" + "pt></head><body onload='step1()'>\n" +
+            "<img src='" + source + "' /></body></html>";
+}
+
+
+
 span.onclick = function() {
   modal.style.display = "none";
 }

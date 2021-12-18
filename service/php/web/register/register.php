@@ -5,6 +5,8 @@
     $fldrname = "zscholarhelp";
 
     $fn = "none";
+        $mn = "none";
+        $ln = "none";
     $pn = "none";
     $ad = "none";
     $bd = "none";
@@ -18,6 +20,8 @@
     $data = [];
 
     if (isset($_POST["fnme"]))      {   $fn = $_POST["fnme"];    }
+        if (isset($_POST["mnme"]))      {   $mn = $_POST["mnme"];    }
+        if (isset($_POST["lnme"]))      {   $ln = $_POST["lnme"];    }
     if (isset($_POST["pnum"]))      {   $pn = $_POST["pnum"];    }
     if (isset($_POST["addr"]))      {   $ad = $_POST["addr"];    }
     if (isset($_POST["bday"]))      {   $bd = $_POST["bday"];    }
@@ -29,6 +33,8 @@
 
     $failfieldctr = 0;
     if ($fn == "none") { $failfieldctr += 1; }
+        if ($mn == "none") { $failfieldctr += 1; }
+        if ($ln == "none") { $failfieldctr += 1; }
     if ($pn == "none") { $failfieldctr += 1; }
     if ($ad == "none") { $failfieldctr += 1; }
     if ($bd == "none") { $failfieldctr += 1; }
@@ -134,7 +140,7 @@
     
     $dbpath_ph = $loc_photo . '/' . $fileph;
 
-
+    
     $query = "insert into tbl_contact (contact_phnum, contact_address) ";
     $query .= "values ('$pn','$ad');";
     try {
@@ -187,9 +193,9 @@
     if ($gd == "female") { $gender = "0"; }
 
     $datereg = date("Y-m-d G:i:s");
-    $qflds = "user_fullname, user_photo, user_gender, user_birthdate, ";
+    $qflds = "user_firstname, user_middlename, user_lastname, user_photo, user_gender, user_birthdate, ";
     $qflds .= "user_contactid, user_role, user_dateadded";
-    $qval = "'$fn', '$dbpath_ph', '$gender', '$bd', '$contactid', 'scholar', '$datereg'";
+    $qval = "'$fn','$mn','$ln', '$dbpath_ph', '$gender', '$bd', '$contactid', 'scholar', '$datereg'";
     $query = "insert into tbl_user ($qflds) values ($qval);";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

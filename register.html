@@ -57,12 +57,16 @@
           <div class="col-md-7">
             <h1>Register Now !</h1>
             <div class="form-group first">
-                <label for="fullname">Full Name</label>
-                <input type="text" class="form-control" placeholder="Your Full Name" id="fullname">
+                <label for="firstname">First Name</label>
+                <input type="text" class="form-control" placeholder="Your First Name" id="firstname">
             </div>
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="text" class="form-control" placeholder="Your Phone Number" id="phone">
+            <div class="form-group first">
+              <label for="middlename">Middle Name</label>
+              <input type="text" class="form-control" placeholder="Your Middle Name" id="middlename">
+            </div>
+            <div class="form-group first">
+              <label for="lastname">Last Name</label>
+              <input type="text" class="form-control" placeholder="Your Last Name" id="lastname">
             </div>
             <div class="form-group">
                 <label for="address">Address</label>
@@ -75,7 +79,7 @@
                 <input type="radio" class="form-control" value="female" name="gender" id="gender2">
             </div>
 
-            <input type="submit" onclick="javascript: window.localStorage.setItem('goto', 1);" value="Go Logging In" class="btn btn-block btn-success">  
+            <input type="submit" onclick="javascript: window.localStorage.setItem('goto', 1);" value="Go Logging In" class="btn btn-block" style="background-color: #f44336; color: white">  
 
           </div>
         </div>
@@ -101,6 +105,10 @@
                     <input type="date" class="form-control" placeholder="Your Birth Date" id="birthdate">
                 </div>
                 <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input type="text" class="form-control" placeholder="Your Phone Number" id="phone">
+              </div>
+                <div class="form-group">
                   <label for="username">Username</label>
                   <input type="text" class="form-control" placeholder="your-email@gmail.com" id="username">
                 </div>
@@ -109,7 +117,7 @@
                   <input type="password" class="form-control" placeholder="Your Password" id="password">
                 </div>
   
-                <input type="submit" value="Register" class="btn btn-block btn-success">
+                <input type="submit" value="Register" class="btn btn-block" style="background-color: #f44336; color: white">
 
             </div>
           </div>

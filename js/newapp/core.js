@@ -46,7 +46,9 @@ function init() {
             }     
             console.log(records);
 
-            document.getElementById("fullname").value = records[0].user_fullname;
+            document.getElementById("firstname").value = records[0].user_firstname;
+            document.getElementById("middlename").value = records[0].user_middlename;
+            document.getElementById("lastname").value = records[0].user_lastname;
                 let bdate = new Date(records[0].user_birthdate);
                 let ndate = new Date();
                 let age = ndate.getFullYear() - bdate.getFullYear();
@@ -58,8 +60,10 @@ function init() {
             document.getElementById("gender").value = gender;
             document.getElementById("contact").value = records[0].contact_phnum;
 
-            let rmcache = new Date();
-            document.getElementById("imgPhoto").src = records[0].user_photo + "?nc=" + rmcache.getMilliseconds();
+            if (records[0].user_photo != "no_img") {
+                let rmcache = new Date();
+                document.getElementById("imgPhoto").src = records[0].user_photo + "?nc=" + rmcache.getMilliseconds();
+            }
 
         }
         else if (this.readyState == 4) {
