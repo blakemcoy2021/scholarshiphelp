@@ -51,3 +51,6 @@ var mdl_viewUpdate = document.getElementById('htmMdlViewUpdate');
     var inp_mdl_updateIDG = document.getElementById("inpIDG");
     var btn_mdl_updateIDC = document.getElementById("htmMdlUpdateInpIDC");
     var inp_mdl_updateIDC = document.getElementById("inpIDC");
+
+    var btn_mdl_download = document.getElementById("imgviewer_download");
+    var btn_mdl_print = document.getElementById("imgviewer_print");
