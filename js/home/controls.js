@@ -30,11 +30,19 @@ function checkStatus(schid, status, el) {
             c += "Waiting for review.</i>";
             setProgress(1);
             break;
-        case "queue":
-            c += "Your application will be next.</i>";
+        case "for review":
+            c += "Your application will be soon reviewed.</i>";
             setProgress(2);
             break;
-        case "documents":
+        case "reviewing":
+            c += "Your application is under-review.</i>";
+            setProgress(3);
+            break;
+        case "approved info":
+            c += "Info in your application - approved.</i>";
+            setProgress(4);
+            break;
+        case "review docs":
             c += "Your documents are under-review.</i>";
             setProgress(5);
             break;

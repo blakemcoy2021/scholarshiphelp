@@ -99,8 +99,9 @@ function load_ScholarAppsCtr() {
 function load_ScholarApps() {
     var tbl = document.getElementById("tblscholarapps");
 
+        var x = window.sessionStorage.getItem("tblsort");
     var xmlhttp = new XMLHttpRequest();
-    route = "service/php/web/masterlist/get_allscholarapps.php";
+    route = "service/php/web/masterlist/get_allscholarapps.php?zrt=" + x;
     xmlhttp.open("GET", route, true);
     xmlhttp.send();
     xmlhttp.onreadystatechange = function() {
@@ -218,7 +219,7 @@ function load_ScholarApps() {
                     }
 
                     tbl_rowdata += 	"<tr "+viewRecord+">" +
-                                        "<td class='tdoverflow'>" + records[i].user_firstname + " " + records[0].user_lastname + "</td>" +
+                                        "<td class='tdoverflow'>" + records[i].user_firstname + " " + records[i].user_lastname + "</td>" +
                                         "<td class='tdoverflow'>" + records[i].scholar_barangay + "</td>" +
                                         "<td class='tdbasic'>" + records[i].scholar_status + "</td>" +
                                         "<td class='tdbasic'>" + approve_val + "</td>" +

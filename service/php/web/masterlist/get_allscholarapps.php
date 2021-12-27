@@ -5,6 +5,18 @@
     $errors = [];
     $data = array();
 
+    $zrt = "none";
+    if (isset($_GET["zrt"])) { $zrt = $_GET["zrt"]; }
+    $failfieldctr = 0;
+    if ($zrt == "none") { $failfieldctr += 1; }
+    if ($failfieldctr > 0) {
+        $data['success'] = false;
+        $data['message'] = "Invalid access!";
+        $data['logs'] = "Invalid GET Attempt.";
+        echo json_encode($data);
+        die();
+    }
+
     $qfield = "tbl_scholar.scholar_title, tbl_scholar.scholar_school, tbl_scholar.scholar_status, tbl_scholar.scholar_barangay, ";
     $qfield .= "tbl_scholar.scholar_approved, tbl_scholar.scholar_dateadded, tbl_user.user_firstname, tbl_user.user_middlename, tbl_user.user_lastname, tbl_scholar.scholar_serial, ";
     $qfield .= "tbl_cor.cor_path, tbl_cog.cog_path, tbl_idg.idg_path, tbl_idc.idc_path, tbl_scholar.scholar_id, ";
@@ -15,7 +27,14 @@
     $query .= "inner join tbl_idg on tbl_scholar.scholar_id=tbl_idg.idg_scholarid ";
     $query .= "inner join tbl_idc on tbl_scholar.scholar_id=tbl_idc.idc_scholarid ";
     $query .= "inner join tbl_user on tbl_scholar.scholar_userid=tbl_user.user_id ";
-    $query .= "order by tbl_scholar.scholar_id desc";
+    if ($zrt == "def") {
+        $query .= "order by tbl_scholar.scholar_id desc";
+    } else if ($zrt == "az") {
+        $query .= "order by tbl_user.user_firstname asc";
+    } else if ($zrt == "za") {
+        $query .= "order by tbl_user.user_firstname desc";
+    }
+
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

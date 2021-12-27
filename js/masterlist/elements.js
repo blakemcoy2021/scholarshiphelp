@@ -54,3 +54,5 @@ var mdl_viewUpdate = document.getElementById('htmMdlViewUpdate');
 
     var btn_mdl_download = document.getElementById("imgviewer_download");
     var btn_mdl_print = document.getElementById("imgviewer_print");
+
+    var btn_sort = document.getElementById("htmMdlBtnSort");

@@ -244,39 +244,62 @@ function load_CurrApps() {
                 tbl_rowdata = 	"<tr><td>No Records.</td></tr>";
             } else {
                 for (let i = 0; i < records.length; i++) {	// deal with the parseInt(respo) > 1 NOT 0
+                    let row = records[0];
 
-                    let xyz = window.localStorage.getItem("singleRun");
+                    let xyz = 0; //window.localStorage.getItem("singleRun");
                     if (xyz == 0) {
-                        window.localStorage.setItem("singleRun", 1);
-                        document.getElementById("lblSelectedApp").innerHTML = "Application Label: " + records[i].scholar_title;
-                        let s = records[i].scholar_status;
+                        //window.localStorage.setItem("singleRun", 1);
+                        document.getElementById("lblSelectedApp").innerHTML = "Application Label: " + row.scholar_title;
+                        let s = row.scholar_status;
                         s = s.toLowerCase();
                         
                         h = document.getElementById("currAppState");
                         c = "<i class='fa fa-area-chart' aria-hidden='true'> ";
 
+                        let overall = false;
                         switch (s) {
                             case "new":
                                 c += "Waiting for review.</i>";
                                 setProgress(1);
                                 break;
-                            case "queue":
+                            case "for review":
                                 c += "Your application will be soon reviewed.</i>";
                                 setProgress(2);
                                 break;
-                            case "documents":
-                                c += "Your uploaded documents are under-review.</i>";
+                            case "reviewing":
+                                c += "Your application is under-review.</i>";
+                                setProgress(3);
+                                break;
+                            case "approved info":
+                                c += "Info in your application - approved.</i>";
+                                setProgress(4);
+                                break;
+                            case "review docs":
+                                c += "Your documents are under-review.</i>";
                                 setProgress(5);
                                 break;
+                            case "overall":
+                                c += "You are almost there.</i>";
+                                setProgress(10);
+                                overall = true;
+                                break;
+                                
                         }
  
+                        if (overall == false) {
+                            onwardProgress(row.cor_verified, "sixthStep");
+                            onwardProgress(row.cog_verified, "seventhStep");
+                            onwardProgress(row.idg_verified, "eightStep");
+                            onwardProgress(row.idc_verified, "ninthStep");
+                        }
+
                         h.innerHTML = c;
                     }
 
                     if (!firstrow) { highlight = "class='w3-hover-gray'"; } highlight = "";
 
-                    tbl_rowdata += 	"<tr " + highlight + " style='cursor: pointer;' onclick=\"javascript: checkStatus('" + records[i].scholar_id + "', '" + records[i].scholar_status + "', this);\">" +
-                                        "<td class='tdbasic'>" + records[i].scholar_title + "</td>" +
+                    tbl_rowdata += 	"<tr " + highlight + " style='cursor: pointer;' onclick=\"javascript: checkStatus('" + row.scholar_id + "', '" + row.scholar_status + "', this);\">" +
+                                        "<td class='tdbasic'>" + row.scholar_title + "</td>" +
                                     "</tr>";
     
                     firstrow = false;
@@ -329,11 +352,20 @@ function start_currAppsTime() {
     currAppTimer = startcycle_load_CurrApps();
 }
 
+function onwardProgress(state, step) {
+    if (state == "1") {
+        document.getElementById(step).classList.remove("w3-gray");    
+        document.getElementById(step).classList.add("w3-green");
+    } else {
+        document.getElementById(step).classList.remove("w3-green");
+        document.getElementById(step).classList.add("w3-gray");   
+    }
+}
 
 function setProgress(step) {
 
-    let arr = ["firstStep", "secondStep", "thirdStep", "fourthStep", "fifthStep", 
-                "sixthStep", "seventhStep", "eightStep", "ninthStep", "tenthStep"];
+    let arr = ["firstStep", "secondStep", "thirdStep", "fourthStep", "fifthStep",
+                "sixthStep", "seventhStep", "eightStep", "ninthStep", "tenthStep", "eleventhStep"];
 
     /** turn all row steps to gray first */
     for (let i = 0; i < arr.length; i++) {

@@ -228,8 +228,6 @@ function viewScholarApp(scholarId) {
           let scholarstate = records[0].scholar_status;
           if (scholarstate != "New" && scholarstate != "For Review" && scholarstate != "Reviewing") {
             window.sessionStorage.setItem("ApproveInfo", 1);
-            btn_mdl_updateInfo.innerHTML = "Verified";
-
           } else {
             window.sessionStorage.setItem("ApproveInfo", 0);
           }
@@ -297,6 +295,10 @@ function viewScholarApp(scholarId) {
                       btn_mdl_updateInfo.innerHTML = "Verified";
                     }
                   }
+                } else {
+                  if (window.sessionStorage.getItem("ApproveInfo") == 1) {
+                    btn_mdl_updateInfo.innerHTML = "Verified";
+                  }                
                 }
 
                 btn_mdl_download.style.display = "none";
@@ -435,6 +437,21 @@ function tabEventAfterInfoApprove() {
   }
 }
 
+btn_sort.onclick = function() {
+  let x = window.sessionStorage.getItem("tblsort");
+  if (x == "def") {
+    window.sessionStorage.setItem("tblsort", "az");
+    btn_sort.innerHTML = "A-Z to Z-A";
+  }
+  else if (x == "az") {
+    window.sessionStorage.setItem("tblsort", "za");
+    btn_sort.innerHTML = "Z-A to Default";
+  }
+  else if (x == "za") {
+    window.sessionStorage.setItem("tblsort", "def");
+    btn_sort.innerHTML = "Default to A-Z";
+  }
+}
 
 
   

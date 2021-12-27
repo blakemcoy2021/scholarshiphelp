@@ -68,6 +68,7 @@
         window.sessionStorage.setItem("ApproveCOG", 0);
         window.sessionStorage.setItem("ApproveIDG", 0);
         window.sessionStorage.setItem("ApproveIDC", 0);
+        window.sessionStorage.setItem("tblsort", "def");
     </script>
 
     <body>
@@ -100,6 +101,7 @@
                         <input type="input" class="form__field" style="color: black; width: 70%;" placeholder="type_filter" 
                             name="inpsearchSerial" id='inpsearchSerial' required onkeyup="tblSearch(this, document.getElementById('inpsearch'), document.getElementById('inpsearch_brgy'), document.getElementById('tblscholarapps'), 4)"/>
                         <label for="inpsearchSerial" class="form__label">Type Registraton Number to filter</label>
+                        <button id="htmMdlBtnSort" style="margin-right: 30px;" class="w3-button w3-right w3-white w3-border">Default to A-Z</button>
                     </div>
 
                 </div>

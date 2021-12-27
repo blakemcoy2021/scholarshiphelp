@@ -57,6 +57,71 @@
         $stmt = $conn->prepare($query);
         $stmt->execute();
 
+            $verify1st = 0;
+            $verify2nd = 0;
+            $verify3rd = 0;
+            $verify4th = 0;
+            $verify5th = 0;
+
+            $query = "select scholar_status from tbl_scholar ";
+            $query .= "where scholar_id='$sid' ";
+            $stmt = $conn->prepare($query);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC); // set the resulting array to associative
+            $stmt->execute();
+            $row = $stmt->fetch();
+            if ($row["scholar_status"] == "Review Docs") {
+                $verify1st = 1;
+            }
+
+            if ($verify1st == 1) {
+                $query = "select cor_verified from tbl_cor ";
+                $query .= "where cor_scholarid='$sid' ";
+                $stmt = $conn->prepare($query);
+                $stmt->execute();
+                $row = $stmt->fetch();
+                if ($row["cor_verified"] == "1") {
+                    $verify2nd = 1;
+                }
+                $query = "select cog_verified from tbl_cog ";
+                $query .= "where cog_scholarid='$sid' ";
+                $stmt = $conn->prepare($query);
+                $stmt->execute();
+                $row = $stmt->fetch();
+                if ($row["cog_verified"] == "1") {
+                    $verify3rd = 1;
+                }
+                $query = "select idg_verified from tbl_idg ";
+                $query .= "where idg_scholarid='$sid' ";
+                $stmt = $conn->prepare($query);
+                $stmt->execute();
+                $row = $stmt->fetch();
+                if ($row["idg_verified"] == "1") {
+                    $verify4th = 1;
+                }
+                $query = "select idc_verified from tbl_idc ";
+                $query .= "where idc_scholarid='$sid' ";
+                $stmt = $conn->prepare($query);
+                $stmt->execute();
+                $row = $stmt->fetch();
+                if ($row["idc_verified"] == "1") {
+                    $verify5th = 1;
+                }
+                if ($verify2nd == 1 && $verify3rd == 1 && $verify4th == 1 && $verify5th == 1 ) {
+                    $query = "update tbl_scholar ";
+                    $query .= "set scholar_status='Overall' ";
+                    $query .= "where scholar_id='$sid' ";
+                    $stmt = $conn->prepare($query);
+                    $stmt->execute();
+                } 
+                else {
+                    $query = "update tbl_scholar ";
+                    $query .= "set scholar_status='Review Docs' ";
+                    $query .= "where scholar_id='$sid' ";
+                    $stmt = $conn->prepare($query);
+                    $stmt->execute();
+                }
+            }
+
     } catch(PDOException $e) {  //echo "Error: " . $e->getMessage();
         $data['success'] = false;
         $data['message'] = "Server Error! dbstrvwl";

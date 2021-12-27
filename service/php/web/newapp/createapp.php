@@ -210,7 +210,7 @@
         } else {
             $photomime = $checkphoto["mime"];
         }
-        if ($idg["size"] > 4000000) {
+        if ($idg["size"] > 5000000) {
             $data['success'] = false;
             $data['message'] = "File is to large! Less than 4MB is required.";
             $data['logs'] = "Uploading Photo is more than 4MB.";
