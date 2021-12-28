@@ -33,7 +33,7 @@ function load_ScholarAppsCtr() {
     var spn = document.getElementById("lblTotalApplications");
 
     var xmlhttp = new XMLHttpRequest();
-    route = "service/php/web/masterlist/ctr_applyscholars.php";
+    route = "service/php/web/scholars/ctr_allscholarapps.php";
     xmlhttp.open("GET", route, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send();
@@ -86,7 +86,7 @@ function load_ScholarAppsCtr() {
 
             // //t = window.sessionStorage.getItem("last_schappCtrid"); console.log(t);
 
-            spn.innerHTML = d.success + " on-going scholarship applications.";         
+            spn.innerHTML = "There are " + d.success + " total of scholarship applications.";         
         }
         else if (this.readyState == 4) {
             alert("Server Unreachable. Possible Slow Internet Connection..!");
@@ -99,11 +99,11 @@ function load_ScholarApps() {
 
         var x = window.sessionStorage.getItem("tblsort");
     var xmlhttp = new XMLHttpRequest();
-    route = "service/php/web/masterlist/get_applyscholars.php?zrt=" + x;
+    route = "service/php/web/scholars/get_allscholarapps.php?zrt=" + x;
     xmlhttp.open("GET", route, true);
     xmlhttp.send();
     xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) { //console.log(this.responseText);
+        if (this.readyState == 4 && this.status == 200) { console.log(this.responseText);
 
             // **below is template: json formatted
             let d;
@@ -184,51 +184,31 @@ function load_ScholarApps() {
             } else {
                 for (let i = 0; i < records.length; i++) {	// deal with the parseInt(respo) > 1 NOT 0
                     
+                    let approve_val = "Not Yet";
+                    if (records[i].scholar_approved == "1") {
+                        approve_val = "Approved";
+                    }
                     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
                     let d = new Date(records[i].scholar_dateadded);
                     let date_val = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " - " + d.getHours() + ":" + d.getMinutes();
-                     
-                    //let docs_val = "";
-                    let hasCOR = "N/A - Certificate of Registration";
-                    let hasCOG = "N/A - Copy of Grades";
-                    let hasIDG = "N/A - Certificate of Indigency";
-                    let hasIDC = "N/A - Photo ID";
-                    if (records[i].cor_path != "no_path") {
-                        hasCOR = "SENT - Certificate of Registration";
-                    }
-                    if (records[i].cog_path != "no_path") {
-                        hasCOG = "SENT - Copy of Grades";
-                    }
-                    if (records[i].idg_path != "no_path") {
-                        hasIDG = "SENT - Certificate of Indigency";
-                    }
-                    if (records[i].idc_path != "no_path") {
-                        hasIDC = "SENT - Photo ID";
-                    }
 
                     let viewRecord = "style='cursor:pointer;' onclick=\"javascript: viewScholarApp('"+records[i].scholar_id+"');\" ";
-                    
+                    let status = records[i].scholar_status.toLowerCase();
+                    if (status == "done") {
+                        viewRecord = "style='background-color: green; color: white;' ";
+                    } else if (status == "awarded") {
+                        viewRecord = "style='background-color: yellow;' ";
+                    }
+
                     tbl_rowdata += 	"<tr "+viewRecord+">" +
                                         "<td class='tdoverflow'>" + records[i].user_firstname + " " + records[i].user_lastname + "</td>" +
                                         "<td class='tdoverflow'>" + records[i].scholar_barangay + "</td>" +
-                                        "<td class='tdbasic'>" + records[i].scholar_status + "</td>" +
-                                        "<td class='tdoverflow'>" + 
-                                            "<p style='padding: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%'>" 
-                                                + hasCOR + 
-                                            "</p>" +
-                                            "<p style='padding: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%'>" 
-                                                + hasCOG + 
-                                            "</p>" +
-                                            "<p style='padding: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%'>" 
-                                                + hasIDG + 
-                                            "</p>" +
-                                            "<p style='padding: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%'>" 
-                                                + hasIDC + 
-                                            "</p>" +
-                                        "</td>" +
+                                        "<td class='tdbasic'>" + status + "</td>" +
+                                        "<td class='tdbasic'>" + approve_val + "</td>" +
                                         "<td class='tdbasic'>" + records[i].scholar_serial + "</td>" +
                                         "<td class='tdoverflow'>" + records[i].scholar_school + "</td>" +
                                         "<td class='tdbasic'>" + date_val+ "</td>" +
+                                        
                                     "</tr>";
     
                 }            

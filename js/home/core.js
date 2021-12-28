@@ -202,7 +202,7 @@ function load_CurrApps() {
 
 
             let prev_currappId = window.sessionStorage.getItem("last_currappid");
-            let new_currappId = records[0].user_id; 
+            let new_currappId = records[0].scholar_id; 
             //console.log(prev_currappId + " = " + new_currappId);
 
 
@@ -259,11 +259,11 @@ function load_CurrApps() {
                         let overall = false;
                         switch (s) {
                             case "new":
-                                c += "Waiting for review.</i>";
+                                c += "Going to be received.</i>";
                                 setProgress(1);
                                 break;
                             case "for review":
-                                c += "Your application will be soon reviewed.</i>";
+                                c += "Going to be reviewed.</i>";
                                 setProgress(2);
                                 break;
                             case "reviewing":
@@ -271,7 +271,7 @@ function load_CurrApps() {
                                 setProgress(3);
                                 break;
                             case "approved info":
-                                c += "Info in your application - approved.</i>";
+                                c += "Info in your app - approved.</i>";
                                 setProgress(4);
                                 break;
                             case "review docs":
@@ -283,6 +283,11 @@ function load_CurrApps() {
                                 setProgress(10);
                                 overall = true;
                                 break;
+                            case "awarded":
+                                c = "<i class='fa fa-trophy' aria-hidden='true'> Congratulations! Claim Here!</i>";
+                                setProgress(11);
+                                overall = true;
+                                break;
                                 
                         }
  
@@ -291,6 +296,33 @@ function load_CurrApps() {
                             onwardProgress(row.cog_verified, "seventhStep");
                             onwardProgress(row.idg_verified, "eightStep");
                             onwardProgress(row.idc_verified, "ninthStep");
+                        } 
+                        else {
+                            if (s == "awarded") {
+                                h.style.cursor = "pointer";
+                                h.onclick = function() {
+                                    var xmlhttp = new XMLHttpRequest();
+                                    route = "service/php/web/home/upd_getscholar.php?sid=" + row.scholar_id;
+                                    xmlhttp.open("GET", route, true);
+                                    xmlhttp.send();
+                                    xmlhttp.onreadystatechange = function() {
+                                        if (this.readyState == 4 && this.status == 200) { //console.log(this.responseText);
+                                  
+                                            // **below is template: json formatted
+                                            let d;
+                                            try { d = JSON.parse(this.responseText); }
+                                            catch (e) { alert('Response Format error! ' + this.responseText); return; }
+                                            if (d.success == false) { alert(d.message); return; } //console.log(d.success);
+                                            
+                                            alert("Scholarship Claimed!");
+                                        }
+                                        else if (this.readyState == 4) {
+                                            alert("Server Unreachable. Possible Slow Internet Connection..!");
+                                        }
+                                    };
+
+                                }
+                            }
                         }
 
                         h.innerHTML = c;
@@ -298,8 +330,8 @@ function load_CurrApps() {
 
                     if (!firstrow) { highlight = "class='w3-hover-gray'"; } highlight = "";
 
-                    tbl_rowdata += 	"<tr " + highlight + " style='cursor: pointer;' onclick=\"javascript: checkStatus('" + row.scholar_id + "', '" + row.scholar_status + "', this);\">" +
-                                        "<td class='tdbasic'>" + row.scholar_title + "</td>" +
+                    tbl_rowdata += 	"<tr " + highlight + " style='cursor: pointer;' onclick=\"javascript: checkStatus('" + records[i].scholar_id + "', '" + records[i].scholar_status + "', this);\">" +
+                                        "<td class='tdbasic'>" + records[i].scholar_title + "</td>" +
                                     "</tr>";
     
                     firstrow = false;

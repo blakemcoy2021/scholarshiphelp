@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <title>Scholarhelp Admin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/common/w3.css">
+    <link rel="stylesheet" href="css/common/font_poppins.css">
+    <link rel="stylesheet" href="css/common/core.css">
+        <link rel="stylesheet" href="css/common/userimg.css">
+
+    <link rel="stylesheet" href="css/masterlist/topmenu.css">
+    
+    <link rel="stylesheet" href="css/documents/fileviewer.css">
+
+    <script src="js/documents/pdfobject.min.js"></script>
+    <script src="js/documents/pdfobject.js"></script>
+
+    <style>
+        body,h1,h2,h3,h4,h5 {   font-family: "Poppins", sans-serif    }
+        body {    font-size:16px;    }
+        .w3-half img{
+            margin-bottom:-6px;
+            margin-top:16px;
+            opacity:0.8;
+            cursor:pointer
+        }
+        .w3-half img:hover{ opacity:1 }
+
+        #standard-select {
+            appearance: none;
+            background-color: transparent;
+            border: none;
+            padding: 0 1em 0 0;
+            margin: 0;
+            width: 100%;
+            font-family: inherit;
+            font-size: inherit;
+            cursor: inherit;
+            line-height: inherit;
+            outline: none;
+        }
+        select::-ms-expand {
+            display: none;
+        }
+
+    </style>
+
+    <script>
+        window.localStorage.setItem("singleRun", 0);
+        window.sessionStorage.setItem("tblsort", "def");
+    </script>
+
+    <body>
+
+        <div class="topnav" id="htmDivTopNav">
+            <a href="dashboard.html">Home</a>
+            <a href="masterlist.html">Masterlist</a>
+            <a href="#" class="active">Awardees</a>
+            <a href="scholars.html">Scholars</a>
+            <a href="#">Admin</a>
+            <a href="index.html">Logout</a>
+            <a href="javascript:void(0);" class="icon" onclick="openMenuBars()">
+              <i class="fa fa-bars"></i>
+            </a>
+        </div>
+
+
+        <!-- !PAGE CONTENT! -->
+        <div class="w3-main" style="margin-left:10px;margin-right:30px">
+
+            <!-- Header -->
+            <div class="w3-container" style="margin-top:10px" id="showcase">
+                <h1 class="w3-xxlarge w3-text-red"><b>Scholarship Applications Awarding List</b></h1>
+                <div style="display: flex;">
+                    <div style="width: 50%; display: flex;">
+                        <hr style="width:50px;border:5px solid red; margin-right: 10px;" class="w3-round">
+                        <h3 id="lblTotalApplications" style="font-size: x-large;">? Awarding-ready scholarship applications.</h3>                            
+                    </div>
+                    <div class="form__group field" style="width: 50%;">
+                        <input type="input" class="form__field" style="color: black; width: 70%;" placeholder="type_filter" 
+                            name="inpsearchSerial" id='inpsearchSerial' required onkeyup="tblSearch(this, document.getElementById('inpsearch'), document.getElementById('inpsearch_brgy'), document.getElementById('tblscholarapps'), 4)"/>
+                        <label for="inpsearchSerial" class="form__label">Type Registraton Number to filter</label>
+                        <button id="htmMdlBtnSort" style="margin-right: 30px;" class="w3-button w3-right w3-white w3-border">Default to A-Z</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- scholarship application list -->
+            <div class="w3-panel" style="overflow: auto; height: 330px; width: 97%;">
+                <table class="w3-table w3-striped w3-red" style="width: 1200px; font-weight: bolder; table-layout: fixed;">
+                    <tr>
+                        <td class="tdoverflow">FULL NAME</td>
+                        <td class="tdoverflow">BARANGAY</td>
+                        <td class="tdbasic">REGISTRATION #</td>
+                        <td class="tdbasic">SCHOOL LISTED</td>
+                        <td class="tdbasic">DATE APPLIED</td>
+                    </tr>
+                </table>
+                <table id="tblscholarapps" class="w3-table w3-striped w3-white" style="width: 1200px; table-layout: fixed;">
+                    <h2 id="lblLoadingRecords" class="w3-text-red">Checking for awarding Scholarship Applications...</h2>                
+                </table>
+            </div>
+
+            <div class="form__group field" style="margin-left: 15px; margin-top: -5px; justify-content: center; display: flex; width: 100%;">
+                <div style="width: 40%; margin: auto;">
+                    <input type="input" class="form__field" style="color: black" placeholder="type_filter" 
+                        name="inpsearch_brgy" id='inpsearch_brgy' required onkeyup="tblSearch(this, document.getElementById('inpsearch'), document.getElementById('inpsearchSerial'), document.getElementById('tblscholarapps'), 1)"/>
+                    <label for="inpsearch_brgy" class="form__label">Type Barangay to Filter Search</label>
+                </div>
+
+                <div style="width: 40%; margin: auto;">
+                    <input type="input" class="form__field" style="color: black" placeholder="type_filter" 
+                        name="inpsearch" id='inpsearch' required onkeyup="tblSearch(this, document.getElementById('inpsearchSerial'), document.getElementById('inpsearch_brgy'), document.getElementById('tblscholarapps'), 0)"/>
+                    <label for="inpsearch" class="form__label">Type First/Last Name to Filter Search</label>
+                </div>
+
+            </div>
+
+        <!-- End page content -->
+        </div>
+
+        <input type="hidden" id="hidfld_uid" name="hidfld_uid" value="?">
+        <input type="hidden" id="hidfld_fname" name="hidfld_fname" value="?">
+            <input type="hidden" id="hidfld_sid" name="hidfld_sid" value="?">
+
+        <script src="js/awardees/elements.js"></script>
+        <script src="js/awardees/core.js"></script>
+        <script src="js/awardees/controls.js"></script>
+        <script>
+            var scholarTimer;
+            
+            window.onload = init();
+            window.onload = start_scholarAppTime();
+
+        </script>
+
+    </body>
+</html>

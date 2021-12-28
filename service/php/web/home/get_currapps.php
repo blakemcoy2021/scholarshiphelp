@@ -28,7 +28,7 @@
     $query .= "inner join tbl_cog on tbl_scholar.scholar_id=tbl_cog.cog_scholarid ";
     $query .= "inner join tbl_idg on tbl_scholar.scholar_id=tbl_idg.idg_scholarid ";
     $query .= "inner join tbl_idc on tbl_scholar.scholar_id=tbl_idc.idc_scholarid ";
-    $query .= "where tbl_scholar.scholar_userid='$suid' and tbl_scholar.scholar_approved='0' and tbl_scholar.scholar_status <> 'done' ";
+    $query .= "where tbl_scholar.scholar_userid='$suid' and tbl_scholar.scholar_status <> 'done' ";
     $query .= "order by tbl_scholar.scholar_id desc";
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

@@ -56,7 +56,7 @@
 
     $query = "select tbl_scholar.scholar_id from tbl_scholar ";
     $query .= "inner join tbl_user on tbl_scholar.scholar_userid=tbl_user.user_id ";
-    $query .= "where tbl_scholar.scholar_userid='$id' and (tbl_scholar.scholar_status <> 'done' OR tbl_scholar.scholar_status <> 'awarded') ";
+    $query .= "where tbl_scholar.scholar_userid='$id' and tbl_scholar.scholar_status <> 'done' ";
     $query .= "order by tbl_scholar.scholar_id desc limit 1;";
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

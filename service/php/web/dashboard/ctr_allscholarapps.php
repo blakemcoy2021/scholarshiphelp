@@ -42,7 +42,7 @@
 
 
     $query = "select count(*) as ctr from tbl_scholar ";
-    $query .= "where scholar_status <> 'New' and scholar_status <> 'Done' ";
+    $query .= "where scholar_status <> 'New' and scholar_status <> 'done' ";
     $query .= "order by scholar_id desc";
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -75,7 +75,7 @@
 
 
     $query = "select count(*) as ctr from tbl_scholar ";
-    $query .= "where scholar_status='Done' ";
+    $query .= "where scholar_status='done' ";
     $query .= "order by scholar_id desc";
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

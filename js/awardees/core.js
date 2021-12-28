@@ -33,7 +33,7 @@ function load_ScholarAppsCtr() {
     var spn = document.getElementById("lblTotalApplications");
 
     var xmlhttp = new XMLHttpRequest();
-    route = "service/php/web/masterlist/ctr_applyscholars.php";
+    route = "service/php/web/awardees/ctr_allforawardees.php";
     xmlhttp.open("GET", route, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send();
@@ -86,7 +86,7 @@ function load_ScholarAppsCtr() {
 
             // //t = window.sessionStorage.getItem("last_schappCtrid"); console.log(t);
 
-            spn.innerHTML = d.success + " on-going scholarship applications.";         
+            spn.innerHTML = d.success + " Awarding-ready scholarship applications.";         
         }
         else if (this.readyState == 4) {
             alert("Server Unreachable. Possible Slow Internet Connection..!");
@@ -99,7 +99,7 @@ function load_ScholarApps() {
 
         var x = window.sessionStorage.getItem("tblsort");
     var xmlhttp = new XMLHttpRequest();
-    route = "service/php/web/masterlist/get_applyscholars.php?zrt=" + x;
+    route = "service/php/web/awardees/get_allforawardees.php?zrt=" + x;
     xmlhttp.open("GET", route, true);
     xmlhttp.send();
     xmlhttp.onreadystatechange = function() {
@@ -113,7 +113,7 @@ function load_ScholarApps() {
 
             if (d.success == "zero") {
                 document.getElementById("lblLoadingRecords").style.display = "none";
-                tbl.innerHTML = "<tr><td><h2 class='w3-text-red'>No Scholarship Applications Recorded...</h2></td></tr>"; 
+                tbl.innerHTML = "<tr><td><h2 class='w3-text-red'>No Awarding Scholarship Applications Recorded...</h2></td></tr>"; 
                 window.sessionStorage.setItem("donereq_dataLatestSchApps",1);
                 return; 
             }
@@ -165,10 +165,10 @@ function load_ScholarApps() {
                     } else {
                         //**notification modal block here
                         //document.getElementById("iadmin_modalRecentReports").style.display = "block";
-                        alert("New Scholarship Application added!")
+                        alert("New Awarding Scholarship Application added!");
                     }
                 }
-                window.sessionStorage.setItem("last_schappid", records[0].scholar_id);
+                window.sessionStorage.setItem("last_schappid", records[0].user_id);
             } else {
                 window.sessionStorage.setItem("donereq_dataLatestSchAppCtr", 0);
                 //allow the table to refresh without popping the notifications
@@ -187,47 +187,14 @@ function load_ScholarApps() {
                     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
                     let d = new Date(records[i].scholar_dateadded);
                     let date_val = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " - " + d.getHours() + ":" + d.getMinutes();
-                     
-                    //let docs_val = "";
-                    let hasCOR = "N/A - Certificate of Registration";
-                    let hasCOG = "N/A - Copy of Grades";
-                    let hasIDG = "N/A - Certificate of Indigency";
-                    let hasIDC = "N/A - Photo ID";
-                    if (records[i].cor_path != "no_path") {
-                        hasCOR = "SENT - Certificate of Registration";
-                    }
-                    if (records[i].cog_path != "no_path") {
-                        hasCOG = "SENT - Copy of Grades";
-                    }
-                    if (records[i].idg_path != "no_path") {
-                        hasIDG = "SENT - Certificate of Indigency";
-                    }
-                    if (records[i].idc_path != "no_path") {
-                        hasIDC = "SENT - Photo ID";
-                    }
 
                     let viewRecord = "style='cursor:pointer;' onclick=\"javascript: viewScholarApp('"+records[i].scholar_id+"');\" ";
-                    
+
                     tbl_rowdata += 	"<tr "+viewRecord+">" +
                                         "<td class='tdoverflow'>" + records[i].user_firstname + " " + records[i].user_lastname + "</td>" +
                                         "<td class='tdoverflow'>" + records[i].scholar_barangay + "</td>" +
-                                        "<td class='tdbasic'>" + records[i].scholar_status + "</td>" +
-                                        "<td class='tdoverflow'>" + 
-                                            "<p style='padding: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%'>" 
-                                                + hasCOR + 
-                                            "</p>" +
-                                            "<p style='padding: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%'>" 
-                                                + hasCOG + 
-                                            "</p>" +
-                                            "<p style='padding: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%'>" 
-                                                + hasIDG + 
-                                            "</p>" +
-                                            "<p style='padding: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%'>" 
-                                                + hasIDC + 
-                                            "</p>" +
-                                        "</td>" +
                                         "<td class='tdbasic'>" + records[i].scholar_serial + "</td>" +
-                                        "<td class='tdoverflow'>" + records[i].scholar_school + "</td>" +
+                                        "<td class='tdbasic'>" + records[i].scholar_school + "</td>" +
                                         "<td class='tdbasic'>" + date_val+ "</td>" +
                                     "</tr>";
     
