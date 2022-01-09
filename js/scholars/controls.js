@@ -192,6 +192,46 @@ function viewScholarApp(scholarId) {
             lbl_mdlidc_status.innerHTML = "Not Verified";
           }
 
+
+          dt = new Date(records[0].bio_lastupdate);
+          date_val = months[dt.getMonth()] + " " + dt.getDate() + ", " + dt.getFullYear() + " - " + dt.getHours() + ":" + dt.getMinutes();
+          lbl_mdlbio_updatedInfo.innerHTML = "Below Last Updated: " + date_val;
+
+          filetype = records[0].bio_filetype;
+          path = records[0].bio_path;
+          if (filetype == "pdf" && path != "no_path") {
+            pdf_mdlbio_pdfbio.style.display = "block";
+            img_mdlbio_imgbio.style.display = "none";
+            PDFObject.embed(path, "#pdfviewer_areaBIO");
+
+
+          } else if (filetype != "none" && path != "no_path" && filetype != "pdf") {
+            pdf_mdlbio_pdfbio.style.display = "none";
+            img_mdlbio_imgbio.style.display = "block";
+            img_mdlbio_imgbiosrc = path + "?nc=" + rmcache.getMilliseconds();
+
+          } 
+          else {
+            pdf_mdlbio_pdfbio.style.display = "none";
+            img_mdlbio_imgbio.style.display = "block";
+            img_mdlbio_imgbio.src = "images/noimg.png";
+
+          }
+          state = records[0].bio_verified;
+          lbl_mdlbio_status.innerHTML = "N/A";
+          if (state == "1") {
+            lbl_mdlbio_status.innerHTML = "Verified";
+          } else if (state == "0" && path == "no_path") {
+            lbl_mdlbio_status.innerHTML = "No File Uploaded Yet";
+          } else if (state == "0") {
+            lbl_mdlbio_status.innerHTML = "Not Verified";
+          }
+
+
+
+
+
+
       }
       else if (this.readyState == 4) {
           alert("Server Unreachable. Possible Slow Internet Connection..!");

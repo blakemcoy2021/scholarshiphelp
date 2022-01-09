@@ -14,6 +14,10 @@ function uploadIDC() {
     document.getElementById("inpIDC").click();
 }
 
+function uploadBIO() {
+    document.getElementById("inpBIO").click();
+}
+
 document.getElementById("imgPhoto").onerror = function() {
     document.getElementById("imgPhoto").src = "images/register/photoplaceholder.jpg";
 }
@@ -34,6 +38,7 @@ document.getElementById("btnCreateApp").addEventListener("click", function (evt)
     let corfile = document.getElementById("inpCOG");
     let idgfile = document.getElementById("inpIDG");
     let idcfile = document.getElementById("inpIDC");
+        let biofile = document.getElementById("inpBIO");
 
     let failfieldctr = 0;
         if (scholartitle.value == "") { failfieldctr++; }
@@ -50,6 +55,22 @@ document.getElementById("btnCreateApp").addEventListener("click", function (evt)
 
     if (failfieldctr > 0) {
         alert('all field(s) required');
+        return;
+    }
+    if (scholartitle.value.length > 50) { failfieldctr++; }
+    if (course.value.length > 50) { failfieldctr++; }
+    if (failfieldctr > 0) {
+        alert('Scholar label and course cannot exceed 50 characters.');
+        return;
+    }
+    if (school.value.length > 200) { failfieldctr++; }
+    if (failfieldctr > 0) {
+        alert('School Name cannot exceed 200 characters.');
+        return;
+    }
+    if (gradeyear.value.length > 11) { failfieldctr++; }
+    if (failfieldctr > 0) {
+        alert('Grade/Year cannot exceed 11 characters.');
         return;
     }
 
@@ -70,6 +91,7 @@ document.getElementById("btnCreateApp").addEventListener("click", function (evt)
     if (corfile.files.length != 0) { frmdata.append("corfile", corfile.files[0]); }
     if (idgfile.files.length != 0) { frmdata.append("idgfile", idgfile.files[0]); }
     if (idcfile.files.length != 0) { frmdata.append("idcfile", idcfile.files[0]); }
+        if (biofile.files.length != 0) { frmdata.append("biofile", biofile.files[0]); }
 
     var xmlhttp = new XMLHttpRequest();
     route = "service/php/web/newapp/createapp.php";
@@ -97,15 +119,18 @@ document.getElementById("btnCreateApp").addEventListener("click", function (evt)
                 document.getElementById("lbldoc2").innerHTML = "";
                 document.getElementById("lbldoc3").innerHTML = "";
                 document.getElementById("lbldoc4").innerHTML = "";
+                document.getElementById("lbldoc5").innerHTML = "";
 
                 cogfile.files[0] = null;
                 corfile.files[0] = null;
                 idgfile.files[0] = null;
                 idcfile.files[0] = null;
+                biofile.files[0] = null;
                 cogfile.value = "";
                 corfile.value = "";
                 idgfile.value = "";
                 idcfile.value = "";
+                biofile.value = "";
             }
         }
     };

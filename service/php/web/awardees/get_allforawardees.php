@@ -22,7 +22,7 @@
     $qfield .= "tbl_scholar.scholar_id ";
     $query = "select $qfield from tbl_scholar ";
     $query .= "inner join tbl_user on tbl_scholar.scholar_userid=tbl_user.user_id ";
-    $query .= "where tbl_scholar.scholar_status='Overall' ";
+    $query .= "where tbl_scholar.scholar_status='Overall' or tbl_scholar.scholar_status='Awarded' ";
     if ($zrt == "def") {
         $query .= "order by tbl_scholar.scholar_id desc";
     } else if ($zrt == "az") {

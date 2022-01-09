@@ -16,6 +16,7 @@
     $cog = "none";
     $idg = "none";
     $idc = "none";
+        $bio = "none";
 
     $errors = [];
     $data = [];
@@ -32,6 +33,7 @@
     if (isset($_FILES["corfile"]))   {   $cog = $_FILES["corfile"];    }
     if (isset($_FILES["idgfile"]))   {   $idg = $_FILES["idgfile"];    }
     if (isset($_FILES["idcfile"]))   {   $idc = $_FILES["idcfile"];    }
+        if (isset($_FILES["biofile"]))   {   $bio = $_FILES["biofile"];    }
 
     $failfieldctr = 0;
         if ($tl == "none") { $failfieldctr += 1; }
@@ -116,6 +118,12 @@
         $ext4 = $info4['extension'];
     }
 
+    $info5; $ext5 = 'none';
+    if ($bio != "none") {
+        $info5 = pathinfo($bio["name"]);
+        $ext5 = $info5['extension'];
+    }
+
     $s = ucfirst($nm);
     $bar = ucwords(strtolower($s));
     $trim_name = preg_replace('/\s+/','',$bar);
@@ -135,6 +143,11 @@
     
     $loc_idc = "data/idc/imgs/$trim_name$idfile";
     $fileIDC = "IDC-$trim_name$idfile.$ext4";
+
+    $tmp = "data/bio/";
+    if ($ext5 == "pdf") { $tmp .= "pdf/"; } else { $tmp .= "imgs/"; }
+    $loc_bio = "$tmp$trim_name$idfile";
+    $fileBIO = "BIO-$trim_name$idfile.$ext5";
 
 
     // getting parent path
@@ -168,15 +181,20 @@
     // path photoid
     $upload_urlidc = $p . $loc_idc;
     $fidc = $upload_urlidc . "/" . $fileIDC;
+        // path biodata
+        $upload_urlbio = $p . $loc_bio;
+        $fbio = $upload_urlbio . "/" . $fileBIO;
 
 
     // parent directory
     $createDirectory = true;
     if (is_writable($p)) {
-        if (file_exists($upload_urlcor) || file_exists($upload_urlcog) || file_exists($upload_urlidg) || file_exists($upload_urlidc)) {
+        if (file_exists($upload_urlcor) || file_exists($upload_urlcog) || 
+            file_exists($upload_urlidg) || file_exists($upload_urlidc) || file_exists($upload_urlbio)) {
             $createDirectory = false;
         }
-        if (!is_dir($upload_urlcor) || !is_dir($upload_urlcog) || !is_dir($upload_urlidg) || !is_dir($upload_urlidc)) {
+        if (!is_dir($upload_urlcor) || !is_dir($upload_urlcog) || 
+            !is_dir($upload_urlidg) || !is_dir($upload_urlidc) || !is_dir($upload_urlbio)) {
             $createDirectory = true;
         }
     } else {
@@ -191,6 +209,7 @@
         if ($cog != "none") {         mkdir($upload_urlcog, 0777, true); }
         if ($idg != "none") {         mkdir($upload_urlidg, 0777, true); }
         if ($idc != "none") {         mkdir($upload_urlidc, 0777, true); }
+        if ($bio != "none") {         mkdir($upload_urlbio, 0777, true); }
     }
 
 
@@ -351,6 +370,50 @@
         }
     }
 
+        // ***BIO
+        if ($bio != "none") {
+            if ($ext5 != "pdf") { 
+                // validate photo if photo and size
+                $checkphoto = getimagesize($bio["tmp_name"]);
+                if ($checkphoto === false) {
+                    $data['success'] = false;
+                    $data['message'] = "Selected Image File is corrupted. Find less than 20MB image jpg/png also.!";
+                    $data['logs'] = "Not valid photo.";
+                    echo json_encode($data);
+                    die();
+                } else {
+                    $photomime = $checkphoto["mime"];
+                }
+                if ($bio["size"] > 21000000) {
+                    $data['success'] = false;
+                    $data['message'] = "File is to large! Less than 20MB is required.";
+                    $data['logs'] = "Uploading Photo is more than 20MB.";
+                    echo json_encode($data);
+                    die();
+                }
+                // upload photo grades
+                try {
+                    move_uploaded_file($bio["tmp_name"], $fbio);
+                } catch (Exception $err) {
+                    $data['success'] = false;
+                    $data['message'] = "Server BIOp Save Error!";
+                    $data['logs'] = "BIOp Save Error :: $err.";
+                    echo json_encode($data);
+                    die();
+                }
+            } 
+            else { // upload pdf
+                try {
+                    move_uploaded_file($bio["tmp_name"], $fbio);
+                } catch (Exception $err) {
+                    $data['success'] = false;
+                    $data['message'] = "Server BIO Save Error!";
+                    $data['logs'] = "BIO Save Error :: $err.";
+                    echo json_encode($data);
+                    die();
+                }
+            }
+        }
 
 
 
@@ -359,10 +422,12 @@
     $dbpath_cor = "no_path";
     $dbpath_cog = "no_path";
     $dbpath_idc = "no_path";
+    $dbpath_bio = "no_path";
     if ($idg != "none") {   $dbpath_idg = $loc_idg . '/' . $fileIDG;    }
     if ($cor != "none") {   $dbpath_cor = $loc_cor . '/' . $fileCOR;    }
     if ($cog != "none") {   $dbpath_cog = $loc_cog . '/' . $fileCOG;    }
     if ($idc != "none") {   $dbpath_idc = $loc_idc . '/' . $fileIDC;    }
+    if ($bio != "none") {   $dbpath_bio = $loc_bio . '/' . $fileBIO;    }
 
 
     $datereg = date("Y-m-d G:i:s");
@@ -495,6 +560,24 @@
         die();
     }
 
+    $filename = "none";
+    if ($bio != "none") {   $filename = $info5["basename"];    }
+    $qval = "bio_scholarid, bio_filename, bio_path, bio_filetype, bio_verified, bio_dateadded";
+    $query = "insert into tbl_bio ($qval) ";
+    $query .= "values ('$scholarid','$filename','$dbpath_bio','$ext5','0','$datereg');";
+    try {
+      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $stmt = $conn->prepare($query);
+      $stmt->execute();
+    } catch(PDOException $e) {  //echo "Error: " . $e->getMessage();
+        $data['success'] = false;
+        $data['message'] = "Server Error! p5";
+        $data['logs'] = "Database Exception - part5 " . $e->getMessage();
+        echo json_encode($data);
+        $conn = null;
+        die();
+    }
 
     $data['success'] = "success";
     $data['message'] = "You have successfully created application $nm!";

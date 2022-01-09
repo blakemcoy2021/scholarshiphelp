@@ -225,6 +225,54 @@ function viewScholarApp(scholarId) {
             lbl_mdlidc_status.innerHTML = "Not Verified";
           }
 
+
+          dt = new Date(records[0].bio_lastupdate);
+          date_val = months[dt.getMonth()] + " " + dt.getDate() + ", " + dt.getFullYear() + " - " + dt.getHours() + ":" + dt.getMinutes();
+          lbl_mdlbio_updatedInfo.innerHTML = "Below Last Updated: " + date_val;
+
+          filetype = records[0].bio_filetype;
+          path = records[0].bio_path;
+          if (filetype == "pdf" && path != "no_path") {
+            pdf_mdlbio_pdfbio.style.display = "block";
+            img_mdlbio_imgbio.style.display = "none";
+            PDFObject.embed(path, "#pdfviewer_areaBIO");
+
+            window.sessionStorage.setItem("BIOisPhoto", 0);
+            window.sessionStorage.setItem("BIOpathPhoto", "no_path");
+
+          } else if (filetype != "none" && path != "no_path" && filetype != "pdf") {
+            pdf_mdlbio_pdfbio.style.display = "none";
+            img_mdlbio_imgbio.style.display = "block";
+            img_mdlbio_imgbio.src = path + "?nc=" + rmcache.getMilliseconds();
+
+            window.sessionStorage.setItem("BIOisPhoto", 1);
+            window.sessionStorage.setItem("BIOpathPhoto", path);
+          } 
+          else {
+            pdf_mdlbio_pdfbio.style.display = "none";
+            img_mdlbio_imgbio.style.display = "block";
+            img_mdlbio_imgbio.src = "images/noimg.png";
+
+            window.sessionStorage.setItem("BIOisPhoto", 0);
+            window.sessionStorage.setItem("BIOpathPhoto", "no_path");
+          }
+          state = records[0].bio_verified; window.sessionStorage.setItem("ApproveBIO", 0);
+          lbl_mdlbio_status.innerHTML = "N/A";
+          if (state == "1") {
+            lbl_mdlbio_status.innerHTML = "Verified";
+            window.sessionStorage.setItem("ApproveBIO", 1);
+
+          } else if (state == "0" && path == "no_path") {
+            lbl_mdlbio_status.innerHTML = "No File Uploaded Yet";
+            window.sessionStorage.setItem("ApproveBIO", 2);
+          } else if (state == "0") {
+            lbl_mdlbio_status.innerHTML = "Not Verified";
+          }
+
+
+
+
+
           let scholarstate = records[0].scholar_status;
           if (scholarstate != "New" && scholarstate != "For Review" && scholarstate != "Reviewing") {
             window.sessionStorage.setItem("ApproveInfo", 1);
@@ -237,8 +285,9 @@ function viewScholarApp(scholarId) {
               let cogtabp1 = window.sessionStorage.getItem("COGisPhoto"); let cogtabp2 = window.sessionStorage.getItem("COGpathPhoto");
               let idgtabp1 = window.sessionStorage.getItem("IDGisPhoto"); let idgtabp2 = window.sessionStorage.getItem("IDGpathPhoto");
               let idctabp1 = window.sessionStorage.getItem("IDCisPhoto"); let idctabp2 = window.sessionStorage.getItem("IDCpathPhoto");
+              let biotabp1 = window.sessionStorage.getItem("BIOisPhoto"); let biotabp2 = window.sessionStorage.getItem("BIOpathPhoto")
 
-              console.log(tabnum + " - " + cortabp1 + " " + cogtabp1 + " " + idgtabp1 + " " + idctabp1);
+              console.log(tabnum + " - " + cortabp1 + " " + cogtabp1 + " " + idgtabp1 + " " + idctabp1 + " " + biotabp1);
 
               if (cortabp1 == 1 && tabnum == 1) {
                 btn_mdl_download.style.display = "inline-block";
@@ -272,6 +321,14 @@ function viewScholarApp(scholarId) {
                 window.sessionStorage.setItem("SelectedPhoto", idctabp2);
                 approveBtnState("ApproveIDC");
               }
+              else if (biotabp1 == 1 && tabnum == 5) {
+                btn_mdl_download.style.display = "inline-block";
+                btn_mdl_print.style.display = "inline-block";
+
+                btn_mdl_download.href = biotabp2;
+                window.sessionStorage.setItem("SelectedPhoto", biotabp2);
+                approveBtnState("ApproveBIO");
+              }
               else {
                 btn_mdl_updateInfo.innerHTML = "Approve";
                 btn_mdl_updateInfo.removeAttribute('disabled');
@@ -292,6 +349,10 @@ function viewScholarApp(scholarId) {
                     }
                   } else if (tabnum == 4) {
                     if (window.sessionStorage.getItem("ApproveIDC") == 1) {
+                      btn_mdl_updateInfo.innerHTML = "Verified";
+                    }
+                  } else if (tabnum == 5) {
+                    if (window.sessionStorage.getItem("ApproveBIO") == 1) {
                       btn_mdl_updateInfo.innerHTML = "Verified";
                     }
                   }
@@ -390,6 +451,13 @@ btn_mdl_updateInfo.onclick = function() {
     } else if (tabNum == 4) {
       route += "&doc=idc";
       if (window.sessionStorage.getItem("ApproveIDC") == 0) {
+        route += "&vfy=1";
+      } else {
+        route += "&vfy=0";
+      }
+    } else if (tabNum == 5) {
+      route += "&doc=bio";
+      if (window.sessionStorage.getItem("ApproveBIO") == 0) {
         route += "&vfy=1";
       } else {
         route += "&vfy=0";
@@ -592,6 +660,26 @@ function viewTabs(evt, tabName) {
     tabEventAfterInfoApprove();
 
   } 
+  else if (tabName == "htmMdlTabBIO") {
+    window.sessionStorage.setItem("TabNumber", 5);
+
+    if (window.sessionStorage.getItem("BIOisPhoto") == 1) {
+      btn_mdl_download.style.display = "inline-block";
+      btn_mdl_print.style.display = "inline-block";
+
+      let filepath = window.sessionStorage.getItem("BIOpathPhoto");
+      btn_mdl_download.href = filepath;
+      window.sessionStorage.setItem("SelectedPhoto", filepath);
+    }
+    else {
+      btn_mdl_download.style.display = "none";
+      btn_mdl_print.style.display = "none";
+      btn_mdl_download.href = "#";
+    }
+    approveBtnState("ApproveBIO");
+    tabEventAfterInfoApprove();
+
+  }
   else {
     window.sessionStorage.setItem("TabNumber", 0);
     btn_mdl_download.style.display = "none";

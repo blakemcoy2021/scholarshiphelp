@@ -46,6 +46,10 @@
         $qtbl = "tbl_idc";
         $stbl = "idc_verified";
         $ftbl = "idc_scholarid";
+    } else if ($doc == "bio") {
+        $qtbl = "tbl_bio";
+        $stbl = "bio_verified";
+        $ftbl = "bio_scholarid";
     }
     
     $query = "update $qtbl ";
@@ -62,6 +66,7 @@
             $verify3rd = 0;
             $verify4th = 0;
             $verify5th = 0;
+            $verify6th = 0;
 
             $query = "select scholar_status from tbl_scholar ";
             $query .= "where scholar_id='$sid' ";
@@ -106,7 +111,15 @@
                 if ($row["idc_verified"] == "1") {
                     $verify5th = 1;
                 }
-                if ($verify2nd == 1 && $verify3rd == 1 && $verify4th == 1 && $verify5th == 1 ) {
+                $query = "select bio_verified from tbl_bio ";
+                $query .= "where bio_scholarid='$sid' ";
+                $stmt = $conn->prepare($query);
+                $stmt->execute();
+                $row = $stmt->fetch();
+                if ($row["bio_verified"] == "1") {
+                    $verify6th = 1;
+                }
+                if ($verify2nd == 1 && $verify3rd == 1 && $verify4th == 1 && $verify5th == 1 && $verify6th = 1) {
                     $query = "update tbl_scholar ";
                     $query .= "set scholar_status='Overall' ";
                     $query .= "where scholar_id='$sid' ";

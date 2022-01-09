@@ -6,7 +6,7 @@
     $data = array();
 
     $query = "select count(*) as ctr from tbl_scholar ";
-    $query .= "where scholar_status='Overall' ";
+    $query .= "where scholar_status='Overall' or scholar_status='Awarded' ";
     $query .= "order by scholar_id desc";
 
     try {

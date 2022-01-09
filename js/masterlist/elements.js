@@ -41,6 +41,16 @@ var mdl_viewUpdate = document.getElementById('htmMdlViewUpdate');
     var img_mdlidc_img = document.getElementById("imgviewer_areaIDC");
     var lbl_mdlidc_status = document.getElementById("htmMdlTabIDCStatus");
 
+
+    //biodata
+    var lbl_mdlbio_updatedInfo = document.getElementById("htmLblInfoLastUpdate7");
+    var pdf_mdlbio_pdfbio = document.getElementById("pdfviewer_areaBIO");
+    var img_mdlbio_imgbio = document.getElementById("imgviewer_areaBIO");
+    var lbl_mdlbio_status = document.getElementById("htmMdlTabBioStatus");
+
+
+
+
     //updating controls
     var btn_mdl_updateInfo = document.getElementById("htmMdlBtnUpdateApp");
     var btn_mdl_updateCOR = document.getElementById("htmMdlUpdateInpCOR");
@@ -51,6 +61,9 @@ var mdl_viewUpdate = document.getElementById('htmMdlViewUpdate');
     var inp_mdl_updateIDG = document.getElementById("inpIDG");
     var btn_mdl_updateIDC = document.getElementById("htmMdlUpdateInpIDC");
     var inp_mdl_updateIDC = document.getElementById("inpIDC");
+
+    var btn_mdl_updateBIO = document.getElementById("htmMdlUpdateInpBIO");
+    var inp_mdl_updateBIO = document.getElementById("inpBIO");
 
     var btn_mdl_download = document.getElementById("imgviewer_download");
     var btn_mdl_print = document.getElementById("imgviewer_print");

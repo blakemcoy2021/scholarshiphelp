@@ -188,8 +188,11 @@ function load_ScholarApps() {
                     let d = new Date(records[i].scholar_dateadded);
                     let date_val = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " - " + d.getHours() + ":" + d.getMinutes();
 
-                    let viewRecord = "style='cursor:pointer;' onclick=\"javascript: viewScholarApp('"+records[i].scholar_id+"');\" ";
-
+                    let status = records[i].scholar_status;
+                    let viewRecord = "style='background-color: yellow;'";
+                    if (status == "Overall") {
+                        viewRecord = "style='cursor:pointer;' onclick=\"javascript: viewScholarApp('"+records[i].scholar_id+"');\" ";
+                    }
                     tbl_rowdata += 	"<tr "+viewRecord+">" +
                                         "<td class='tdoverflow'>" + records[i].user_firstname + " " + records[i].user_lastname + "</td>" +
                                         "<td class='tdoverflow'>" + records[i].scholar_barangay + "</td>" +

@@ -41,4 +41,10 @@ var mdl_viewUpdate = document.getElementById('htmMdlViewUpdate');
     var img_mdlidc_img = document.getElementById("imgviewer_areaIDC");
     var lbl_mdlidc_status = document.getElementById("htmMdlTabIDCStatus");
 
+        //biodata
+        var lbl_mdlbio_updatedInfo = document.getElementById("htmLblInfoLastUpdate7");
+        var pdf_mdlbio_pdfbio = document.getElementById("pdfviewer_areaBIO");
+        var img_mdlbio_imgbio = document.getElementById("imgviewer_areaBIO");
+        var lbl_mdlbio_status = document.getElementById("htmMdlTabBioStatus");
+
 var btn_sort = document.getElementById("htmMdlBtnSort");

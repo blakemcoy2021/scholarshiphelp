@@ -205,6 +205,38 @@ function viewScholarApp(scholarId) {
             lbl_mdlidc_status.innerHTML = "Not Verified";
           }
 
+
+          dt = new Date(records[0].bio_lastupdate);
+          date_val = months[dt.getMonth()] + " " + dt.getDate() + ", " + dt.getFullYear() + " - " + dt.getHours() + ":" + dt.getMinutes();
+          lbl_mdlbio_updatedInfo.innerHTML = "Below Last Updated: " + date_val;
+
+          filetype = records[0].bio_filetype;
+          path = records[0].bio_path;
+          if (filetype == "pdf" && path != "no_path") {
+            pdf_mdlbio_pdfbio.style.display = "block";
+            img_mdlbio_imgbio.style.display = "none";
+            PDFObject.embed(path, "#pdfviewer_areaBIO");
+
+          } else if (filetype != "none" && path != "no_path") {
+            pdf_mdlbio_pdfbio.style.display = "none";
+            img_mdlbio_imgbio.style.display = "block";
+            img_mdlbio_imgbio.src = path + "?nc=" + rmcache.getMilliseconds();
+          } 
+          else {
+            pdf_mdlbio_pdfbio.style.display = "none";
+            img_mdlbio_imgbio.style.display = "block";
+            img_mdlbio_imgbio.src = "images/noimg.png";
+          }
+          state = records[0].bio_verified;
+          lbl_mdlbio_status.innerHTML = "N/A";
+          if (state == "1") {
+            lbl_mdlbio_status.innerHTML = "Verified";
+          } else if (state == "0" && path == "no_path") {
+            lbl_mdlbio_status.innerHTML = "No File Uploaded Yet";
+          } else if (state == "0") {
+            lbl_mdlbio_status.innerHTML = "Not Verified";
+          }
+
       }
       else if (this.readyState == 4) {
           alert("Server Unreachable. Possible Slow Internet Connection..!");
@@ -228,6 +260,22 @@ btn_mdl_updateInfo.addEventListener("click", (evt) => {
   if (failfieldctr > 0) {
     alert('all field(s) required');
     return;
+  }
+  if (lbl_mdlinfo_scholartitle.value.length > 50) { failfieldctr++; }
+  if (lbl_mdlinfo_course.value.length > 50) { failfieldctr++; }
+  if (failfieldctr > 0) {
+      alert('Scholar label and course cannot exceed 50 characters.');
+      return;
+  }
+  if (lbl_mdlinfo_school.value.length > 200) { failfieldctr++; }
+  if (failfieldctr > 0) {
+      alert('School Name cannot exceed 200 characters.');
+      return;
+  }
+  if (lbl_mdlinfo_grdyr.value.length > 11) { failfieldctr++; }
+  if (failfieldctr > 0) {
+      alert('Grade/Year cannot exceed 11 characters.');
+      return;
   }
 
   var frmdata = new FormData();
@@ -331,6 +379,12 @@ function uploadFile(fileclass, inpfile, evt) {
                           img_mdlidg_img.src = srcEncoded;
                         } else if (fileclass == "idc") {
                           img_mdlidc_img.src = srcEncoded;
+
+                        } else if (fileclass == "bio") {
+                          pdf_mdlbio_pdfbio.style.display = "none";
+                          img_mdlbio_imgbio.style.display = "block";
+                          img_mdlbio_imgbio.src = srcEncoded;
+
                         }
 
                         mdl_viewUpdate.style.display='none';
@@ -352,6 +406,11 @@ function uploadFile(fileclass, inpfile, evt) {
               pdf_mdlgrd_pdfcog.style.display = "block";
               img_mdlgrd_imgcog.style.display = "none";
               PDFObject.embed(d.success, "#pdfviewer_areaCOG");
+
+            } else if (fileclass == "bio") {
+              pdf_mdlbio_pdfbio.style.display = "block";
+              img_mdlbio_imgbio.style.display = "none";
+              PDFObject.embed(d.success, "#pdfviewer_areaBIO");
 
             }
           }
@@ -401,6 +460,18 @@ inp_mdl_updateIDC.onchange = function (evt) {
   }
   uploadFile("idc", inp_mdl_updateIDC, evt);
 }
+
+btn_mdl_updateBIO.addEventListener("click", (evt) => {
+  inp_mdl_updateBIO.click();
+});
+inp_mdl_updateBIO.onchange = function (evt) {
+  if (inp_mdl_updateBIO.files.length == 0) { 
+    return; 
+  }
+  uploadFile("bio", inp_mdl_updateBIO, evt);
+}
+
+
 
 
 

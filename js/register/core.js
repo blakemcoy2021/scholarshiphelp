@@ -46,13 +46,31 @@ document.getElementById("frmRegister").onsubmit = function(evt) {
     if (bday.value == "") { failfieldctr++; }
     if (unme.value == "") { failfieldctr++; }
     if (pass.value == "") { failfieldctr++; }
-
     if (phto.files.length == 0) { failfieldctr++; }
 
     if (failfieldctr > 0) {
         alert("All field(s) required!");
         return false;
     }
+    if (fnme.value.length > 50) { failfieldctr++; }
+    if (mnme.value.length > 50) { failfieldctr++; }
+    if (lnme.value.length > 50) { failfieldctr++; }
+    if (unme.value.length > 50) { failfieldctr++; }
+    if (failfieldctr > 0) {
+        alert("Name and email field(s) cannot exceed 50 characters!");
+        return false;
+    }
+    if (pnum.value.length > 11) { failfieldctr++; }
+    if (failfieldctr > 0) {
+        alert("Only 11 digit mobile number format e.g. '09xx' is accepted.");
+        return false;
+    }
+    if (addr.value.length > 70) { failfieldctr++; }
+    if (failfieldctr > 0) {
+        alert("Address field cannot exceed 70 characters!");
+        return false;
+    }
+
 
     const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let isEmailValid = regexEmail.test(String(unme.value).toLowerCase());

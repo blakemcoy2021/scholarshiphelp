@@ -248,6 +248,7 @@ function load_ScholarApps() {
                     let hasCOG = "N/A - Copy of Grades";
                     let hasIDG = "N/A - Certificate of Indigency";
                     let hasIDC = "N/A - Photo ID";
+                    let hasBIO = "N/A - Biodata";
                     if (records[i].cor_path != "no_path") {
                         hasCOR = "SENT - Certificate of Registration";
                     }
@@ -259,6 +260,9 @@ function load_ScholarApps() {
                     }
                     if (records[i].idc_path != "no_path") {
                         hasIDC = "SENT - Photo ID";
+                    }
+                    if (records[i].bio_path != "no_path") {
+                        hasBIO = "SENT - Biodata";
                     }
 
                     let viewRecord = "style='cursor:pointer;' onclick=\"javascript: viewScholarApp('"+records[i].scholar_id+"');\" ";
@@ -281,6 +285,9 @@ function load_ScholarApps() {
                                             "</p>" +
                                             "<p style='padding: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%'>" 
                                                 + hasIDC + 
+                                            "</p>" +
+                                            "<p style='padding: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%'>" 
+                                                + hasBIO + 
                                             "</p>" +
                                         "</td>" +
                                         "<td class='tdbasic'>" + records[i].scholar_status + "</td>" +

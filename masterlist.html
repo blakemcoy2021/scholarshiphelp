@@ -63,11 +63,13 @@
         window.sessionStorage.setItem("COGisPhoto", 0); window.sessionStorage.setItem("COGpathPhoto", "no_path");
         window.sessionStorage.setItem("IDGisPhoto", 0); window.sessionStorage.setItem("IDGpathPhoto", "no_path");
         window.sessionStorage.setItem("IDCisPhoto", 0); window.sessionStorage.setItem("IDCpathPhoto", "no_path");
+        window.sessionStorage.setItem("BIOisPhoto", 0); window.sessionStorage.setItem("BIOpathPhoto", "no_path");
         window.sessionStorage.setItem("ApproveInfo", 0);
         window.sessionStorage.setItem("ApproveCOR", 0);
         window.sessionStorage.setItem("ApproveCOG", 0);
         window.sessionStorage.setItem("ApproveIDG", 0);
         window.sessionStorage.setItem("ApproveIDC", 0);
+        window.sessionStorage.setItem("ApproveBIO", 0);
         window.sessionStorage.setItem("tblsort", "def");
     </script>
 
@@ -157,6 +159,7 @@
                         <button class="tablink w3-bar-item w3-button" onclick="viewTabs(event, 'htmMdlTabCOG')">Grades</button>
                         <button class="tablink w3-bar-item w3-button" onclick="viewTabs(event, 'htmMdlTabIDG')">Indigency</button>
                         <button class="tablink w3-bar-item w3-button" onclick="viewTabs(event, 'htmMdlTabVID')">Valid ID</button>
+                        <button class="tablink w3-bar-item w3-button" onclick="viewTabs(event, 'htmMdlTabBIO')">Biodata</button>
                     </div>
                
                     <div id="htmMdlTablInfo" class="w3-container req">
@@ -293,11 +296,29 @@
     
     
                     </div>
+
+
+                    <div id="htmMdlTabBIO" class="w3-container req" style="padding-bottom: 0; margin-bottom: -10px;">
+                        <div class="form__group field" style="width: 90%; margin-bottom: 20px;">
+                            <label id="htmLblInfoLastUpdate7" class="form__label" style="text-decoration: underline;">Below Last Updated: ?</label>
+                        </div>
+                        <div style="display: flex; justify-content: center; width: 100%;">
+                            <div id="pdfviewer_areaBIO" style="display: none; width: 90%; height: 280px;"></div>
+                            <img id="imgviewer_areaBIO" style="display: none; width: 40%; height: 280px;">
+                        </div>
+                        <p style="padding: 0; margin-bottom: -20px;">Biodata Status: <span id="htmMdlTabBioStatus" style="text-decoration: underline;">?</span></p><br>
+                        <p id="htmMdlUpdateInpBIO" style="display: none;       margin: 0; padding: 0; cursor: pointer; text-decoration: underline;"><span class="w3-text-red">Click here to update</span></p><br>
+                        <input style="display: none;" id="inpBIO" required name="bioDoc" type="file" accept="image/jpeg, image/png, application/pdf" />
+                    </div>
+
+
+
+
                
                     <div class="w3-container w3-light-grey w3-padding">
                         <div style="width: 100%; display: flex;">
                             <div style="width: 50%; justify-content: left;">
-                                <h4>Registration #: <span id="htmMdlLblRegNum">?</span></h4>
+                                <h4>Scholar App Register#: <span id="htmMdlLblRegNum">?</span></h4>
                             </div>
                             <div style="width: 50%; justify-content: right;">
                                 <a id="imgviewer_download" class="custombtn" style="margin: auto; cursor: pointer; display: none;" download>Download</a>

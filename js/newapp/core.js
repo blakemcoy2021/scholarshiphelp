@@ -89,6 +89,10 @@ document.getElementById("inpIDC").onchange = function (evt) {
     document.getElementById("lbldoc4").innerHTML = getFileName(document.getElementById("inpIDC").value);
 }
 
+document.getElementById("inpBIO").onchange = function (evt) {
+    document.getElementById("lbldoc5").innerHTML = getFileName(document.getElementById("inpBIO").value);
+}
+
 function getFileName(fullPath) {
     var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
     var filename = fullPath.substring(startIndex);
