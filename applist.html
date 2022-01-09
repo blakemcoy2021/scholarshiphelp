@@ -43,6 +43,29 @@
             display: none;
         }
     </style>
+    <script>
+        function logout() {
+            var login_uid = document.getElementById("hidfld_uid").value
+            var xmlhttp = new XMLHttpRequest();
+                route = "service/php/web/common/logout.php?uid=" + login_uid;
+                xmlhttp.open("GET", route, true);
+                xmlhttp.send();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) { console.log(this.responseText);
+                        //alert(this.responseText + " " + login_uid);
+                        // **below is template: json formatted
+                        let d;
+                        try { d = JSON.parse(this.responseText); }
+                        catch (e) { alert('Response Format error! ' + this.responseText); return; }
+                        if (d.success == false) { alert(d.message); return; } //console.log(d.success);
+                        window.location.href = "index.html";
+                    }
+                    else if (this.readyState == 4) {
+                        alert("Server Unreachable. Possible Slow Internet Connection..!");
+                    }
+                };
+        }
+    </script>
 
     <body>
 
@@ -64,7 +87,7 @@
         <a href="newapp.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">New Application</a> 
         <a href="documents.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Uploaded Documents</a> 
         <a href="profile.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Profile</a> 
-        <a href="index.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+        <a onclick="logout(); w3_close()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
     </div>
     </nav>
 
@@ -96,11 +119,11 @@
             <table class="w3-table w3-striped w3-red" style="width: 1400px; font-weight: bolder; table-layout: fixed;">
                 <tr>
                     <td class="tdbasic">APPLICATION LABEL</td>
-                    <td class="tdoverflow">SCHOOL LISTED</td>
+                    <td class="tdoverflow">DOCUMENTS</td>
                     <td class="tdbasic">STATUS</td>
                     <td class="tdbasic">APPROVED</td>
                     <td class="tdbasic">DATE APPLIED</td>
-                    <td class="tdoverflow">DOCUMENTS</td>
+                    <td class="tdoverflow">SCHOOL LISTED</td>
                 </tr>
             </table>
             <table id="tblscholarapps" class="w3-table w3-striped w3-light-grey" style="width: 1400px; table-layout: fixed;">

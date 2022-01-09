@@ -119,10 +119,10 @@
     } else {
         $photomime = $checkphoto["mime"];
     }
-    if ($ph["size"] > 1000000) {
+    if ($ph["size"] > 21000000) {
         $data['success'] = false;
-        $data['message'] = "File is to large! Less than 1MB is required.";
-        $data['logs'] = "Uploading Photo is more than 1MB.";
+        $data['message'] = "File is to large! Less than 20MB is required.";
+        $data['logs'] = "Uploading Photo is more than 20MB.";
         echo json_encode($data);
         die();
     }

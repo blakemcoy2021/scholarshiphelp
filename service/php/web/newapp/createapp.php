@@ -203,17 +203,17 @@
         $checkphoto = getimagesize($idg["tmp_name"]);
         if ($checkphoto === false) {
             $data['success'] = false;
-            $data['message'] = "Selected Image File is corrupted. Find less than 4MB image jpg/png also.!";
+            $data['message'] = "Selected Image File is corrupted. Find less than 20MB image jpg/png also.!";
             $data['logs'] = "Not valid photo.";
             echo json_encode($data);
             die();
         } else {
             $photomime = $checkphoto["mime"];
         }
-        if ($idg["size"] > 5000000) {
+        if ($idg["size"] > 21000000) {
             $data['success'] = false;
-            $data['message'] = "File is to large! Less than 4MB is required.";
-            $data['logs'] = "Uploading Photo is more than 4MB.";
+            $data['message'] = "File is to large! Less than 20MB is required.";
+            $data['logs'] = "Uploading Photo is more than 20MB.";
             echo json_encode($data);
             die();
         }
@@ -234,17 +234,17 @@
         $checkphoto = getimagesize($idc["tmp_name"]);
         if ($checkphoto === false) {
             $data['success'] = false;
-            $data['message'] = "Selected Image File is corrupted. Find less than 4MB image jpg/png also.!";
+            $data['message'] = "Selected Image File is corrupted. Find less than 20MB image jpg/png also.!";
             $data['logs'] = "Not valid photo.";
             echo json_encode($data);
             die();
         } else {
             $photomime = $checkphoto["mime"];
         }
-        if ($idc["size"] > 4000000) {
+        if ($idc["size"] > 21000000) {
             $data['success'] = false;
-            $data['message'] = "File is to large! Less than 4MB is required.";
-            $data['logs'] = "Uploading Photo is more than 4MB.";
+            $data['message'] = "File is to large! Less than 20MB is required.";
+            $data['logs'] = "Uploading Photo is more than 20MB.";
             echo json_encode($data);
             die();
         }
@@ -268,17 +268,17 @@
             $checkphoto = getimagesize($cor["tmp_name"]);
             if ($checkphoto === false) {
                 $data['success'] = false;
-                $data['message'] = "Selected Image File is corrupted. Find less than 4MB image jpg/png also.!";
+                $data['message'] = "Selected Image File is corrupted. Find less than 20MB image jpg/png also.!";
                 $data['logs'] = "Not valid photo.";
                 echo json_encode($data);
                 die();
             } else {
                 $photomime = $checkphoto["mime"];
             }
-            if ($cor["size"] > 4000000) {
+            if ($cor["size"] > 21000000) {
                 $data['success'] = false;
-                $data['message'] = "File is to large! Less than 4MB is required.";
-                $data['logs'] = "Uploading Photo is more than 4MB.";
+                $data['message'] = "File is to large! Less than 20MB is required.";
+                $data['logs'] = "Uploading Photo is more than 20MB.";
                 echo json_encode($data);
                 die();
             }
@@ -313,17 +313,17 @@
             $checkphoto = getimagesize($cog["tmp_name"]);
             if ($checkphoto === false) {
                 $data['success'] = false;
-                $data['message'] = "Selected Image File is corrupted. Find less than 4MB image jpg/png also.!";
+                $data['message'] = "Selected Image File is corrupted. Find less than 20MB image jpg/png also.!";
                 $data['logs'] = "Not valid photo.";
                 echo json_encode($data);
                 die();
             } else {
                 $photomime = $checkphoto["mime"];
             }
-            if ($cog["size"] > 4000000) {
+            if ($cog["size"] > 21000000) {
                 $data['success'] = false;
-                $data['message'] = "File is to large! Less than 4MB is required.";
-                $data['logs'] = "Uploading Photo is more than 4MB.";
+                $data['message'] = "File is to large! Less than 20MB is required.";
+                $data['logs'] = "Uploading Photo is more than 20MB.";
                 echo json_encode($data);
                 die();
             }

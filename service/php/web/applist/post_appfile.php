@@ -109,17 +109,17 @@
             $checkphoto = getimagesize($ph["tmp_name"]);
             if ($checkphoto === false) {
                 $data['success'] = false;
-                $data['message'] = "File has unreliable meta. Resize or edit it, size less than 4MB to be valid!";
+                $data['message'] = "File has unreliable meta. Resize or edit it, size less than 20MB to be valid!";
                 $data['logs'] = "Not valid photo.";
                 echo json_encode($data);
                 die();
             } else {
                 $photomime = $checkphoto["mime"];
             }
-            if ($ph["size"] > 5000000) {
+            if ($ph["size"] > 21000000) {
                 $data['success'] = false;
-                $data['message'] = "File is to large! Less than 4MB is required.";
-                $data['logs'] = "Uploading Photo is more than 4MB.";
+                $data['message'] = "File is to large! Less than 20MB is required.";
+                $data['logs'] = "Uploading Photo is more than 20MB.";
                 echo json_encode($data);
                 die();
             }

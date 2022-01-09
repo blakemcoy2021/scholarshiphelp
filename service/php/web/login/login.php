@@ -65,6 +65,17 @@
 
         $u = str_replace(",", "-", $u);
         $u = str_replace(" ", "_", $u);
+
+
+        $dateupd = date("Y-m-d G:i:s");
+        $qval = "login_isonline='1', login_lastupdate='$dateupd' ";
+        $query = "update tbl_login ";
+        $query .= "set $qval ";
+        $query .= "where login_id='$uid';";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+
+
         $data['success'] = $role . "," . $uid . "," . $fname;
         $data['message'] = "Welcome! " . $fname;
         $data['logs'] = "Username/Password Found.";
