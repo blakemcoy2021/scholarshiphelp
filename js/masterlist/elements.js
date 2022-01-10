@@ -52,6 +52,7 @@ var mdl_viewUpdate = document.getElementById('htmMdlViewUpdate');
 
 
     //updating controls
+        var btn_mdl_declineInfo = document.getElementById("htmMdlBtnDecline");
     var btn_mdl_updateInfo = document.getElementById("htmMdlBtnUpdateApp");
     var btn_mdl_updateCOR = document.getElementById("htmMdlUpdateInpCOR");
     var inp_mdl_updateCOR = document.getElementById("inpCOR");

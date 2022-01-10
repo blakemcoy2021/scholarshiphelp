@@ -26,7 +26,8 @@
     </style>
 
     <script>
-        window.localStorage.setItem("singleRun", 0)
+        window.localStorage.setItem("singleRun", 0);
+        window.sessionStorage.setItem("singleErrorShow", "none");
 
         function logout() {
             var login_uid = document.getElementById("hidfld_uid").value
@@ -141,9 +142,12 @@
                                 <td class="tdbasic"><i class="fa fa-check-square" aria-hidden="true"> Verified Valid ID</i></td>
                             </tr>
                             <tr id="tenthStep" style="font-size: xx-large;" class="w3-gray w3-text-white">
-                                <td class="tdbasic"><i class="fa fa-pie-chart" aria-hidden="true"> For Overall Assessment</i></td>
+                                <td class="tdbasic"><i class="fa fa-check-square" aria-hidden="true"> Verified Biodata</i></td>
                             </tr>
                             <tr id="eleventhStep" style="font-size: xx-large;" class="w3-gray w3-text-white">
+                                <td class="tdbasic"><i class="fa fa-pie-chart" aria-hidden="true"> For Overall Assessment</i></td>
+                            </tr>
+                            <tr id="twevlethStep" style="font-size: xx-large;" class="w3-gray w3-text-white">
                                 <td class="tdbasic"><i class="fa fa-mortar-board" aria-hidden="true"> Approved Scholarship</i></td>
                             </tr>
                         </table>

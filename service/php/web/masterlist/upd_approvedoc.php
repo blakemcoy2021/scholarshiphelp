@@ -29,6 +29,8 @@
     $qval = "1";
     if ($vfy == "0") {
         $qval = "0";
+    } else if ($vfy == "2") {
+        $qval = "2";
     }
 
     $qtbl = "tbl_cor";

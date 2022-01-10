@@ -45,7 +45,8 @@
 
     $dateupd = date("Y-m-d G:i:s");
 
-    $qval = "scholar_title='$lbl', scholar_barangay='$bgy', scholar_course='$crs', scholar_school='$sch', scholar_gradeyr='$grd', scholar_lastupdate='$dateupd'";
+    $qval = "scholar_title='$lbl', scholar_barangay='$bgy', scholar_course='$crs', scholar_school='$sch', scholar_gradeyr='$grd', scholar_lastupdate='$dateupd', ";
+    $qval .= "scholar_status='For Review'";
     $query = "update tbl_scholar ";
     $query .= "set $qval ";
     $query .= "where scholar_id='$sid';";

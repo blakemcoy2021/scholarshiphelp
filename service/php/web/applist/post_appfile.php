@@ -64,6 +64,13 @@
             $qfld3 = "idc_filetype";
             $qstbl = "$qfld1,$qfld2,$qfld3 from tbl_idc where idc_scholarid='$sid' order by idc_id";
 
+        } else if ($clas == "bio") {
+            $fldr = "bio";
+            $qfld1 = "bio_path";
+            $qfld2 = "bio_dateadded";
+            $qfld3 = "bio_filetype";
+            $qstbl = "$qfld1,$qfld2,$qfld3 from tbl_bio where bio_scholarid='$sid' order by bio_id";
+
         }
 
         $query = "select $qstbl ";
@@ -225,6 +232,8 @@
             $qstbl = "tbl_idg (idg_scholarid, idg_filename, idg_path, idg_filetype, idg_verified) ";
         } else if ($clas == "idc") {
             $qstbl = "tbl_idc (idc_scholarid, idc_filename, idc_path, idc_filetype, idc_verified) ";
+        } else if ($clas == "bio") {
+            $qstbl = "tbl_bio (bio_scholarid, bio_filename, bio_path, bio_filetype, bio_verified) ";
         }
 
         $query = "insert into $qstbl ";
@@ -254,22 +263,27 @@
 
     $dateupd = date("Y-m-d G:i:s");
     $qstbl = "tbl_cor";
-    $qval = "cor_filename='$fileph', cor_path='$dbpath_ph', cor_filetype='$ext', cor_lastupdate='$dateupd'";
+    $qval = "cor_filename='$fileph', cor_path='$dbpath_ph', cor_filetype='$ext', cor_lastupdate='$dateupd', cor_verified='0'";
     $qwhr = "cor_scholarid='$sid'";
     if ($clas == "cog") {
         $qstbl = "tbl_cog";
-        $qval = "cog_filename='$fileph', cog_path='$dbpath_ph', cog_filetype='$ext', cog_lastupdate='$dateupd'";
+        $qval = "cog_filename='$fileph', cog_path='$dbpath_ph', cog_filetype='$ext', cog_lastupdate='$dateupd', cog_verified='0'";
         $qwhr = "cog_scholarid='$sid'";
 
     } else if ($clas == "idg") {
         $qstbl = "tbl_idg";
-        $qval = "idg_filename='$fileph', idg_path='$dbpath_ph', idg_filetype='$ext', idg_lastupdate='$dateupd'";
+        $qval = "idg_filename='$fileph', idg_path='$dbpath_ph', idg_filetype='$ext', idg_lastupdate='$dateupd', idg_verified='0'";
         $qwhr = "idg_scholarid='$sid'";
 
     } else if ($clas == "idc") {
         $qstbl = "tbl_idc";
-        $qval = "idc_filename='$fileph', idc_path='$dbpath_ph', idc_filetype='$ext', idc_lastupdate='$dateupd'";
+        $qval = "idc_filename='$fileph', idc_path='$dbpath_ph', idc_filetype='$ext', idc_lastupdate='$dateupd', idc_verified='0'";
         $qwhr = "idc_scholarid='$sid'";
+
+    } else if ($clas == "bio") {
+        $qstbl = "tbl_bio";
+        $qval = "bio_filename='$fileph', bio_path='$dbpath_ph', bio_filetype='$ext', bio_lastupdate='$dateupd', bio_verified='0'";
+        $qwhr = "bio_scholarid='$sid'";
 
     }
 

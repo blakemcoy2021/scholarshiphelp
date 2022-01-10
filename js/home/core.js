@@ -253,9 +253,26 @@ function load_CurrApps() {
                         let s = row.scholar_status;
                         s = s.toLowerCase();
                         
-                        h = document.getElementById("currAppState");
-                        c = "<i class='fa fa-area-chart' aria-hidden='true'> ";
+                        let h = document.getElementById("currAppState");
+                        let c = "<i class='fa fa-area-chart' aria-hidden='true'> ";
 
+                        let denied = 0;
+                        if (row.cor_verified == "2") {
+                            denied++;
+                        }
+                        if (row.cog_verified == "2") {
+                            denied++;
+                        }
+                        if (row.idg_verified == "2") {
+                            denied++;
+                        }
+                        if (row.idc_verified == "2") {
+                            denied++;
+                        }
+                        if (row.bio_verified == "2") {
+                            denied++;
+                        }
+                        
                         let overall = false;
                         switch (s) {
                             case "new":
@@ -270,12 +287,23 @@ function load_CurrApps() {
                                 c += "Your application is under-review.</i>";
                                 setProgress(3);
                                 break;
+
+                            case "declined info":
+                                setProgress(2);
+                                c += "YOUR INFO IS DECLINED.</i>";
+                                onwardProgress("2","thirdStep");
+                                break;
+
                             case "approved info":
                                 c += "Info in your app - approved.</i>";
                                 setProgress(4);
                                 break;
                             case "review docs":
-                                c += "Your documents are under-review.</i>";
+                                if (denied > 0) {
+                                    c += "SEE DENIED DOCUMENT(S).</i>";
+                                } else {
+                                    c += "Your documents are under-review.</i>";
+                                }
                                 setProgress(5);
                                 break;
                             case "overall":
@@ -296,6 +324,7 @@ function load_CurrApps() {
                             onwardProgress(row.cog_verified, "seventhStep");
                             onwardProgress(row.idg_verified, "eightStep");
                             onwardProgress(row.idc_verified, "ninthStep");
+                            onwardProgress(row.bio_verified, "tenthStep");
                         } 
                         else {
                             if (s == "awarded") {
@@ -388,16 +417,25 @@ function onwardProgress(state, step) {
     if (state == "1") {
         document.getElementById(step).classList.remove("w3-gray");    
         document.getElementById(step).classList.add("w3-green");
+    } else if (state == "2") {
+        document.getElementById(step).classList.remove("w3-gray");    
+        document.getElementById(step).classList.remove("w3-green");
+        document.getElementById(step).classList.add("w3-red");
+
+        if (window.sessionStorage.getItem("singleErrorShow") == "none") {
+            alert("You have a declined document/info.");
+        }
+        window.sessionStorage.setItem("singleErrorShow", step);
     } else {
         document.getElementById(step).classList.remove("w3-green");
-        document.getElementById(step).classList.add("w3-gray");   
+        document.getElementById(step).classList.add("w3-gray");
     }
 }
 
 function setProgress(step) {
 
     let arr = ["firstStep", "secondStep", "thirdStep", "fourthStep", "fifthStep",
-                "sixthStep", "seventhStep", "eightStep", "ninthStep", "tenthStep", "eleventhStep"];
+                "sixthStep", "seventhStep", "eightStep", "ninthStep", "tenthStep", "eleventhStep", "twevlethStep"];
 
     /** turn all row steps to gray first */
     for (let i = 0; i < arr.length; i++) {

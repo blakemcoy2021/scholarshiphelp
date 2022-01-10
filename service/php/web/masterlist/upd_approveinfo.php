@@ -28,6 +28,8 @@
         $qval = "Reviewing";
     } else if ($vfy == "3") {
         $qval = "Review Docs";
+    } else if ($vfy == "2") {
+        $qval = "Declined Info";
     }
     $query = "update tbl_scholar ";
     $query .= "set scholar_status='$qval' ";

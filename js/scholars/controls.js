@@ -105,6 +105,8 @@ function viewScholarApp(scholarId) {
             lbl_mdlregi_status.innerHTML = "No File Uploaded Yet";
           } else if (state == "0") {
             lbl_mdlregi_status.innerHTML = "Not Verified";
+          } else if (state == "2") {
+            lbl_mdlregi_status.innerHTML = "DECLINED";
           }
 
 
@@ -140,6 +142,8 @@ function viewScholarApp(scholarId) {
             lbl_mdlgrd_status.innerHTML = "No File Uploaded Yet";
           } else if (state == "0") {
             lbl_mdlgrd_status.innerHTML = "Not Verified";
+          } else if (state == "2") {
+            lbl_mdlgrd_status.innerHTML = "DECLINED";
           }
 
 
@@ -165,6 +169,8 @@ function viewScholarApp(scholarId) {
             lbl_mdlidg_status.innerHTML = "No File Uploaded Yet";
           } else if (state == "0") {
             lbl_mdlidg_status.innerHTML = "Not Verified";
+          } else if (state == "2") {
+            lbl_mdlidg_status.innerHTML = "DECLINED";
           }
 
 
@@ -190,6 +196,8 @@ function viewScholarApp(scholarId) {
             lbl_mdlidc_status.innerHTML = "No File Uploaded Yet";
           } else if (state == "0") {
             lbl_mdlidc_status.innerHTML = "Not Verified";
+          } else if (state == "2") {
+            lbl_mdlidc_status.innerHTML = "DECLINED";
           }
 
 
@@ -225,6 +233,8 @@ function viewScholarApp(scholarId) {
             lbl_mdlbio_status.innerHTML = "No File Uploaded Yet";
           } else if (state == "0") {
             lbl_mdlbio_status.innerHTML = "Not Verified";
+          } else if (state == "2") {
+            lbl_mdlbio_status.innerHTML = "DECLINED";
           }
 
 

@@ -65,6 +65,7 @@ function checkStatus(schid, status, el) {
         onwardProgress(row.cog_verified, "seventhStep");
         onwardProgress(row.idg_verified, "eightStep");
         onwardProgress(row.idc_verified, "ninthStep");
+        onwardProgress(row.bio_verified, "tenthStep");
     } 
     else {
         if (s == "awarded") {

@@ -55,12 +55,11 @@ document.getElementById("btnUpdateProfile").addEventListener("click", function (
         alert('all field(s) required');
         return;
     }
-    if (fnme.value.length > 50) { failfieldctr++; }
-    if (mnme.value.length > 50) { failfieldctr++; }
-    if (lnme.value.length > 50) { failfieldctr++; }
-    if (unme.value.length > 50) { failfieldctr++; }
+    if (firstname.value.length > 50) { failfieldctr++; }
+    if (middlename.value.length > 50) { failfieldctr++; }
+    if (lastname.value.length > 50) { failfieldctr++; }
     if (failfieldctr > 0) {
-        alert("Name and email field(s) cannot exceed 50 characters!");
+        alert("Name field(s) cannot exceed 50 characters!");
         return false;
     }
     if (pnum.value.length > 11) { failfieldctr++; }

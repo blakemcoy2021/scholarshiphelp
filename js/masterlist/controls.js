@@ -115,6 +115,8 @@ function viewScholarApp(scholarId) {
             window.sessionStorage.setItem("ApproveCOR", 2);
           } else if (state == "0") {
             lbl_mdlregi_status.innerHTML = "Not Verified";
+          } else if (state == "2") {
+            lbl_mdlregi_status.innerHTML = "DECLINED";
           }
 
 
@@ -159,6 +161,8 @@ function viewScholarApp(scholarId) {
             window.sessionStorage.setItem("ApproveCOG", 2);
           } else if (state == "0") {
             lbl_mdlgrd_status.innerHTML = "Not Verified";
+          } else if (state == "2") {
+            lbl_mdlgrd_status.innerHTML = "DECLINED";
           }
 
 
@@ -191,6 +195,8 @@ function viewScholarApp(scholarId) {
             window.sessionStorage.setItem("ApproveIDG", 2);
           } else if (state == "0") {
             lbl_mdlidg_status.innerHTML = "Not Verified";
+          } else if (state == "2") {
+            lbl_mdlidg_status.innerHTML = "DECLINED";
           }
 
 
@@ -223,6 +229,8 @@ function viewScholarApp(scholarId) {
             window.sessionStorage.setItem("ApproveIDC", 2);
           } else if (state == "0") {
             lbl_mdlidc_status.innerHTML = "Not Verified";
+          } else if (state == "2") {
+            lbl_mdlidc_status.innerHTML = "DECLINED";
           }
 
 
@@ -267,6 +275,8 @@ function viewScholarApp(scholarId) {
             window.sessionStorage.setItem("ApproveBIO", 2);
           } else if (state == "0") {
             lbl_mdlbio_status.innerHTML = "Not Verified";
+          } else if (state == "2") {
+            lbl_mdlbio_status.innerHTML = "DECLINED";
           }
 
 
@@ -332,6 +342,7 @@ function viewScholarApp(scholarId) {
               else {
                 btn_mdl_updateInfo.innerHTML = "Approve";
                 btn_mdl_updateInfo.removeAttribute('disabled');
+                  btn_mdl_declineInfo.removeAttribute('disabled')
 
                 if (tabnum != 0) {
                   tabEventAfterInfoApprove();
@@ -400,12 +411,47 @@ function scholarAppReviewedState(scholarId) {
 function approveBtnState(itm) {
   btn_mdl_updateInfo.innerHTML = "Approve";
   btn_mdl_updateInfo.removeAttribute('disabled');
+    btn_mdl_declineInfo.removeAttribute('disabled');
+
   if (window.sessionStorage.getItem(itm) == 1) { 
     btn_mdl_updateInfo.innerHTML = "Verified"; 
   } else if (window.sessionStorage.getItem(itm) == 2) {
     btn_mdl_updateInfo.setAttribute('disabled', 'disabled');
+      btn_mdl_declineInfo.setAttribute('disabled', 'disabled');
   }
 
+}
+
+btn_mdl_declineInfo.onclick = function() {
+  let tabNum = window.sessionStorage.getItem("TabNumber");
+  
+  if (tabNum == 0) {
+    let route = "service/php/web/masterlist/upd_approveinfo.php?sid=" + hid_scholarId.value + "&vfy=2";
+    requestApprovalProcess(route);
+  } 
+  else if (tabNum != 0) {  
+    let route = "service/php/web/masterlist/upd_approvedoc.php?sid=" + hid_scholarId.value;
+    if (tabNum == 1) {
+      route += "&doc=cor&vfy=2";
+
+    } else if (tabNum == 2) {
+      route += "&doc=cog&vfy=2";
+
+    } else if (tabNum == 3) {
+      route += "&doc=idg&vfy=2";
+
+    } else if (tabNum == 4) {
+      route += "&doc=idc&vfy=2";
+
+    } else if (tabNum == 5) {
+      route += "&doc=bio&vfy=2";
+
+    }
+    requestApprovalProcess(route);
+  }
+
+  mdl_viewUpdate.style.display = "none"; 
+  start_scholarAppTime(); 
 }
 
 btn_mdl_updateInfo.onclick = function() {
