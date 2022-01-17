@@ -29,6 +29,10 @@
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $stmt = $conn->prepare($query);
         $stmt->execute();
+
+        session_start();
+        session_unset();
+        session_destroy();
   
     } catch(PDOException $e) {  //echo "Error: " . $e->getMessage();
         $data['success'] = false;

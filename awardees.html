@@ -47,6 +47,10 @@
 
     </style>
 
+
+        <script type="text/javascript" src="js/common/session.js"></script>
+
+        
     <script>
         window.localStorage.setItem("singleRun", 0);
         window.sessionStorage.setItem("tblsort", "def");
@@ -61,7 +65,7 @@
             <a href="scholars.html">Scholars</a>
             <a href="#">Admin</a>
             <a href="users.html">User Logs</a>
-            <a href="index.html">Logout</a>
+            <a href="javascript:logout();">Logout</a>
             <a href="javascript:void(0);" class="icon" onclick="openMenuBars()">
               <i class="fa fa-bars"></i>
             </a>
@@ -131,6 +135,9 @@
         <script src="js/awardees/elements.js"></script>
         <script src="js/awardees/core.js"></script>
         <script src="js/awardees/controls.js"></script>
+
+            <script src="js/common/signout.js"></script>
+
         <script>
             var scholarTimer;
             

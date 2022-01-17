@@ -44,6 +44,10 @@
       $rowctr = $stmt->fetchAll();  //echo count($rowctr);
 
       if (count($rowctr) < 1) {
+        session_start();
+        session_unset();
+        session_destroy();
+
         $data['success'] = false;
         $data['message'] = "Wrong Username/Password!";
         $data['logs'] = "Username/Password Not Found.";

@@ -14,6 +14,10 @@
     
     <link rel="stylesheet" href="css/documents/fileviewer.css">
 
+
+        <script type="text/javascript" src="js/common/session.js"></script>
+
+
     <script src="js/documents/pdfobject.min.js"></script>
     <script src="js/documents/pdfobject.js"></script>
 
@@ -71,7 +75,7 @@
             <a href="#" class="active">Scholars</a>
             <a href="#">Admin</a>
             <a href="users.html">User Logs</a>
-            <a href="index.html">Logout</a>
+            <a href="javascript:logout();">Logout</a>
             <a href="javascript:void(0);" class="icon" onclick="openMenuBars()">
               <i class="fa fa-bars"></i>
             </a>
@@ -330,6 +334,9 @@
         <script src="js/scholars/elements.js"></script>
         <script src="js/scholars/core.js"></script>
         <script src="js/scholars/controls.js"></script>
+
+            <script src="js/common/signout.js"></script>
+
         <script>
             var scholarTimer;
             
