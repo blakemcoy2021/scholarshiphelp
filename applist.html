@@ -202,7 +202,7 @@
                             <!-- previously educational level -->
                             <div class="form__group field" style="width: 90%;">
                                 <input type="input" class="form__field" style="color: black" placeholder="course" 
-                                    name="course" id='course' required />
+                                    name="course" id='course' required onkeypress="javascript: return isLetter(event)">
                                 <label for="course" class="form__label">Course</label>
                             </div>
                             <div class="form__group field" style="width: 90%;">
@@ -212,7 +212,7 @@
                             </div>
                             <div class="form__group field" style="width: 90%; margin-bottom: 10px;">
                                 <input type="input" class="form__field" style="color: black" placeholder="school_university" 
-                                    name="school" id='school' required />
+                                    name="school" id='school' required onkeypress="javascript: return isLetter(event)">
                                 <label for="school" class="form__label">School/University in or to be taking</label>
                             </div>
                             <label for="standard-select" style="color: gray;">Designated Barangay:</label>
@@ -334,6 +334,11 @@
     <script src="js/applist/elements.js"></script>
     <script src="js/applist/core.js"></script>
     <script src="js/applist/controls.js"></script>
+
+
+        <script src="js/common/validations.js"></script>
+
+
     <script>
         var scholarTimer;
         

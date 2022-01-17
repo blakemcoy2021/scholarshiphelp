@@ -39,6 +39,13 @@ document.getElementById("btnUpdateProfile").addEventListener("click", function (
     let photo = document.getElementById("inpPhoto");
 
 
+    let ext = photo.value.split('.').pop();
+    if (ext != "jpg" && ext != "png" && ext != "jpeg") {
+        alert("The selected file is not a photo! Only accepts .jpg and .png. Convert first your photo, also in less than 20MB.");
+        return false;
+    }
+
+
     let failfieldctr = 0;
     if (firstname.value == "") { failfieldctr++; }
         if (middlename.value == "") { failfieldctr++; }

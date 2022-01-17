@@ -40,6 +40,39 @@ document.getElementById("btnCreateApp").addEventListener("click", function (evt)
     let idcfile = document.getElementById("inpIDC");
         let biofile = document.getElementById("inpBIO");
 
+        let pdfphoto_msg = "The selected file is not a pdf/photo! Only accepts .jpg, .png, .pdf files. If photo, convert first, also in less than 20MB.";
+        let photo_msg = "The selected file is not a photo! Only accepts .jpg and .png. Convert first your photo, also in less than 20MB.";
+        
+        let ext = cogfile.value.split('.').pop();
+        
+        if (ext != "jpg" && ext != "png" && ext != "jpeg" && ext != "pdf") {
+            alert(pdfphoto_msg);
+            return false;
+        }
+        ext = corfile.value.split('.').pop();
+        if (ext != "jpg" && ext != "png" && ext != "jpeg" && ext != "pdf") {
+            alert(pdfphoto_msg);
+            return false;
+        }
+        ext = idgfile.value.split('.').pop();
+        if (ext != "jpg" && ext != "png" && ext != "jpeg") {
+            alert(photo_msg);
+            return false;
+        }
+        ext = idcfile.value.split('.').pop();
+        if (ext != "jpg" && ext != "png" && ext != "jpeg") {
+            alert(photo_msg);
+            return false;
+        }
+        ext = biofile.value.split('.').pop();
+        if (ext != "jpg" && ext != "png" && ext != "jpeg" && ext != "pdf") {
+            alert(pdfphoto_msg);
+            return false;
+        }
+        
+
+
+
     let failfieldctr = 0;
         if (scholartitle.value == "") { failfieldctr++; }
     if (course.value == "") { failfieldctr++; }

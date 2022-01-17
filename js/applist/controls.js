@@ -1,3 +1,6 @@
+var pdfphoto_msg = "The selected file is not a pdf/photo! Only accepts .jpg, .png, .pdf files. If photo, convert first, also in less than 20MB.";
+var photo_msg = "The selected file is not a photo! Only accepts .jpg and .png. Convert first your photo, also in less than 20MB.";
+
 document.getElementById("imgPhoto").onerror = function() {
   document.getElementById("imgPhoto").src = "images/register/photoplaceholder.jpg";
 }
@@ -438,6 +441,13 @@ inp_mdl_updateCOR.onchange = function (evt) {
   if (inp_mdl_updateCOR.files.length == 0) { 
     return; 
   }
+  
+      ext = inp_mdl_updateCOR.value.split('.').pop();
+      if (ext != "jpg" && ext != "png" && ext != "jpeg" && ext != "pdf") {
+          alert(pdfphoto_msg);
+          return false;
+      }
+
   uploadFile("cor", inp_mdl_updateCOR, evt);
 }
 
@@ -448,6 +458,13 @@ inp_mdl_updateCOG.onchange = function (evt) {
   if (inp_mdl_updateCOG.files.length == 0) { 
     return; 
   }
+
+      ext = inp_mdl_updateCOG.value.split('.').pop();
+      if (ext != "jpg" && ext != "png" && ext != "jpeg" && ext != "pdf") {
+          alert(pdfphoto_msg);
+          return false;
+      }
+
   uploadFile("cog", inp_mdl_updateCOG, evt);
 }
 
@@ -458,6 +475,13 @@ inp_mdl_updateIDG.onchange = function (evt) {
   if (inp_mdl_updateIDG.files.length == 0) { 
     return; 
   }
+
+      ext = inp_mdl_updateIDG.value.split('.').pop();
+      if (ext != "jpg" && ext != "png" && ext != "jpeg") {
+          alert(photo_msg);
+          return false;
+      }
+
   uploadFile("idg", inp_mdl_updateIDG, evt);
 }
 
@@ -468,6 +492,13 @@ inp_mdl_updateIDC.onchange = function (evt) {
   if (inp_mdl_updateIDC.files.length == 0) { 
     return; 
   }
+
+      ext = inp_mdl_updateIDC.value.split('.').pop();
+      if (ext != "jpg" && ext != "png" && ext != "jpeg") {
+          alert(photo_msg);
+          return false;
+      }
+  
   uploadFile("idc", inp_mdl_updateIDC, evt);
 }
 
@@ -478,6 +509,13 @@ inp_mdl_updateBIO.onchange = function (evt) {
   if (inp_mdl_updateBIO.files.length == 0) { 
     return; 
   }
+
+      ext = inp_mdl_updateBIO.value.split('.').pop();
+      if (ext != "jpg" && ext != "png" && ext != "jpeg" && ext != "pdf") {
+          alert(pdfphoto_msg);
+          return false;
+      }
+
   uploadFile("bio", inp_mdl_updateBIO, evt);
 }
 

@@ -37,6 +37,12 @@ document.getElementById("frmRegister").onsubmit = function(evt) {
     if (gndrIdx == 1) { gndrName = "female"; }
 
 
+    let ext = phto.value.split('.').pop();
+    if (ext != "jpg" && ext != "png" && ext != "jpeg") {
+        alert("The selected file is not a photo! Only accepts .jpg and .png. Convert first your photo, also in less than 20MB.");
+        return false;
+    }
+
     let failfieldctr = 0;
     if (fnme.value == "") { failfieldctr++; }
         if (mnme.value == "") { failfieldctr++; }

@@ -103,17 +103,17 @@
         </div>
         <div class="form__group field">
             <input type="input" class="form__field" style="color: black" placeholder="firstname" 
-                name="firstname" id='firstname' required />
+                name="firstname" id='firstname' required onkeypress="javascript: return isLetter(event)">
             <label for="firstname" class="form__label">First Name</label>
         </div>
         <div class="form__group field">
             <input type="input" class="form__field" style="color: black" placeholder="middlename" 
-                name="middlename" id='middlename' required />
+                name="middlename" id='middlename' required onkeypress="javascript: return isLetter(event)">
             <label for="middlename" class="form__label">Middle Name</label>
         </div>
         <div class="form__group field">
             <input type="input" class="form__field" style="color: black" placeholder="lastname" 
-                name="lastname" id='lastname' required />
+                name="lastname" id='lastname' required onkeypress="javascript: return isLetter(event)">
             <label for="lastname" class="form__label">Last Name</label>
         </div>
         <div class="form__group field">
@@ -135,7 +135,7 @@
         </div>
         <div class="form__group field">
             <input type="input" class="form__field" style="color: black" placeholder="contact _number" 
-                name="contact" id='contact' required />
+                name="contact" id='contact' required onkeypress="javascript: return isNumber(event)">
             <label for="contact" class="form__label">Contact Number</label>
         </div>
 
@@ -154,6 +154,10 @@
 
     <script src="js/profile/core.js"></script>
     <script src="js/profile/controls.js"></script>
+
+        <script src="js/common/validations.js"></script>
+
+
     <script>
         window.onload = init();
     </script>
