@@ -66,7 +66,7 @@ function load_ScholarAppsCtr() {
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send();
     xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) { console.log(this.responseText);
+        if (this.readyState == 4 && this.status == 200) { console.log("@@@@ " + this.responseText);
 
             // **below is template: json formatted
             let d;
@@ -80,7 +80,7 @@ function load_ScholarAppsCtr() {
             if (d_arr.length > 1) {
                 let h = window.localStorage.getItem("scholar_updatePrompt");
                 if (h == 0) {
-                    window.localStorage.setItem("scholar_updatePrompt", 1);
+                    //window.localStorage.setItem("scholar_updatePrompt", 1);
                     let msg = "There are new updates regarding ";
                     for (let j = 1; j < d_arr.length-1; j++) {
                         let k = d_arr[j].split("=");

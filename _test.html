@@ -1,69 +1,4 @@
-<?php
-
-    include "../common/dbconfig.php";
-
-    $errors = [];
-    $data = array();
-
-    $sid = "none";
-    if (isset($_GET["sid"])) { $sid = $_GET["sid"]; }
-    $failfieldctr = 0;
-    if ($sid == "none") { $failfieldctr += 1; }
-    if ($failfieldctr > 0) {
-        $data['success'] = false;
-        $data['message'] = "Invalid access!";
-        $data['logs'] = "Invalid GET Attempt.";
-        echo json_encode($data);
-        die();
-    }
-
-    $emailaddr = "none";
-    $scholarserial = "none";
-    $fullname = "none";
-    $qflds = "tbl_login.login_uname, tbl_scholar.scholar_serial, ";
-    $qflds .= "tbl_user.user_firstname, tbl_user.user_lastname";
-    $query = "select $qflds from tbl_scholar ";
-    $query .= "inner join tbl_user on tbl_scholar.scholar_userid=tbl_user.user_id ";
-    $query .= "inner join tbl_login on tbl_user.user_id=tbl_login.login_userid ";
-    $query .= "where tbl_scholar.scholar_id='$sid' ";
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $stmt = $conn->prepare($query);
-
-        $stmt->setFetchMode(PDO::FETCH_ASSOC); 
-
-        $stmt->execute();
-        $rowctr = $stmt->fetchAll();  //echo count($rowctr);
-        if (count($rowctr) < 1) {
-          $data['success'] = false;
-          $data['message'] = "There is no email address found to send the claiming receipt.";
-          $data['logs'] = "Database Suddenly Empty. p01";
-          echo json_encode($data);
-          $conn = null;
-          die();
-        }
-  
-        $stmt->execute();
-        $row = $stmt->fetch();
-        $emailaddr = $row["login_uname"];
-        $scholarserial = $row["scholar_serial"];
-        $fullname = "Mr./Ms. " . $row["user_firstname"] . " " . $row["user_lastname"];
-
-        if (!filter_var($emailaddr, FILTER_VALIDATE_EMAIL)) {
-            $data['success'] = false;
-            $data['message'] = "Invalid Email Address to claim scholarship receipt. Ask admin to change it.";
-            $data['logs'] = "Database Suddenly Empty. p02";
-            echo json_encode($data);
-            $conn = null;
-            die();
-        }
-
-        $msg = "Here is your scholarship serial number: #$scholarserial. Print this page then present serial number here to the scholarship claiming office of Sta.Ana Municipal Building. You may see also this receipt again in your email @ $emailaddr. Thank you.";
-
-        $message = '
-            <!DOCTYPE html>
+<!DOCTYPE html>
                 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
                 <head>
                 <meta charset="UTF-8">
@@ -81,7 +16,7 @@
                         <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
                         <tr>
                             <td align="center" style="padding:0px;background:#70bbd9;">
-                            <img src="http://45.77.42.41/images/headercover.jpg" alt="" style="height:auto;display:block;" />
+                            <img src="images/headercover.jpg" alt="" style="height:auto;display:block;" />
                             </td>
                         </tr>
                         <tr>
@@ -90,11 +25,11 @@
                                 <tr>
                                 <td style="padding:0 0 36px 0;color:#153643;">
                                     <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Congratulations! You have received your scholarship.</h1>
-                                    <p id="htmMsgAssessResult" style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">' . $msg . '</p>
+                                    <p id="htmMsgAssessResult" style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">Here is your scholarship serial number: #$scholarserial. Present this serial number to the scholarship claiming office of Sta.Ana Municipal Building. Thank you.</p>
                                     <!-- <p style="margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;"><a href="http://www.example.com" style="color:#ee4c50;text-decoration:underline;">In tempus felis blandit</a></p> -->
                                 </td>
                                 </tr>
-                                <!-- <tr>
+                                <!-- <tr>http://45.77.42.41/
                                 <td style="padding:0;">
                                     <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
                                     <tr>
@@ -148,62 +83,3 @@
                 </table>
                 </body>
                 </html>
-        ';
-
-        $subject = "Congratulations! Here is your scholarship receipt!";
-        $headers = array(
-            'Authorization: Bearer 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',
-            'Content-Type: application/json'
-        );
-        $sendgrid_data = array(
-            "personalizations" => array(
-                array(
-                    "to" => array(
-                        array(
-                            "email" => $emailaddr,
-                            "name" => $fullname
-                        )
-                    )
-                )
-            ),
-            "from" => array(
-                "email" => "jejedethdeth312@gmail.com"
-            ),
-            "subject" => $subject,
-            "content" => array(
-                array(
-                    "type" => "text/html",
-                    "value" => $message
-                )
-            )
-        );
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://api.sendgrid.com/v3/mail/send");
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($sendgrid_data));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $response = curl_exec($ch);
-        curl_close($ch);
-
-
-        $query = "update tbl_scholar ";
-        $query .= "set scholar_status='done'";
-        $query .= "where scholar_id='$sid' ";
-        $stmt = $conn->prepare($query);
-        $stmt->execute();
-
-    } catch(PDOException $e) {  //echo "Error: " . $e->getMessage();
-        $data['success'] = false;
-        $data['message'] = "Server Error! dbdone";
-        $data['logs'] = "Database Exception - " . $e->getMessage();;
-    }
-
-    $data['success'] = "$msg";
-    $data['message'] = "Successfully claimed scholarship!";
-    $data['logs'] = "Update Query Successful.";
-    echo json_encode($data);
-    $conn = null;
-?>

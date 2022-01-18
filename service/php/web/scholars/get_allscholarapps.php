@@ -56,7 +56,7 @@
 
     } catch(PDOException $e) {  //echo "Error: " . $e->getMessage();
         $data['success'] = false;
-        $data['message'] = "Server Error! dbappl";
+        $data['message'] = "Server Error! dbsch";
         $data['logs'] = "Database Exception - " . $e->getMessage();;
     }
     $conn = null;

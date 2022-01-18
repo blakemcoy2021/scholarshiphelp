@@ -58,6 +58,7 @@
                 // if ($old != $new) { $upds .= $tbl_arr[$i] . "=$new,"; }
 
                 $query = "select $ids, $seen from $tbl ";
+                $query .= "where $seen='0' ";
                 $query .= "order by $ids desc limit 1";
                 $stmt = $conn->prepare($query);
                 $stmt->execute();

@@ -343,7 +343,13 @@ function load_CurrApps() {
                                             catch (e) { alert('Response Format error! ' + this.responseText); return; }
                                             if (d.success == false) { alert(d.message); return; } //console.log(d.success);
                                             
-                                            alert("Scholarship Claimed!");
+                                            alert("Scholarship Claimed! " + d.success);
+
+                                            var Pagelink = "about:blank";
+                                            var pwa = window.open(Pagelink, "_new");
+                                            pwa.document.open();
+                                            pwa.document.write(PrintScholarReceipt(d.success));
+                                            pwa.document.close();
                                         }
                                         else if (this.readyState == 4) {
                                             alert("Server Unreachable. Possible Slow Internet Connection..!");
