@@ -19,7 +19,8 @@
         die();
     }
 
-    $qfield = "tbl_scholar.scholar_dateadded, tbl_scholar.scholar_serial, tbl_scholar.scholar_status, tbl_user.user_firstname, tbl_user.user_lastname";
+    $qfield = "tbl_scholar.scholar_dateadded, tbl_scholar.scholar_serial, tbl_scholar.scholar_status, ";
+    $qfield .= "tbl_user.user_firstname, tbl_user.user_lastname, tbl_user.user_birthdate";
     $query = "select $qfield from tbl_scholar ";
     $query .= "inner join tbl_user on tbl_scholar.scholar_userid=tbl_user.user_id ";
     $query .= "where tbl_scholar.scholar_barangay like '%$bgy%' ";

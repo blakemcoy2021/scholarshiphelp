@@ -210,27 +210,47 @@
 
 
             <div id="htmMdlViewUpdate" class="w3-modal">
-                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="margin-top: -80px; width: 1100px;">
+                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="margin-top: -80px; width: 1200px;">
                     <header class="w3-container w3-green"> 
                         <span onclick="javascript: document.getElementById('htmMdlViewUpdate').style.display='none'; start_scholarAppTime();" 
                             class="w3-button w3-green w3-xlarge w3-display-topright">&times;</span>
                         <h2>View Scholarship Apps :: <span id="htmMdlLblBrgyName">?</span></h2>
                     </header>
                
-                    <div style="height: 500px; width: 97%; padding: 20px;">
+                    <div style="height: 400px; width: 97%; padding: 20px;">
                         <div class="w3-container" style="overflow: auto;">
-                            <table class="w3-table w3-striped w3-red" style="width: 1000px; font-weight: bolder; table-layout: fixed;">
+                            <table class="w3-table w3-striped w3-red" style="width: 1100px; font-weight: bolder; table-layout: fixed;">
                                 <tr>
                                     <td class="tdoverflow">FULL NAME</td>
-                                    <td class="tdoverflow">REGISTRATION #</td>
+                                    <td class="tdbasic">AGE</td>
+                                    <td class="tdbasic">REGISTRATION #</td>
                                     <td class="tdbasic">STATUS</td>
                                     <td class="tdbasic">DATE APPLIED</td>
                                 </tr>
                             </table>
-                            <table id="tblscholarapps" class="w3-table w3-striped w3-light-grey" style="width: 1000px; table-layout: fixed;">
+                            <table id="tblscholarapps" class="w3-table w3-striped w3-light-grey" style="width: 1100px; table-layout: fixed;">
                                 <h2 id="lblLoadingRecords" class="w3-text-red">Checking for Applicants...</h2>                
                             </table>
                         </div>
+                    </div>
+
+                    <div class="w3-container w3-light-grey w3-padding">
+                        <div style="width: 100%; display: flex;">
+                            <div class="form__group field" style="width: 48%;">
+                                <input type="input" class="form__field" style="color: black" placeholder="type_filter" 
+                                    name="inpsearchName" id='inpsearchName' required onkeyup="tblSearchName(this, document.getElementById('tblscholarapps'))"/>
+                                <label for="inpsearchName" class="form__label">Type Full Name to Filter Search</label>
+                            </div>
+                            <div class="form__group field" style="width: 4%;">
+                                &nbsp;
+                            </div>
+                            <div class="form__group field" style="width: 48%;">
+                                <input type="input" class="form__field" style="color: black" placeholder="type_filter" 
+                                    name="inpsearchAge" id='inpsearchAge' required onkeyup="tblSearchAge(this, document.getElementById('tblscholarapps'))"/>
+                                <label for="inpsearchAge" class="form__label">Type Age to Filter Search</label>
+                            </div>
+                        </div>
+    
                     </div>
                 
                 </div>

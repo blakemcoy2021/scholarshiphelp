@@ -113,10 +113,14 @@ function viewList(barangay, elm) {
                     let d = new Date(records[i].scholar_dateadded);
                     let date_val = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " - " + d.getHours() + ":" + d.getMinutes();
                     
+                    let bdate = new Date(records[i].user_birthdate);
+                    let ndate = new Date();
+                    let age = ndate.getFullYear() - bdate.getFullYear();
 
                     tbl_rowdata += 	"<tr>" +
                                         "<td class='tdoverflow'>" + records[i].user_firstname + " " + records[i].user_lastname + "</td>" +
-                                        "<td class='tdoverflow'>" + records[i].scholar_serial + "</td>" +
+                                        "<td class='tdbasic'>" + age + "</td>" +
+                                        "<td class='tdbasic'>" + records[i].scholar_serial + "</td>" +
                                         "<td class='tdbasic'>" + records[i].scholar_status + "</td>" +
                                         "<td class='tdbasic'>" + date_val+ "</td>" +
                                     "</tr>";
@@ -134,3 +138,76 @@ function viewList(barangay, elm) {
         window.sessionStorage.setItem("donereq_dataListSchApps",1);
     };
 }
+
+
+function tblSearchName(elm, tbl) {
+    var input, filter, table, tr, td, i, txtValue;
+    input = elm;
+    filter = input.value.toUpperCase();
+
+    document.getElementById("inpsearchAge").value = "";
+
+    if (filter !== "") {
+
+        clearInterval(scholarTimer);
+        scholarTimer = 0;
+
+        table = tbl;
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }       
+        }
+    } else {
+        start_scholarAppTime();
+
+        table = tbl;
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            tr[i].style.display = "";
+        }
+    }
+};
+
+function tblSearchAge(elm, tbl) {
+    var input, filter, table, tr, td, i, txtValue;
+    input = elm;
+    filter = input.value.toUpperCase();
+
+    document.getElementById("inpsearchName").value = "";
+
+    if (filter !== "") {
+
+        clearInterval(scholarTimer);
+        scholarTimer = 0;
+
+        table = tbl;
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[1];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }       
+        }
+    } else {
+        start_scholarAppTime();
+
+        table = tbl;
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            tr[i].style.display = "";
+        }
+    }
+};
