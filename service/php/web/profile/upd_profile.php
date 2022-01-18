@@ -181,7 +181,8 @@
 
     $dateupd = date("Y-m-d G:i:s");
 
-    $qval = "user_firstname='$fname', user_middlename='$mname', user_lastname='$lname', user_gender='$gender', user_birthdate='$bdate', user_lastupdate='$dateupd'";
+    $qval = "user_firstname='$fname', user_middlename='$mname', user_lastname='$lname', ";
+    $qval .= "user_gender='$gender', user_birthdate='$bdate', user_lastupdate='$dateupd', user_seen='0'";
     if ($ph != "none") {
         $qval .= ", user_photo='$dbpath_ph' ";
     }
@@ -203,7 +204,8 @@
         die();
     }
 
-    $qval = "tbl_contact.contact_phnum='$phnum', tbl_contact.contact_address='$addr' ";
+    $qval = "tbl_contact.contact_phnum='$phnum', tbl_contact.contact_address='$addr', ";
+    $qval .= "tbl_contact.contact_lastupdate='$dateupd', tbl_contact.contact_seen='0' ";
     $query = "update tbl_contact ";
     $query .= "inner join tbl_user on tbl_contact.contact_id=tbl_user.user_contactid ";
     $query .= "set $qval ";

@@ -42,6 +42,8 @@ function requestAwardProcess(scholarId, operation) {
             catch (e) { alert('Response Format error! ' + this.responseText); return; }
             if (d.success == false) { alert(d.message); return; } //console.log(d.success);
   
+            document.getElementById("htmMdlAwarded").style.display = "block";
+
         }
         else if (this.readyState == 4) {
             alert("Server Unreachable. Possible Slow Internet Connection..!");

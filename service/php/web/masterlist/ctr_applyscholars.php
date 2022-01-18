@@ -31,10 +31,56 @@
         $results = $stmt->fetch();
         $ctr = $results["ctr"];
 
-        $data['success'] = $ctr;
+            $upds = "";
+            $old = "0";
+            $new = "0";
+                $snid = "0";
+
+            $tbl_arr = ["contact", "user", "scholar", "cor", "cog", "idg", "idc", "bio"];
+            for ($i = 0; $i < sizeof($tbl_arr); $i++) {
+                $ids = $tbl_arr[$i] . "_id";
+                $tbl = "tbl_" . $tbl_arr[$i];
+                $dtx = $tbl_arr[$i] . "_lastupdate";            
+                $seen = $tbl_arr[$i] . "_seen";         
+
+                // $query = "select $ids from $tbl ";
+                // $query .= "order by $ids desc limit 1";
+                // $stmt = $conn->prepare($query);
+                // $stmt->execute();
+                // $rowres = $stmt->fetch();
+                // $old = $rowres["$ids"];
+                // $query = "select $ids, UNIX_TIMESTAMP($dtx) as dt from $tbl ";
+                // $query .= "order by dt desc limit 1";
+                // $stmt = $conn->prepare($query);
+                // $stmt->execute();
+                // $rowres = $stmt->fetch();
+                // $new = $rowres["$ids"];
+                // if ($old != $new) { $upds .= $tbl_arr[$i] . "=$new,"; }
+
+                $query = "select $ids, $seen from $tbl ";
+                $query .= "order by $ids desc limit 1";
+                $stmt = $conn->prepare($query);
+                $stmt->execute();
+                $rowres = $stmt->fetch();
+                $snid = $rowres["$seen"];
+                $new = $rowres["$ids"];
+                if ($snid == "0") { $upds .= $tbl_arr[$i] . "=$new,"; }
+
+                //echo "$ids $tbl $dtx $seen $query<br><br>";
+            }
+            $is_comma_end = substr($upds, strlen($upds)-1);
+            if ($is_comma_end == ",") { $upds = substr($upds, 0, strlen($upds)-1); }
+            //echo "$upds"; die();
+
+            $upds = "$ctr,$upds";
+            $is_comma_end = substr($upds, strlen($upds)-1);
+            if ($is_comma_end == ",") { $upds = substr($upds, 0, strlen($upds)-1); }
+
+        $data['success'] = "$upds";
         $data['message'] = "Acquired sum value of Scholarship Application!";
         $data['logs'] = "Scholarship Applications total is $ctr.";
         echo json_encode($data);
+
 
     } catch(PDOException $e) {  //echo "Error: " . $e->getMessage();
         $data['success'] = false;

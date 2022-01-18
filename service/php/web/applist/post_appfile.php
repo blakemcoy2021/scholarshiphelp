@@ -225,19 +225,19 @@
 
     if ($isUpdate == false) {
         $path = $dbpath_ph;
-        $qstbl = "tbl_cor (cor_scholarid, cor_filename, cor_path, cor_filetype, cor_verified) ";
+        $qstbl = "tbl_cor (cor_scholarid, cor_filename, cor_path, cor_filetype, cor_verified, cor_seen) ";
         if ($clas == "cog") {
-            $qstbl = "tbl_cog (cog_scholarid, cog_filename, cog_path, cog_filetype, cog_verified) ";
+            $qstbl = "tbl_cog (cog_scholarid, cog_filename, cog_path, cog_filetype, cog_verified, cog_seen) ";
         } else if ($clas == "idg") {
-            $qstbl = "tbl_idg (idg_scholarid, idg_filename, idg_path, idg_filetype, idg_verified) ";
+            $qstbl = "tbl_idg (idg_scholarid, idg_filename, idg_path, idg_filetype, idg_verified, idg_seen) ";
         } else if ($clas == "idc") {
-            $qstbl = "tbl_idc (idc_scholarid, idc_filename, idc_path, idc_filetype, idc_verified) ";
+            $qstbl = "tbl_idc (idc_scholarid, idc_filename, idc_path, idc_filetype, idc_verified, idc_seen) ";
         } else if ($clas == "bio") {
-            $qstbl = "tbl_bio (bio_scholarid, bio_filename, bio_path, bio_filetype, bio_verified) ";
+            $qstbl = "tbl_bio (bio_scholarid, bio_filename, bio_path, bio_filetype, bio_verified, bio_seen) ";
         }
 
         $query = "insert into $qstbl ";
-        $query .= "values ('$sid','$fileph','$dbpath_ph','$ext','0');";
+        $query .= "values ('$sid','$fileph','$dbpath_ph','$ext','0','0');";
         try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -263,26 +263,26 @@
 
     $dateupd = date("Y-m-d G:i:s");
     $qstbl = "tbl_cor";
-    $qval = "cor_filename='$fileph', cor_path='$dbpath_ph', cor_filetype='$ext', cor_lastupdate='$dateupd', cor_verified='0'";
+    $qval = "cor_filename='$fileph', cor_path='$dbpath_ph', cor_filetype='$ext', cor_lastupdate='$dateupd', cor_verified='0', cor_seen='0'";
     $qwhr = "cor_scholarid='$sid'";
     if ($clas == "cog") {
         $qstbl = "tbl_cog";
-        $qval = "cog_filename='$fileph', cog_path='$dbpath_ph', cog_filetype='$ext', cog_lastupdate='$dateupd', cog_verified='0'";
+        $qval = "cog_filename='$fileph', cog_path='$dbpath_ph', cog_filetype='$ext', cog_lastupdate='$dateupd', cog_verified='0', cog_seen='0'";
         $qwhr = "cog_scholarid='$sid'";
 
     } else if ($clas == "idg") {
         $qstbl = "tbl_idg";
-        $qval = "idg_filename='$fileph', idg_path='$dbpath_ph', idg_filetype='$ext', idg_lastupdate='$dateupd', idg_verified='0'";
+        $qval = "idg_filename='$fileph', idg_path='$dbpath_ph', idg_filetype='$ext', idg_lastupdate='$dateupd', idg_verified='0', idg_seen='0'";
         $qwhr = "idg_scholarid='$sid'";
 
     } else if ($clas == "idc") {
         $qstbl = "tbl_idc";
-        $qval = "idc_filename='$fileph', idc_path='$dbpath_ph', idc_filetype='$ext', idc_lastupdate='$dateupd', idc_verified='0'";
+        $qval = "idc_filename='$fileph', idc_path='$dbpath_ph', idc_filetype='$ext', idc_lastupdate='$dateupd', idc_verified='0', idc_seen='0'";
         $qwhr = "idc_scholarid='$sid'";
 
     } else if ($clas == "bio") {
         $qstbl = "tbl_bio";
-        $qval = "bio_filename='$fileph', bio_path='$dbpath_ph', bio_filetype='$ext', bio_lastupdate='$dateupd', bio_verified='0'";
+        $qval = "bio_filename='$fileph', bio_path='$dbpath_ph', bio_filetype='$ext', bio_lastupdate='$dateupd', bio_verified='0', bio_seen='0'";
         $qwhr = "bio_scholarid='$sid'";
 
     }

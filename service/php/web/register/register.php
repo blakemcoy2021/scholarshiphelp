@@ -141,8 +141,8 @@
     $dbpath_ph = $loc_photo . '/' . $fileph;
 
     
-    $query = "insert into tbl_contact (contact_phnum, contact_address) ";
-    $query .= "values ('$pn','$ad');";
+    $query = "insert into tbl_contact (contact_phnum, contact_address, contact_seen) ";
+    $query .= "values ('$pn','$ad','0');";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -194,8 +194,8 @@
 
     $datereg = date("Y-m-d G:i:s");
     $qflds = "user_firstname, user_middlename, user_lastname, user_photo, user_gender, user_birthdate, ";
-    $qflds .= "user_contactid, user_role, user_dateadded";
-    $qval = "'$fn','$mn','$ln', '$dbpath_ph', '$gender', '$bd', '$contactid', 'scholar', '$datereg'";
+    $qflds .= "user_contactid, user_role, user_dateadded, user_seen";
+    $qval = "'$fn','$mn','$ln', '$dbpath_ph', '$gender', '$bd', '$contactid', 'scholar', '$datereg', '0'";
     $query = "insert into tbl_user ($qflds) values ($qval);";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -245,8 +245,8 @@
         die();
     }
 
-    $query = "insert into tbl_login (login_uname, login_password, login_userid) ";
-    $query .= "values ('$un','$ps','$userid');";
+    $query = "insert into tbl_login (login_uname, login_password, login_userid, login_isonline) ";
+    $query .= "values ('$un','$ps','$userid','0');";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

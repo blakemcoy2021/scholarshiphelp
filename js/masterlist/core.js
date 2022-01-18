@@ -28,6 +28,34 @@ function init() {
         window.sessionStorage.setItem("donereq_dataCtrSchApp", 1);
 }
 
+function load_admschupds(d_arr) {
+
+    let data = "";
+    for (let j = 1; j < d_arr.length-1; j++) {
+        data += d_arr[j] + "&";
+    }
+    data += d_arr[d_arr.length-1] + "";
+
+    var xmlhttp = new XMLHttpRequest();
+    route = "service/php/web/masterlist/notify.php?" + data;
+    xmlhttp.open("GET", route, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) { console.log(this.responseText);
+
+            // **below is template: json formatted
+            let d;
+            try { d = JSON.parse(this.responseText); }
+            catch (e) { alert('Response Format error! ' + this.responseText); return; }
+            if (d.success == "false") { alert(d.message); return; } //console.log(d.success);
+            
+        }
+        else if (this.readyState == 4) {
+            alert("Server Unreachable. Possible Slow Internet Connection..!");
+        }
+    };
+}
 
 function load_ScholarAppsCtr() {
     var spn = document.getElementById("lblTotalApplications");
@@ -46,9 +74,29 @@ function load_ScholarAppsCtr() {
             catch (e) { alert('Response Format error! ' + this.responseText); return; }
             if (d.success == "false") { alert(d.message); return; } //console.log(d.success);
 
+            let d_arr = d.success.split(",");
+
+
+            if (d_arr.length > 1) {
+                let h = window.localStorage.getItem("scholar_updatePrompt");
+                if (h == 0) {
+                    window.localStorage.setItem("scholar_updatePrompt", 1);
+                    let msg = "There are new updates regarding ";
+                    for (let j = 1; j < d_arr.length-1; j++) {
+                        let k = d_arr[j].split("=");
+                        msg += k[0] + ", ";
+                    }
+                    let k = d_arr[d_arr.length-1].split("=");
+                    msg += k[0] + ".";
+                    alert(msg);
+                    load_admschupds(d_arr)
+
+                }
+            }
+
             let loadSchAppCtr = true;
             let prev_schappCtr = window.sessionStorage.getItem("last_dbctrSchAppCtr");
-            let new_schappCtr = d.success;
+            let new_schappCtr = d_arr[0];
             //console.log(prev_schappCtr + " = " + new_schappCtr);
             if (new_schappCtr == prev_schappCtr) {
                 loadSchAppCtr = false;
@@ -58,7 +106,7 @@ function load_ScholarAppsCtr() {
 
 
             let prev_schappCtrId = window.sessionStorage.getItem("last_schappCtrid");
-            let new_schappCtrId = d.success;
+            let new_schappCtrId = d_arr[0];
             //console.log(prev_schappCtrId + " = " + new_schappCtrId);
 
             let ctr = window.sessionStorage.getItem("donereq_dataSchAppCtr");
@@ -78,7 +126,7 @@ function load_ScholarAppsCtr() {
                         //alert("Number of total registered scholarship application updated!")
                     }
                 }
-                window.sessionStorage.setItem("last_schappCtrid", d.success);
+                window.sessionStorage.setItem("last_schappCtrid", d_arr[0]);
             } else {
                 window.sessionStorage.setItem("donereq_dataSchAppCtr", 0);
                 //allow the table to refresh without popping the notifications
@@ -86,7 +134,7 @@ function load_ScholarAppsCtr() {
 
             // //t = window.sessionStorage.getItem("last_schappCtrid"); console.log(t);
 
-            spn.innerHTML = d.success + " on-going scholarship applications.";         
+            spn.innerHTML = d_arr[0] + " on-going scholarship applications.";         
         }
         else if (this.readyState == 4) {
             alert("Server Unreachable. Possible Slow Internet Connection..!");

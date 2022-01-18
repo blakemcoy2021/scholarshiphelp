@@ -5,10 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<link rel="stylesheet" type="text/css" href="fonts/types/font-awesome-4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="css/common/w3.css">
     <link rel="stylesheet" href="css/common/font_poppins.css">
     <link rel="stylesheet" href="css/common/core.css">
         <link rel="stylesheet" href="css/common/userimg.css">
+
+        <link rel="stylesheet" href="css/common/legends.css">
 
     <link rel="stylesheet" href="css/masterlist/topmenu.css">
     
@@ -87,7 +91,13 @@
 
             <!-- Header -->
             <div class="w3-container" style="margin-top:10px" id="showcase">
-                <h1 class="w3-xxlarge w3-text-red"><b>View All Scholarship Applications</b></h1>
+                <div style="display: flex;">
+                    <h1 class="w3-xxlarge w3-text-red">
+                        <b>View All Scholarship Applications&nbsp;&nbsp;&nbsp;&nbsp;</b>
+                    </h1>
+                    <h3 id="htmLblLegends" style="cursor: pointer" class="w3-text-red"><i class="fa fa-question-circle" aria-hidden="true"> <b>Legends</b></i></h3>
+                    
+                </div>
                 <div style="display: flex;">
                     <div style="width: 50%; display: flex;">
                         <hr style="width:50px;border:5px solid red; margin-right: 10px;" class="w3-round">
@@ -327,6 +337,31 @@
         <!-- End page content -->
         </div>
 
+        <div id="htmMdlLegends" class="legend">
+
+            <!-- Modal content -->
+            <div class="legend-content">
+              <span class="close">&times;</span>
+              <div style="display: flex;">
+                <img src="images/legend_white.jpg" alt="white_legend" width="30" height="30">
+                <p><b>&nbsp;&nbsp;White/Gray Row Color Background</b> - scholarship is still in-progress.</p>
+              </div>
+              <div style="display: flex;">
+                <img src="images/legend_yellow.jpg" alt="white_legend" width="30" height="30">
+                <p><b>&nbsp;&nbsp;Yellow Row Color Background</b> - already awarded.</p>
+              </div>
+              <div style="display: flex;">
+                <img src="images/legend_green.jpg" alt="white_legend" width="30" height="30">
+                <p><b>&nbsp;&nbsp;Green Row Color Background</b> - already claimed by scholar.</p>
+              </div>
+              <div style="display: flex;">
+                <img src="images/legend_blue.jpg" alt="white_legend" width="30" height="30">
+                <p><b>&nbsp;&nbsp;Blue Row Color Background</b> - scholarship given</p>
+              </div>
+            </div>
+          
+        </div>
+
         <input type="hidden" id="hidfld_uid" name="hidfld_uid" value="?">
         <input type="hidden" id="hidfld_fname" name="hidfld_fname" value="?">
             <input type="hidden" id="hidfld_sid" name="hidfld_sid" value="?">
@@ -342,6 +377,21 @@
             
             window.onload = init();
             window.onload = start_scholarAppTime();
+
+            var modal = document.getElementById("htmMdlLegends");
+            var btn = document.getElementById("htmLblLegends");
+            var span = document.getElementsByClassName("close")[0];
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
 
         </script>
 

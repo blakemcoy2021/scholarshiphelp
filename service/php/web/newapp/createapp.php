@@ -434,9 +434,9 @@
     $srl = date("YmdGis");
 
     $qval = "scholar_userid, scholar_title, scholar_serial, scholar_course, scholar_school, ";
-    $qval .= "scholar_gradeyr, scholar_barangay, scholar_status, scholar_approved, scholar_dateadded";
+    $qval .= "scholar_gradeyr, scholar_barangay, scholar_status, scholar_approved, scholar_dateadded, scholar_seen";
     $query = "insert into tbl_scholar ($qval) ";
-    $query .= "values ('$id','$tl','$srl','$el','$sc','$gy','$br','New','0','$datereg');";
+    $query .= "values ('$id','$tl','$srl','$el','$sc','$gy','$br','New','0','$datereg','0');";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -486,9 +486,9 @@
 
     $filename = "none";
     if ($cor != "none") {   $filename = $info1["basename"];    }
-    $qval = "cor_scholarid, cor_filename, cor_path, cor_filetype, cor_verified, cor_dateadded";
+    $qval = "cor_scholarid, cor_filename, cor_path, cor_filetype, cor_verified, cor_dateadded, cor_seen";
     $query = "insert into tbl_cor ($qval) ";
-    $query .= "values ('$scholarid','$filename','$dbpath_cor','$ext1','0','$datereg');";
+    $query .= "values ('$scholarid','$filename','$dbpath_cor','$ext1','0','$datereg','0');";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -505,9 +505,9 @@
 
     $filename = "none";
     if ($cog != "none") {   $filename = $info2["basename"];    }
-    $qval = "cog_scholarid, cog_filename, cog_path, cog_filetype, cog_verified, cog_dateadded";
+    $qval = "cog_scholarid, cog_filename, cog_path, cog_filetype, cog_verified, cog_dateadded, cog_seen";
     $query = "insert into tbl_cog ($qval) ";
-    $query .= "values ('$scholarid','$filename','$dbpath_cog','$ext2','0','$datereg');";
+    $query .= "values ('$scholarid','$filename','$dbpath_cog','$ext2','0','$datereg','0');";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -524,9 +524,9 @@
 
     $filename = "none";
     if ($idg != "none") {   $filename = $info3["basename"];    }
-    $qval = "idg_scholarid, idg_filename, idg_path, idg_filetype, idg_verified, idg_dateadded";
+    $qval = "idg_scholarid, idg_filename, idg_path, idg_filetype, idg_verified, idg_dateadded, idg_seen";
     $query = "insert into tbl_idg ($qval) ";
-    $query .= "values ('$scholarid','$filename','$dbpath_idg','$ext3','0','$datereg');";
+    $query .= "values ('$scholarid','$filename','$dbpath_idg','$ext3','0','$datereg','0');";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -543,9 +543,9 @@
 
     $filename = "none";
     if ($idc != "none") {   $filename = $info4["basename"];    }
-    $qval = "idc_scholarid, idc_filename, idc_path, idc_filetype, idc_verified, idc_dateadded";
+    $qval = "idc_scholarid, idc_filename, idc_path, idc_filetype, idc_verified, idc_dateadded, idc_seen";
     $query = "insert into tbl_idc ($qval) ";
-    $query .= "values ('$scholarid','$filename','$dbpath_idc','$ext4','0','$datereg');";
+    $query .= "values ('$scholarid','$filename','$dbpath_idc','$ext4','0','$datereg','0');";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -562,9 +562,9 @@
 
     $filename = "none";
     if ($bio != "none") {   $filename = $info5["basename"];    }
-    $qval = "bio_scholarid, bio_filename, bio_path, bio_filetype, bio_verified, bio_dateadded";
+    $qval = "bio_scholarid, bio_filename, bio_path, bio_filetype, bio_verified, bio_dateadded, bio_seen";
     $query = "insert into tbl_bio ($qval) ";
-    $query .= "values ('$scholarid','$filename','$dbpath_bio','$ext5','0','$datereg');";
+    $query .= "values ('$scholarid','$filename','$dbpath_bio','$ext5','0','$datereg','0');";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
