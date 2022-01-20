@@ -69,12 +69,12 @@ document.getElementById("btnUpdateProfile").addEventListener("click", function (
         alert("Name field(s) cannot exceed 50 characters!");
         return false;
     }
-    if (pnum.value.length > 11) { failfieldctr++; }
+    if (contact.value.length > 11) { failfieldctr++; }
     if (failfieldctr > 0) {
         alert("Only 11 digit mobile number format e.g. '09xx...' is accepted.");
         return false;
     }
-    if (addr.value.length > 70) { failfieldctr++; }
+    if (address.value.length > 70) { failfieldctr++; }
     if (failfieldctr > 0) {
         alert("Address field cannot exceed 70 characters!");
         return false;

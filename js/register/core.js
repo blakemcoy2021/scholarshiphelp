@@ -39,7 +39,7 @@ document.getElementById("frmRegister").onsubmit = function(evt) {
 
     let ext = phto.value.split('.').pop();
     if (ext != "jpg" && ext != "png" && ext != "jpeg") {
-        alert("The selected file is not a photo! Only accepts .jpg and .png. Convert first your photo, also in less than 20MB.");
+        alert("The selected file is not a photo! Only accepts .jpg and .png. Convert first your photo, also in less than 20MB. " + ext);
         return false;
     }
 

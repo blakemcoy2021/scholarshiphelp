@@ -46,27 +46,27 @@ document.getElementById("btnCreateApp").addEventListener("click", function (evt)
         let ext = cogfile.value.split('.').pop();
         
         if (ext != "jpg" && ext != "png" && ext != "jpeg" && ext != "pdf") {
-            alert(pdfphoto_msg);
+            alert(pdfphoto_msg + " " + ext + " 1");
             return false;
         }
         ext = corfile.value.split('.').pop();
         if (ext != "jpg" && ext != "png" && ext != "jpeg" && ext != "pdf") {
-            alert(pdfphoto_msg);
+            alert(pdfphoto_msg + " " + ext + " 2");
             return false;
         }
         ext = idgfile.value.split('.').pop();
         if (ext != "jpg" && ext != "png" && ext != "jpeg") {
-            alert(photo_msg);
+            alert(photo_msg + " " + ext + " 3");
             return false;
         }
         ext = idcfile.value.split('.').pop();
         if (ext != "jpg" && ext != "png" && ext != "jpeg") {
-            alert(photo_msg);
+            alert(photo_msg + " " + ext + " 4");
             return false;
         }
         ext = biofile.value.split('.').pop();
         if (ext != "jpg" && ext != "png" && ext != "jpeg" && ext != "pdf") {
-            alert(pdfphoto_msg);
+            alert(pdfphoto_msg + " " + ext + " 5");
             return false;
         }
         
