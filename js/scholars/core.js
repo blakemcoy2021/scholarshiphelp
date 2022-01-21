@@ -195,9 +195,15 @@ function load_ScholarApps() {
                     let viewRecord = "style='cursor:pointer;' onclick=\"javascript: viewScholarApp('"+records[i].scholar_id+"');\" ";
                     let status = records[i].scholar_status.toLowerCase();
                     if (status == "done") {
-                        viewRecord = "style='background-color: green; color: white;' ";
+                        viewRecord = "style='background-color: green; color: white; cursor: pointer' onclick=\"javascript: claim('"+records[i].scholar_id+"')\" ";
                     } else if (status == "awarded") {
                         viewRecord = "style='background-color: yellow;' ";
+                    }
+
+                    let claimed = records[i].scholar_claimed;
+                    if (claimed == "1") {
+                        viewRecord = "style='background-color: blue; color: white;' ";
+                        status = "claimed";
                     }
 
                     tbl_rowdata += 	"<tr "+viewRecord+">" +

@@ -434,9 +434,9 @@
     $srl = date("YmdGis");
 
     $qval = "scholar_userid, scholar_title, scholar_serial, scholar_course, scholar_school, ";
-    $qval .= "scholar_gradeyr, scholar_barangay, scholar_status, scholar_approved, scholar_dateadded, scholar_seen";
+    $qval .= "scholar_gradeyr, scholar_barangay, scholar_status, scholar_approved, scholar_dateadded, scholar_seen, scholar_claimed";
     $query = "insert into tbl_scholar ($qval) ";
-    $query .= "values ('$id','$tl','$srl','$el','$sc','$gy','$br','New','0','$datereg','0');";
+    $query .= "values ('$id','$tl','$srl','$el','$sc','$gy','$br','New','0','$datereg','0','0');";
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

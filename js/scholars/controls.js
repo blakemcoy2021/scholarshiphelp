@@ -1,3 +1,24 @@
+function claim(scholarId) {
+  if (confirm("Set scholarship as claimed?") == true) {
+    var xmlhttp = new XMLHttpRequest();
+    route = "service/php/web/scholars/claim.php?sid=" + scholarId;
+    xmlhttp.open("GET", route, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) { console.log(this.responseText);
+            // **below is template: json formatted
+            let d;
+            try { d = JSON.parse(this.responseText); }
+            catch (e) { alert('Response Format error! ' + this.responseText); return; }
+            alert(d.message);
+        }
+        else if (this.readyState == 4) {
+            alert("Server Unreachable. Possible Slow Internet Connection..!");
+        }
+    };
+  }
+}
+
 function openMenuBars() {
     var x = document.getElementById("htmDivTopNav");
     if (x.className === "topnav") {
@@ -6,7 +27,6 @@ function openMenuBars() {
       x.className = "topnav";
     }
 }
-
 
 
 function viewScholarApp(scholarId) {

@@ -17,7 +17,7 @@
         die();
     }
 
-    $qfield = "tbl_scholar.scholar_title, tbl_scholar.scholar_school, tbl_scholar.scholar_status, tbl_scholar.scholar_barangay, tbl_scholar.scholar_id, ";
+    $qfield = "tbl_scholar.scholar_title, tbl_scholar.scholar_school, tbl_scholar.scholar_status, tbl_scholar.scholar_barangay, tbl_scholar.scholar_id, tbl_scholar.scholar_claimed, ";
     $qfield .= "tbl_scholar.scholar_approved, tbl_scholar.scholar_dateadded, tbl_user.user_firstname, tbl_user.user_middlename, tbl_user.user_lastname, tbl_scholar.scholar_serial ";
     $query = "select $qfield from tbl_scholar ";
     $query .= "inner join tbl_user on tbl_scholar.scholar_userid=tbl_user.user_id ";
