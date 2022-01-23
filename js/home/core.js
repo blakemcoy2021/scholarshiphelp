@@ -88,7 +88,7 @@ function load_CurrAppsCtr() {
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(data);
     xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) { console.log(this.responseText);
+        if (this.readyState == 4 && this.status == 200) { console.log("@@@@" + this.responseText);
 
             // **below is template: json formatted
             let d;
@@ -161,7 +161,7 @@ function load_CurrApps() {
     xmlhttp.open("GET", route, true);
     xmlhttp.send();
     xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) { //console.log(this.responseText);
+        if (this.readyState == 4 && this.status == 200) { console.log(this.responseText);
 
             // **below is template: json formatted
             let d;
@@ -308,12 +308,17 @@ function load_CurrApps() {
                                 break;
                             case "overall":
                                 c += "You are almost there.</i>";
-                                setProgress(10);
+                                setProgress(11);
                                 overall = true;
                                 break;
                             case "awarded":
-                                c = "<i class='fa fa-trophy' aria-hidden='true'> Congratulations! Claim Here!</i>";
-                                setProgress(11);
+                                c = "<i class='fa fa-trophy' aria-hidden='true'> Congrats! Print Serial# Receipt!</i>";
+                                setProgress(12);
+                                overall = true;
+                                break;
+                            case "done":
+                                c = "<i class='fa fa-trophy' aria-hidden='true'> Waiting to be claimed!</i>";
+                                setProgress(12);
                                 overall = true;
                                 break;
                                 

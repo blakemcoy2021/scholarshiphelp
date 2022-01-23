@@ -49,12 +49,17 @@ function checkStatus(schid, status, el) {
             break;
         case "overall":
             c += "You are almost there.</i>";
-            setProgress(10);
+            setProgress(11);
             overall = true;
             break;
         case "awarded":
-            c = "<i class='fa fa-trophy' aria-hidden='true'> Congratulations! Claim Here!</i>";
-            setProgress(11);
+            c = "<i class='fa fa-trophy' aria-hidden='true'> Congrats! Print Serial# Receipt!</i>";
+            setProgress(12);
+            overall = true;
+            break;
+        case "done":
+            c = "<i class='fa fa-trophy' aria-hidden='true'> Waiting to be claimed!</i>";
+            setProgress(12);
             overall = true;
             break;
             

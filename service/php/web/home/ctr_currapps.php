@@ -22,7 +22,7 @@
     $ctr = 0;
 
     $query = "select count(*) as ctr from tbl_scholar ";
-    $query .= "where scholar_userid='$suid' and scholar_status <> 'done' ";
+    $query .= "where scholar_userid='$suid' and scholar_claimed='0' ";
     $query .= "order by scholar_id desc";
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -36,7 +36,7 @@
 
         $data['success'] = $ctr;
         $data['message'] = "Number of Current Applications!";
-        $data['logs'] = "Current Scholarship Applications total is $ctr.";
+        $data['logs'] = "Current Scholarship Applications total is $ctr. $query";
         echo json_encode($data);
         $conn = null;
 
