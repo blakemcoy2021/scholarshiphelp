@@ -11,6 +11,9 @@ function claim(scholarId) {
             try { d = JSON.parse(this.responseText); }
             catch (e) { alert('Response Format error! ' + this.responseText); return; }
             alert(d.message);
+
+            document.getElementById("htmMdlAwarded").style.display = "block";
+            
         }
         else if (this.readyState == 4) {
             alert("Server Unreachable. Possible Slow Internet Connection..!");
