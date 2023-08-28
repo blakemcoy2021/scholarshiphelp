@@ -1,8 +1,8 @@
 <?php
 
     $servername = "localhost";
-    $username = "scholarhelp2021";
-    $password = "ActivPower@123l";
+    $username = "root"; //scholarhelp2021
+    $password = "toor"; //ActivPower@123l
     $dbname = "2021itdhvtsu_scholarhelp";
 
     //scholarhelp2021

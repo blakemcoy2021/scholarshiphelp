@@ -10,6 +10,8 @@
     $query .= "and scholar_status <> 'Overall' ";
     $query .= "order by scholar_id desc";
 
+    $detect = "";
+
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -38,10 +40,10 @@
 
             $tbl_arr = ["contact", "user", "scholar", "cor", "cog", "idg", "idc", "bio"];
             for ($i = 0; $i < sizeof($tbl_arr); $i++) {
-                $ids = $tbl_arr[$i] . "_id";
+                $ids = $tbl_arr[$i] . "_id";    $detect = $ids;
                 $tbl = "tbl_" . $tbl_arr[$i];
                 $dtx = $tbl_arr[$i] . "_lastupdate";            
-                $seen = $tbl_arr[$i] . "_seen";         
+                $seen = $tbl_arr[$i] . "_seen";
 
                 // $query = "select $ids from $tbl ";
                 // $query .= "order by $ids desc limit 1";
@@ -62,10 +64,15 @@
                 $query .= "order by $ids desc limit 1";
                 $stmt = $conn->prepare($query);
                 $stmt->execute();
-                $rowres = $stmt->fetch();
-                $snid = $rowres["$seen"];
-                $new = $rowres["$ids"];
-                if ($snid == "0") { $upds .= $tbl_arr[$i] . "=$new,"; }
+                
+                $rowctr = $stmt->fetchAll();  
+                if (count($rowctr) != 0) {
+                    $stmt->execute();
+                    $rowres = $stmt->fetch();
+                    $snid = $rowres["$seen"];
+                    $new = $rowres["$ids"];
+                    if ($snid == "0") { $upds .= $tbl_arr[$i] . "=$new,"; }   
+                }
 
                 //echo "$ids $tbl $dtx $seen $query<br><br>";
             }
